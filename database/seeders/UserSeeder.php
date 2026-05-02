@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         \App\Models\User::create([
             'name' => 'Admin',
-            'email' => 'admin@gamil.com',
+            'email' => 'admin@gmail.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
             'role' => 'admin',
         ]);

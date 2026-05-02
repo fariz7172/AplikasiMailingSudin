@@ -23,6 +23,12 @@ class Contract extends Model
         'tahun_tdp',
     ];
 
+    protected $casts = [
+        'tgl_kontrak' => 'date',
+        'tgl_addendum' => 'date',
+        'tgl_addendum2' => 'date',
+    ];
+
     public function payments()
     {
         return $this->hasMany(Payment::class, 'contract_id');
