@@ -50,14 +50,14 @@ class PaymentController extends Controller
         DB::transaction(function() use ($request) {
             // Update/Create Vendor
             $vendor = Vendor::updateOrCreate(
-                ['id' => $request->vendor_id],
-                $request->only(['nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'])
+                ['nama_perusahaan' => $request->nama_perusahaan],
+                $request->only(['direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'])
             );
 
             // Update/Create Contract
             $contract = Contract::updateOrCreate(
-                ['id' => $request->contract_id],
-                $request->only(['nomor_kontrak', 'tgl_kontrak', 'nilai_kontrak', 'addendum_kontrak', 'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'])
+                ['nomor_kontrak' => $request->nomor_kontrak],
+                $request->only(['tgl_kontrak', 'nilai_kontrak', 'addendum_kontrak', 'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'])
             );
 
             // Create Payment
