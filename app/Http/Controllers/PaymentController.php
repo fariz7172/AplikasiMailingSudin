@@ -57,7 +57,7 @@ class PaymentController extends Controller
             // Update/Create Contract
             $contract = Contract::updateOrCreate(
                 ['nomor_kontrak' => $request->nomor_kontrak],
-                $request->only(['tgl_kontrak', 'nilai_kontrak', 'addendum_kontrak', 'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'])
+                $request->only(['tgl_kontrak', 'nilai_kontrak', 'terbilang_kontrak', 'addendum_kontrak', 'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'])
             );
 
             // Create Payment

@@ -405,7 +405,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-100">
                             <div>
                                 <label class="form-label-premium">Nilai Kontrak (Awal)</label>
-                                <input type="number" name="nilai_kontrak" class="form-input-premium font-bold text-emerald-600 bg-emerald-50/30">
+                                <input type="number" id="nilai_kontrak_awal" class="form-input-premium font-bold text-emerald-600 bg-emerald-50/30" readonly>
                             </div>
                             <div class="flex items-center pt-6">
                                 <p class="text-xs text-slate-400 italic">* Nilai kontrak awal sebelum addendum atau denda.</p>
@@ -519,8 +519,13 @@
             if (val) {
                 let hasil = terbilang(val).trim() + " Rupiah";
                 document.getElementById('terbilang_kontrak').value = hasil;
+                // Sync ke input di Section VI
+                const inputAwal = document.getElementById('nilai_kontrak_awal');
+                if (inputAwal) inputAwal.value = val;
             } else {
                 document.getElementById('terbilang_kontrak').value = "";
+                const inputAwal = document.getElementById('nilai_kontrak_awal');
+                if (inputAwal) inputAwal.value = "";
             }
         });
 

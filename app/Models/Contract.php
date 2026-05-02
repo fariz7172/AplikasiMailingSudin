@@ -13,6 +13,7 @@ class Contract extends Model
         'nomor_kontrak',
         'tgl_kontrak',
         'nilai_kontrak',
+        'terbilang_kontrak',
         'addendum_kontrak',
         'tgl_addendum',
         'nilai_addendum1',
