@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Pptk;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Pptk::create([
+            'nama' => 'AHMAD RIFAI, S.T.',
+            'nik' => '198501012010011001',
+            'jabatan' => 'Pejabat Pelaksana Teknis Kegiatan'
+        ]);
     }
 }
