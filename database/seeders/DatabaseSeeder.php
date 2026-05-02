@@ -12,6 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            UserSeeder::class,
+        ]);
+
         Pptk::create([
             'nama' => 'AHMAD RIFAI, S.T.',
             'nik' => '198501012010011001',
