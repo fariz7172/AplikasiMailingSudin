@@ -6,6 +6,9 @@ use App\Models\Payment;
 use App\Models\Pptk;
 use App\Models\Vendor;
 use App\Models\Contract;
+use App\Models\Program;
+use App\Models\Kegiatan;
+use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +36,10 @@ class PaymentController extends Controller
         $pptk = Pptk::all();
         $vendors = Vendor::all();
         $contracts = Contract::all();
-        return view('payments.create', compact('pptk', 'vendors', 'contracts'));
+        $programs = Program::orderBy('nama')->get();
+        $kegiatans = collect(); // Kosong, akan di-load via API saat program dipilih
+        $subKegiatans = collect();
+        return view('payments.create', compact('pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function store(Request $request)
@@ -80,7 +86,18 @@ class PaymentController extends Controller
         $pptk = Pptk::all();
         $vendors = Vendor::all();
         $contracts = Contract::all();
-        return view('payments.edit', compact('payment', 'pptk', 'vendors', 'contracts'));
+        $programs = Program::orderBy('nama')->get();
+        // Load kegiatan sesuai program yang sudah dipilih
+        $kegiatans = $payment->program_id
+            ? Kegiatan::where('program_id', $payment->program_id)->orderBy('nama')->get()
+            : collect();
+            
+        // Load sub_kegiatans sesuai kegiatan yang sudah dipilih
+        $subKegiatans = $payment->kegiatan_id
+            ? SubKegiatan::where('kegiatan_id', $payment->kegiatan_id)->orderBy('nama')->get()
+            : collect();
+            
+        return view('payments.edit', compact('payment', 'pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function update(Request $request, Payment $payment)

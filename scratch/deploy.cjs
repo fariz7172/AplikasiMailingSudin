@@ -73,7 +73,8 @@ SESSION_LIFETIME=120
     const deployCommands = [
       'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && /usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction',
       'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && php artisan key:generate --force',
-      'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && php artisan migrate --force --seed',
+      'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && php artisan migrate --force',
+      "cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && mysql -u u674511048_AplikasiMailin -p'!FarizAhmad123456' u674511048_AplikasiMailin < database_backup.sql",
       'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && php artisan storage:link',
       'cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && npm install && npm run build'
     ];

@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PptkController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SubKegiatanController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -27,11 +30,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Payments & PPTK Access (Admin & Superadmin)
+    // Payments, PPTK, Program, Kegiatan Access (Admin & Superadmin)
     Route::middleware('role:superadmin,admin')->group(function () {
         Route::resource('payments', PaymentController::class);
         Route::get('payments/{payment}/print', [PaymentController::class, 'print'])->name('payments.print');
         Route::resource('pptk', PptkController::class);
+        Route::resource('programs', ProgramController::class);
+        Route::resource('kegiatans', KegiatanController::class);
+        Route::resource('sub-kegiatans', SubKegiatanController::class);
     });
 
     // Import Access (Superadmin Only)

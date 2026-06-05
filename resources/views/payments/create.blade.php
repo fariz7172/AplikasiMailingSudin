@@ -55,29 +55,152 @@
                         :class="activeStep === 1 ? 'rotate-180' : ''"></i>
                 </div>
                 <div x-show="activeStep === 1" x-collapse x-cloak>
-                    <div class="p-8 space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-8 space-y-6" x-data="cascadeDropdown()">
+                        <!-- Cascade Dropdown 3 Level: Program → Kegiatan → Sub Kegiatan -->
+                        <div class="p-5 bg-primary/5 rounded-2xl border border-primary/10 space-y-4">
+                            <p class="text-xs font-black text-primary uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+                                Klasifikasi Anggaran (3 Level)
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {{-- Level 1: Program --}}
+                                <div>
+                                    <label class="form-label-premium text-primary">Program</label>
+                                    <select id="program_dropdown" x-model="selectedProgramId" @change="fetchKegiatan()"
+                                        class="form-input-premium font-semibold">
+                                        <option value="">— Pilih Program —</option>
+                                        @foreach($programs as $prog)
+                                        <option value="{{ $prog->id }}" {{ old('program_id') == $prog->id ? 'selected' : '' }}>
+                                          {{ $prog->kode }}  {{ $prog->nama }} {{ $prog->tahun_anggaran ? '('.$prog->tahun_anggaran.')' : '' }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="hidden" name="program_id" :value="selectedProgramId">
+                                    <input type="hidden" name="program" :value="selectedProgramName">
+                                    <textarea readonly x-show="selectedProgramId" x-text="selectedProgramName" class="form-input-premium mt-2 text-sm text-slate-600 bg-slate-50 resize-none border-dashed" rows="3"></textarea>
+                                </div>
+                                {{-- Level 2: Kegiatan --}}
+                                <div>
+                                    <label class="form-label-premium text-accent flex justify-between items-center">
+                                        <span>
+                                            Kegiatan
+                                            <span x-show="loadingKegiatan" class="ml-1 text-slate-400 normal-case font-normal">(memuat...)</span>
+                                        </span>
+                                        <button type="button" @click="showModalKegiatan = true" x-show="selectedProgramId" class="text-[10px] bg-accent/10 text-accent px-2 py-0.5 rounded font-bold hover:bg-accent/20 transition-colors">+ Tambah Baru</button>
+                                    </label>
+                                    <select id="kegiatan_dropdown" x-model="selectedKegiatanId" @change="fetchSubKegiatan()"
+                                        :disabled="kegiatanOptions.length === 0 || loadingKegiatan"
+                                        :class="kegiatanOptions.length === 0 ? 'opacity-50 cursor-not-allowed' : ''"
+                                        class="form-input-premium">
+                                        <option value="">— Pilih Kegiatan —</option>
+                                        <template x-for="item in kegiatanOptions" :key="item.id">
+                                            <option :value="item.id" x-text="item.kode ? item.kode : item.nama"></option>
+                                        </template>
+                                    </select>
+                                    <input type="hidden" name="kegiatan_id" :value="selectedKegiatanId">
+                                    <input type="hidden" name="kegiatan" :value="selectedKegiatanName">
+                                    <p x-show="!selectedProgramId" class="mt-1 text-[10px] text-slate-400 font-semibold">⬆ Pilih Program dulu</p>
+                                    <textarea readonly x-show="selectedKegiatanId" x-text="selectedKegiatanName" class="form-input-premium mt-2 text-sm text-slate-600 bg-slate-50 resize-none border-dashed" rows="3"></textarea>
+                                </div>
+
+                                {{-- Modal Tambah Kegiatan --}}
+                                <div x-show="showModalKegiatan" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" style="display: none;" x-transition>
+                                    <div @click.away="showModalKegiatan = false" class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative">
+                                        <button type="button" @click="showModalKegiatan = false" class="absolute top-4 right-4 text-slate-400 hover:text-rose-500">
+                                            <i data-lucide="x" class="w-5 h-5"></i>
+                                        </button>
+                                        <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+                                            <i data-lucide="plus-circle" class="w-5 h-5 text-accent"></i> Tambah Kegiatan Baru
+                                        </h3>
+                                        
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label class="form-label-premium text-xs">Kode Kegiatan</label>
+                                                <input type="text" x-model="newKegiatanKode" class="form-input-premium text-sm" placeholder="Contoh: 1.01">
+                                            </div>
+                                            <div>
+                                                <label class="form-label-premium text-xs">Nama Kegiatan <span class="text-rose-500">*</span></label>
+                                                <input type="text" x-model="newKegiatanNama" class="form-input-premium text-sm" placeholder="Nama Kegiatan">
+                                            </div>
+                                            <div class="pt-2 flex justify-end gap-3">
+                                                <button type="button" @click="showModalKegiatan = false" class="px-4 py-2 text-slate-500 font-bold hover:bg-slate-100 rounded-xl text-sm transition-all">Batal</button>
+                                                <button type="button" @click="saveNewKegiatan()" :disabled="isSavingKegiatan || !newKegiatanNama" class="px-6 py-2 bg-accent text-white font-bold rounded-xl shadow-lg shadow-accent/30 hover:bg-accent/80 disabled:opacity-50 text-sm transition-all flex items-center gap-2">
+                                                    <span x-show="isSavingKegiatan" class="animate-spin text-white">⏳</span>
+                                                    Simpan
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Level 3: Sub Kegiatan --}}
+                                <div>
+                                    <label class="form-label-premium text-indigo-500 flex justify-between items-center">
+                                        <span>
+                                            Sub Kegiatan
+                                            <span x-show="loadingSubKegiatan" class="ml-1 text-slate-400 normal-case font-normal">(memuat...)</span>
+                                        </span>
+                                        <button type="button" @click="showModalSubKegiatan = true" x-show="selectedKegiatanId" class="text-[10px] bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded font-bold hover:bg-indigo-200 transition-colors">+ Tambah Baru</button>
+                                    </label>
+                                    <select id="sub_kegiatan_dropdown" x-model="selectedSubKegiatanId" @change="onSubKegiatanChange()"
+                                        :disabled="subKegiatanOptions.length === 0 || loadingSubKegiatan"
+                                        :class="subKegiatanOptions.length === 0 ? 'opacity-50 cursor-not-allowed' : ''"
+                                        class="form-input-premium">
+                                        <option value="">— Pilih Sub Kegiatan —</option>
+                                        <template x-for="item in subKegiatanOptions" :key="item.id">
+                                            <option :value="item.id" x-text="item.kode ? item.kode : item.nama"></option>
+                                        </template>
+                                    </select>
+                                    <input type="hidden" name="sub_kegiatan_id" :value="selectedSubKegiatanId">
+                                    <input type="hidden" name="sub_kegiatan" :value="selectedSubKegiatanName">
+                                    <p x-show="!selectedKegiatanId" class="mt-1 text-[10px] text-slate-400 font-semibold">⬆ Pilih Kegiatan dulu</p>
+                                    <textarea readonly x-show="selectedSubKegiatanId" x-text="selectedSubKegiatanName" class="form-input-premium mt-2 text-sm text-slate-600 bg-slate-50 resize-none border-dashed" rows="3"></textarea>
+                                </div>
+
+                                {{-- Modal Tambah Sub Kegiatan --}}
+                                <div x-show="showModalSubKegiatan" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" style="display: none;" x-transition>
+                                    <div @click.away="showModalSubKegiatan = false" class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative">
+                                        <button type="button" @click="showModalSubKegiatan = false" class="absolute top-4 right-4 text-slate-400 hover:text-rose-500">
+                                            <i data-lucide="x" class="w-5 h-5"></i>
+                                        </button>
+                                        <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+                                            <i data-lucide="plus-circle" class="w-5 h-5 text-indigo-500"></i> Tambah Sub Kegiatan Baru
+                                        </h3>
+                                        
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label class="form-label-premium text-xs">Kode Sub Kegiatan</label>
+                                                <input type="text" x-model="newSubKode" class="form-input-premium text-sm" placeholder="Contoh: 1.01.01">
+                                            </div>
+                                            <div>
+                                                <label class="form-label-premium text-xs">Nama Sub Kegiatan <span class="text-rose-500">*</span></label>
+                                                <input type="text" x-model="newSubNama" class="form-input-premium text-sm" placeholder="Nama Sub Kegiatan">
+                                            </div>
+                                            <div class="pt-2 flex justify-end gap-3">
+                                                <button type="button" @click="showModalSubKegiatan = false" class="px-4 py-2 text-slate-500 font-bold hover:bg-slate-100 rounded-xl text-sm transition-all">Batal</button>
+                                                <button type="button" @click="saveNewSubKegiatan()" :disabled="isSavingSubKegiatan || !newSubNama" class="px-6 py-2 bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 hover:bg-indigo-600 disabled:opacity-50 text-sm transition-all flex items-center gap-2">
+                                                    <span x-show="isSavingSubKegiatan" class="animate-spin text-white">⏳</span>
+                                                    Simpan
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="form-label-premium">Nomor SPD</label>
                                 <input type="text" name="no_spd" class="form-input-premium" placeholder="Input No. SPD">
                             </div>
                             <div>
-                                <label class="form-label-premium">Program</label>
-                                <input type="text" name="program" class="form-input-premium">
-                            </div>
-                            <div>
-                                <label class="form-label-premium">Kode Rekening</label>
-                                <input type="text" name="kode_rek" class="form-input-premium">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="form-label-premium">Kegiatan</label>
-                                <textarea name="kegiatan" rows="2" class="form-input-premium"></textarea>
-                            </div>
-                            <div>
-                                <label class="form-label-premium">Sub Kegiatan</label>
-                                <textarea name="sub_kegiatan" rows="2" class="form-input-premium"></textarea>
+                                <label class="form-label-premium">Kode Rekening
+                                    <span class="text-[9px] text-slate-400 font-normal normal-case ml-1">(auto-isi dari Sub Kegiatan)</span>
+                                </label>
+                                <input type="text" name="kode_rek" id="kode_rek_input"
+                                    :value="selectedKodeRek || ''"
+                                    class="form-input-premium" placeholder="Kode rekening">
                             </div>
                         </div>
                         <div class="flex justify-end pt-4">
@@ -87,6 +210,7 @@
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -488,9 +612,239 @@
 
 @push('scripts')
     <script>
+        // --- Cascade Dropdown 3 Level: Program → Kegiatan → Sub Kegiatan ---
+        function cascadeDropdown() {
+            return {
+                selectedProgramId: '{{ old('program_id', '') }}',
+                selectedProgramName: '',
+                selectedKegiatanId: '{{ old('kegiatan_id', '') }}',
+                selectedKegiatanName: '',
+                selectedSubKegiatanId: '{{ old('sub_kegiatan_id', '') }}',
+                selectedSubKegiatanName: '',
+                selectedKodeRek: '',
+                kegiatanOptions: [],
+                subKegiatanOptions: [],
+                loadingKegiatan: false,
+                loadingSubKegiatan: false,
+
+                showModalSubKegiatan: false,
+                newSubKode: '',
+                newSubNama: '',
+                isSavingSubKegiatan: false,
+
+                // State for Modal Tambah Kegiatan
+                showModalKegiatan: false,
+                newKegiatanKode: '',
+                newKegiatanNama: '',
+                isSavingKegiatan: false,
+
+                init() {
+                    this.$nextTick(() => {
+                        const sel = document.getElementById('program_dropdown');
+                        if (sel) this.selectedProgramName = sel.options[sel.selectedIndex]?.text || '';
+                    });
+                    if (this.selectedProgramId) {
+                        this.fetchKegiatan(true);
+                    }
+                },
+
+                fetchKegiatan(preserveSelection = false) {
+                    const programSel = document.getElementById('program_dropdown');
+                    this.selectedProgramName = programSel?.options[programSel.selectedIndex]?.text || '';
+
+                    if (!this.selectedProgramId) {
+                        this.kegiatanOptions = [];
+                        this.subKegiatanOptions = [];
+                        if (!preserveSelection) {
+                            this.selectedKegiatanId = '';
+                            this.selectedKegiatanName = '';
+                            this.selectedSubKegiatanId = '';
+                            this.selectedSubKegiatanName = '';
+                            this.selectedKodeRek = '';
+                        }
+                        return;
+                    }
+
+                    this.loadingKegiatan = true;
+                    fetch(`/api/kegiatans?program_id=${this.selectedProgramId}`)
+                        .then(r => r.json())
+                        .then(data => {
+                            this.kegiatanOptions = data;
+                            if (!preserveSelection) {
+                                this.selectedKegiatanId = '';
+                                this.selectedKegiatanName = '';
+                                this.subKegiatanOptions = [];
+                                this.selectedSubKegiatanId = '';
+                                this.selectedSubKegiatanName = '';
+                                this.selectedKodeRek = '';
+                            } else if (this.selectedKegiatanId) {
+                                // Lanjut fetch sub kegiatan
+                                this.fetchSubKegiatan(true);
+                            }
+                        })
+                        .catch(() => this.kegiatanOptions = [])
+                        .finally(() => this.loadingKegiatan = false);
+                },
+
+                fetchSubKegiatan(preserveSelection = false) {
+                    const foundKeg = this.kegiatanOptions.find(k => k.id == this.selectedKegiatanId);
+                    if (foundKeg) {
+                        this.selectedKegiatanName = (foundKeg.kode ? foundKeg.kode + ' - ' : '') + foundKeg.nama;
+                    } else {
+                        const kegSel = document.getElementById('kegiatan_dropdown');
+                        this.selectedKegiatanName = kegSel?.options[kegSel.selectedIndex]?.text || '';
+                    }
+
+                    if (!this.selectedKegiatanId) {
+                        this.subKegiatanOptions = [];
+                        if (!preserveSelection) {
+                            this.selectedSubKegiatanId = '';
+                            this.selectedSubKegiatanName = '';
+                            this.selectedKodeRek = '';
+                        }
+                        return;
+                    }
+
+                    this.loadingSubKegiatan = true;
+                    fetch(`/api/sub-kegiatans?kegiatan_id=${this.selectedKegiatanId}`)
+                        .then(r => r.json())
+                        .then(data => {
+                            this.subKegiatanOptions = data;
+                            if (!preserveSelection) {
+                                this.selectedSubKegiatanId = '';
+                                this.selectedSubKegiatanName = '';
+                                this.selectedKodeRek = '';
+                            } else {
+                                // Auto-fill jika ada old value
+                                const found = data.find(s => s.id == this.selectedSubKegiatanId);
+                                if (found) {
+                                    this.selectedKodeRek = found.kode_rek || '';
+                                    this.selectedSubKegiatanName = (found.kode ? found.kode + ' - ' : '') + found.nama || '';
+                                }
+                            }
+                        })
+                        .catch(() => this.subKegiatanOptions = [])
+                        .finally(() => this.loadingSubKegiatan = false);
+                },
+
+                onSubKegiatanChange() {
+                    const found = this.subKegiatanOptions.find(s => s.id == this.selectedSubKegiatanId);
+                    if (found) {
+                        this.selectedKodeRek = found.kode_rek || '';
+                        this.selectedSubKegiatanName = (found.kode ? found.kode + ' - ' : '') + found.nama;
+                    } else {
+                        this.selectedKodeRek = '';
+                        const subSel = document.getElementById('sub_kegiatan_dropdown');
+                        this.selectedSubKegiatanName = subSel?.options[subSel.selectedIndex]?.text || '';
+                    }
+                    // Sync DOM untuk localStorage persistence
+                    const rekEl = document.getElementById('kode_rek_input');
+                    if (rekEl) { rekEl.value = this.selectedKodeRek; rekEl.dispatchEvent(new Event('input')); }
+                },
+
+                // --- Modal Actions ---
+                saveNewSubKegiatan() {
+                    if (!this.selectedKegiatanId || !this.newSubNama) return;
+                    
+                    this.isSavingSubKegiatan = true;
+                    
+                    fetch('/api/sub-kegiatans', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        },
+                        body: JSON.stringify({
+                            kegiatan_id: this.selectedKegiatanId,
+                            kode: this.newSubKode,
+                            nama: this.newSubNama
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Gagal menyimpan sub kegiatan');
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Tambahkan data baru ke opsi
+                        this.subKegiatanOptions.push(data);
+                        // Pilih data yang baru dibuat
+                        this.selectedSubKegiatanId = data.id;
+                        this.selectedSubKegiatanName = (data.kode ? data.kode + ' - ' : '') + data.nama;
+                        this.selectedKodeRek = data.kode_rek || '';
+                        
+                        // Tutup modal dan reset
+                        this.showModalSubKegiatan = false;
+                        this.newSubKode = '';
+                        this.newSubNama = '';
+                        
+                        // Trigger re-render AlpineJS
+                        this.onSubKegiatanChange();
+                    })
+                    .catch(err => {
+                        alert(err.message);
+                    })
+                    .finally(() => {
+                        this.isSavingSubKegiatan = false;
+                    });
+                },
+
+                // --- Modal Actions Kegiatan ---
+                saveNewKegiatan() {
+                    if (!this.selectedProgramId || !this.newKegiatanNama) return;
+                    
+                    this.isSavingKegiatan = true;
+                    
+                    fetch('/api/kegiatans', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        },
+                        body: JSON.stringify({
+                            program_id: this.selectedProgramId,
+                            kode: this.newKegiatanKode,
+                            nama: this.newKegiatanNama
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Gagal menyimpan kegiatan');
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Tambahkan data baru ke opsi
+                        this.kegiatanOptions.push(data);
+                        // Pilih data yang baru dibuat
+                        this.selectedKegiatanId = data.id;
+                        this.selectedKegiatanName = (data.kode ? data.kode + ' - ' : '') + data.nama;
+                        
+                        // Tutup modal dan reset
+                        this.showModalKegiatan = false;
+                        this.newKegiatanKode = '';
+                        this.newKegiatanNama = '';
+                        
+                        // Trigger re-render AlpineJS untuk load Sub Kegiatan (yang akan kosong tentunya)
+                        this.fetchSubKegiatan();
+                    })
+                    .catch(err => {
+                        alert(err.message);
+                    })
+                    .finally(() => {
+                        this.isSavingKegiatan = false;
+                    });
+                }
+            };
+        }
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
         function terbilang(angka) {
             angka = Math.floor(angka);
             var suar = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
+
             var temp = "";
             if (angka < 12) {
                 temp = " " + suar[angka];

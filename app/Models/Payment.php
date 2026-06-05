@@ -13,6 +13,9 @@ class Payment extends Model
         'pptk_id',
         'vendor_id',
         'contract_id',
+        'program_id',
+        'kegiatan_id',
+        'sub_kegiatan_id',
         'no_spd',
         'tgl_spd',
         'program',
@@ -66,5 +69,20 @@ class Payment extends Model
     public function contract()
     {
         return $this->belongsTo(Contract::class, 'contract_id');
+    }
+
+    public function programRef()
+    {
+        return $this->belongsTo(Program::class, 'program_id');
+    }
+
+    public function kegiatanRef()
+    {
+        return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
+    }
+
+    public function subKegiatanRef()
+    {
+        return $this->belongsTo(SubKegiatan::class, 'sub_kegiatan_id');
     }
 }

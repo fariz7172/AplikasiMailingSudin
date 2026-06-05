@@ -6,10 +6,41 @@
 @section('content')
 <div class="space-y-6" x-data="{ 
     showModal: false, 
+    showSpmDoc: false,
+    showKwiDoc: false,
     payment: {},
     openModal(data) {
         this.payment = data;
         this.showModal = true;
+    },
+    formatDate(dateString) {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString;
+        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+    },
+    generateTerbilang(angka) {
+        angka = Math.floor(angka); if (angka <= 0) return '';
+        let suar = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan', 'Sepuluh', 'Sebelas'];
+        let temp = '';
+        if (angka < 12) temp = ' ' + suar[angka];
+        else if (angka < 20) temp = this.generateTerbilang(angka - 10) + ' Belas';
+        else if (angka < 100) temp = this.generateTerbilang(Math.floor(angka / 10)) + ' Puluh' + this.generateTerbilang(angka % 10);
+        else if (angka < 200) temp = ' Seratus' + this.generateTerbilang(angka - 100);
+        else if (angka < 1000) temp = this.generateTerbilang(Math.floor(angka / 100)) + ' Ratus' + this.generateTerbilang(angka % 100);
+        else if (angka < 2000) temp = ' Seribu' + this.generateTerbilang(angka - 1000);
+        else if (angka < 1000000) temp = this.generateTerbilang(Math.floor(angka / 1000)) + ' Ribu' + this.generateTerbilang(angka % 1000);
+        else if (angka < 1000000000) temp = this.generateTerbilang(Math.floor(angka / 1000000)) + ' Juta' + this.generateTerbilang(angka % 1000000);
+        else if (angka < 1000000000000) temp = this.generateTerbilang(Math.floor(angka / 1000000000)) + ' Miliar' + this.generateTerbilang(angka % 1000000000);
+        return temp;
+    },
+    terbilangTeks(uppercase = false) {
+        if (!this.payment || !this.payment.contract || !this.payment.contract.nilai_kontrak) return '';
+        let hasil = this.generateTerbilang(this.payment.contract.nilai_kontrak).trim();
+        if (!hasil) return '';
+        let finalStr = hasil + ' Rupiah';
+        return uppercase ? finalStr.toUpperCase() : finalStr.toLowerCase();
     }
 }">
     
@@ -128,6 +159,8 @@
             {{ $payments->links() }}
         </div>
     </div>
+
+    
     <!-- Modal Detail -->
     <div x-show="showModal" 
          x-transition:enter="transition ease-out duration-300"
@@ -199,7 +232,7 @@
                             </div>
                             <div class="pt-2">
                                 <span class="text-[10px] text-slate-400 font-bold italic block mb-1">Terbilang:</span>
-                                <p class="text-[11px] text-slate-500 italic bg-white/50 p-2 rounded-lg" x-text="payment.contract?.terbilang_kontrak || '-'"></p>
+                                <p class="text-[11px] text-slate-500 italic bg-white/50 p-2 rounded-lg" x-text="terbilangTeks(true) || '-'"></p>
                             </div>
                         </div>
                     </div>
@@ -211,17 +244,23 @@
                             <h4 class="font-black text-sm uppercase tracking-wider">III. Dokumen Pembayaran</h4>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm">
-                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">No. SPM</p>
-                                <p class="text-xs font-black text-slate-700" x-text="payment.no_spm || '-'"></p>
+                            <div @click="showSpmDoc = true" class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm cursor-pointer hover:bg-amber-50 hover:border-amber-200 hover:ring-2 hover:ring-amber-500/20 transition-all group">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase group-hover:text-amber-600 transition-colors">No. SPM</p>
+                                    <i data-lucide="external-link" class="w-3 h-3 text-slate-300 group-hover:text-amber-500"></i>
+                                </div>
+                                <p class="text-xs font-black text-slate-700 group-hover:text-amber-700" x-text="payment.no_spm || '-'"></p>
                             </div>
                             <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm">
                                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">No. SPP</p>
                                 <p class="text-xs font-black text-slate-700" x-text="payment.no_spp || '-'"></p>
                             </div>
-                            <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm">
-                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">No. KWI</p>
-                                <p class="text-xs font-black text-slate-700" x-text="payment.no_kwi || '-'"></p>
+                            <div @click="showKwiDoc = true" class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm cursor-pointer hover:bg-emerald-50 hover:border-emerald-200 hover:ring-2 hover:ring-emerald-500/20 transition-all group">
+                                <div class="flex items-center justify-between mb-1">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase group-hover:text-emerald-600 transition-colors">No. KWI</p>
+                                    <i data-lucide="external-link" class="w-3 h-3 text-slate-300 group-hover:text-emerald-500"></i>
+                                </div>
+                                <p class="text-xs font-black text-slate-700 group-hover:text-emerald-700" x-text="payment.no_kwi || '-'"></p>
                             </div>
                             <div class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm">
                                 <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">No. SP2D</p>
@@ -270,6 +309,317 @@
                     <i data-lucide="edit-3" class="w-4 h-4"></i>
                     Edit Data Ini
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Preview Dokumen SPM -->
+    <div x-show="showSpmDoc" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+         x-cloak>
+        
+        <div @click.away="showSpmDoc = false" class="bg-slate-100 w-full max-w-5xl max-h-[95vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col border border-slate-200">
+            <!-- Header -->
+            <div class="px-6 py-4 bg-white border-b border-slate-200 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-slate-800">Preview Dokumen SPM</h2>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Verifikasi PPK & SPTJM</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a :href="'/payments/' + payment.id + '/print'" target="_blank" class="px-4 py-2 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-all text-xs flex items-center gap-2">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Penuh
+                    </a>
+                    <button @click="showSpmDoc = false" class="p-2 hover:bg-rose-50 text-slate-400 hover:text-rose-500 rounded-xl transition-all">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar flex flex-col items-center gap-8 bg-slate-200">
+                
+                <!-- 1. Kertas A4: SPTJM GANTI UANG -->
+                <div class="bg-white w-[210mm] min-h-[297mm] p-[1.2cm] shadow-xl font-serif text-slate-900 flex flex-col">
+                    <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+                        <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full" alt="Logo"></div>
+                        <div class="flex-1 text-center">
+                            <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                            <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
+                            <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                        </div>
+                    </div>
+                    <div class="text-center mb-8">
+                        <h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK GANTI UANG</h1>
+                        <p class="font-bold mt-2">Nomor : <span x-text="payment.no_spm || '-'"></span></p>
+                    </div>
+                    <p class="text-justify leading-relaxed text-[10pt] mb-4">
+                        Sehubungan dengan Surat Perintah Membayar (SPM-GU) nomor <span class="font-bold" x-text="payment.no_spm || '-'"></span> 
+                        tanggal <span x-text="formatDate(payment.tgl_spm)"></span> yang saya ajukan sebesar Rp. <span x-text="payment.contract?.nilai_kontrak ? new Intl.NumberFormat('id-ID').format(payment.contract.nilai_kontrak) : '0'"></span> 
+                        (<span x-text="terbilangTeks(false) || '-'"></span>) 
+                        untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:
+                    </p>
+                    <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
+                        <li>Bukti Pertanggungjawaban atas pengunaan Ganti Uang (GU) telah lengkap, diverifikasi, dan mendapat pengesahaan.</li>
+                        <li>Saya bertanggungjawab secara penuh atas penggunaan (GU) tersebut diatas sesuai dengan ketentuan peraturan perudang-undangan.</li>
+                        <li>Jumlah (GU) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan kami laksanakan sesuai DPA/DPPA-SKPD/UNIT SKPD.</li>
+                        <li>Jumlah (GU) tersebut diatas tidak akan kami gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran langsung.</li>
+                        <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
+                    </ol>
+                    <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-GU SKPD/UNIT SKPD saya.</p>
+                    <div class="flex flex-col items-end mr-4">
+                        <div class="text-center min-w-[350px] text-[10pt]">
+                            <p>Jakarta, <span x-text="formatDate(payment.tgl_spm)"></span></p>
+                            <p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                            <div class="mt-24">
+                                <p class="font-bold underline uppercase text-center">HERIA SUWANDI</p>
+                                <p class="text-center">NIP. 197101272006041009</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Kertas A4: SPTJM UANG PERSEDIAAN -->
+                <div class="bg-white w-[210mm] min-h-[297mm] p-[1.2cm] shadow-xl font-serif text-slate-900 flex flex-col">
+                    <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+                        <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full" alt="Logo"></div>
+                        <div class="flex-1 text-center">
+                            <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                            <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
+                            <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                        </div>
+                    </div>
+                    <div class="text-center mb-8">
+                        <h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UANG PERSEDIAAN</h1>
+                        <p class="font-bold mt-2">Nomor : <span x-text="payment.no_spm || '-'"></span></p>
+                    </div>
+                    <p class="text-justify leading-relaxed text-[10pt] mb-4">
+                        Sehubungan dengan Surat Perintah Membayar (SPM-UP) nomor <span class="font-bold" x-text="payment.no_spm || '-'"></span> 
+                        tanggal <span x-text="formatDate(payment.tgl_spm)"></span> yang saya ajukan sebesar Rp. <span x-text="payment.contract?.nilai_kontrak ? new Intl.NumberFormat('id-ID').format(payment.contract.nilai_kontrak) : '0'"></span> 
+                        (<span x-text="terbilangTeks(false) || '-'"></span>) 
+                        untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:
+                    </p>
+                    <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
+                        <li>Bukti Pertanggungjawaban atas pengunaan Ganti Uang (UP) telah lengkap, diverifikasi, dan mendapat pengesahaan.</li>
+                        <li>Saya bertanggungjawab secara penuh atas penggunaan (UP) tersebut diatas sesuai dengan ketentuan peraturan perudang-undangan.</li>
+                        <li>Jumlah (UP) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan kami laksanakan sesuai DPA/DPPA-SKPD/UNIT SKPD.</li>
+                        <li>Jumlah (UP) tersebut diatas tidak akan kami gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran langsung.</li>
+                        <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
+                    </ol>
+                    <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-UP SKPD/UNIT SKPD saya.</p>
+                    <div class="flex flex-col items-end mr-4">
+                        <div class="text-center min-w-[350px] text-[10pt]">
+                            <p>Jakarta, <span x-text="formatDate(payment.tgl_spm)"></span></p>
+                            <p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                            <div class="mt-24">
+                                <p class="font-bold underline uppercase text-center">HERIA SUWANDI</p>
+                                <p class="text-center">NIP. 197101272006041009</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Kertas A4: SPTJM LS -->
+                <div class="bg-white w-[210mm] min-h-[297mm] p-[1.2cm] shadow-xl font-serif text-slate-900 flex flex-col">
+                    <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+                        <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full" alt="Logo"></div>
+                        <div class="flex-1 text-center">
+                            <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                            <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
+                            <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                        </div>
+                    </div>
+                    <div class="text-center mb-8">
+                        <h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1>
+                        <p class="font-bold mt-2">Nomor : <span x-text="payment.no_spm || '-'"></span></p>
+                    </div>
+                    <p class="text-justify leading-relaxed text-[10pt] mb-4">
+                        Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold" x-text="payment.no_spm || '-'"></span> 
+                        tanggal <span x-text="formatDate(payment.tgl_spm)"></span> yang saya ajukan sebesar Rp. <span x-text="payment.contract?.nilai_kontrak ? new Intl.NumberFormat('id-ID').format(payment.contract.nilai_kontrak) : '0'"></span> 
+                        (<span x-text="terbilangTeks(false) || '-'"></span>) 
+                        untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:
+                    </p>
+                    <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
+                        <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
+                        <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
+                        <li>Jumlah (LS) tersebut diatas tidak akan saya gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran lainnya.</li>
+                        <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
+                    </ol>
+                    <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya.</p>
+                    <br><br><br>
+                    <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
+                        <div class="flex flex-col items-center">
+                            <p>Jakarta, <span x-text="formatDate(payment.tgl_spm)"></span></p>
+                            <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan <br><br></p>
+                            <div class="mt-24">
+                                <p class="font-bold underline uppercase text-center" x-text="payment.pptk?.nama || '-'"></p>
+                                <p class="text-center">NIP. <span x-text="payment.pptk?.nip || '-'"></span></p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <p>Jakarta, <span x-text="formatDate(payment.tgl_spm)"></span></p>
+                            <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                            <div class="mt-24">
+                                <p class="font-bold underline uppercase text-center">HERIA SUWANDI</p>
+                                <p class="text-center">NIP. 197101272006041009</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal Preview Dokumen KWI -->
+    <div x-show="showKwiDoc" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+         x-cloak>
+        
+        <div @click.away="showKwiDoc = false" class="bg-slate-100 w-full max-w-5xl max-h-[95vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col border border-slate-200">
+            <!-- Header -->
+            <div class="px-6 py-4 bg-white border-b border-slate-200 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="receipt" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-black text-slate-800">Preview Dokumen KWI</h2>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Kwitansi Pembayaran</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a :href="'/payments/' + payment.id + '/print'" target="_blank" class="px-4 py-2 bg-slate-800 text-white font-bold rounded-lg hover:bg-slate-700 transition-all text-xs flex items-center gap-2">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Penuh
+                    </a>
+                    <button @click="showKwiDoc = false" class="p-2 hover:bg-rose-50 text-slate-400 hover:text-rose-500 rounded-xl transition-all">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar flex flex-col items-center gap-8 bg-slate-200">
+                
+                <!-- 1. Kertas A4: KWITANSI -->
+                <div class="bg-white w-[210mm] min-h-[297mm] shadow-xl font-serif text-slate-900 flex flex-col">
+                    <div class="border-[1.5px] border-black p-8 m-8 flex-1">
+                        <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
+                            <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full" alt="Logo"></div>
+                            <div class="flex-1">
+                                <h1 class="text-[10pt] font-bold uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                                <h2 class="text-[12pt] font-bold uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
+                                <h3 class="text-[10pt] font-bold uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                            </div>
+                        </div>
+                        <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
+                        <div class="space-y-4 px-4 text-[11pt]">
+                            <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span class="font-bold" x-text="payment.no_kwi || '-'"></span></div>
+                            <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="font-bold italic uppercase" x-text="'# ' + terbilangTeks(true) + ' #'"></span></div>
+                            <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span class="leading-relaxed" x-text="payment.keperluan || '-'"></span></div>
+                        </div>
+                        <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
+                            <span>JUMLAH Rp.</span><span x-text="payment.contract?.nilai_kontrak ? new Intl.NumberFormat('id-ID').format(payment.contract.nilai_kontrak) : '0'"></span>
+                        </div>
+                        <div class="mt-8 flex justify-between px-4 text-[9pt]">
+                            <div class="flex-1"></div>
+                            <div class="text-left min-w-[250px]"><p>Jakarta, <span x-text="formatDate(payment.tgl_kwi)"></span></p></div>
+                        </div>
+                        <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight mt-8">
+                            <div>
+                                <p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p>
+                                <p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p>
+                                <p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p>
+                                <div class="mt-20">
+                                    <p class="font-bold underline uppercase" x-text="payment.pptk?.nama || '-'"></p>
+                                    <p>NIP. <span x-text="payment.pptk?.nip || '-'"></span></p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p>
+                                <p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p>
+                                <p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p>
+                                <div class="mt-20">
+                                    <p class="font-bold underline uppercase">R. Elly Prasojo</p>
+                                    <p>NIP. 197410252014121001</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight">
+                            <p class="font-bold uppercase">Mengetahui</p>
+                            <p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p>
+                            <p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p>
+                            <div class="mt-20">
+                                <p class="font-bold underline uppercase">HERIA SUWANDI</p>
+                                <p>NIP. 197101272006041009</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Kertas A4: KWITANSI (TANPA PPTK) -->
+                <div class="bg-white w-[210mm] min-h-[297mm] shadow-xl font-serif text-slate-900 flex flex-col">
+                    <div class="border-[1.5px] border-black p-8 m-8 flex-1">
+                        <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
+                            <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full" alt="Logo"></div>
+                            <div class="flex-1">
+                                <h1 class="text-[10pt] font-bold uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                                <h2 class="text-[12pt] font-bold uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
+                                <h3 class="text-[10pt] font-bold uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                            </div>
+                        </div>
+                        <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
+                        <div class="space-y-4 px-4 text-[11pt]">
+                            <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span class="font-bold" x-text="payment.no_kwi || '-'"></span></div>
+                            <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="font-bold italic uppercase" x-text="'# ' + terbilangTeks(true) + ' #'"></span></div>
+                            <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span class="leading-relaxed" x-text="payment.keperluan || '-'"></span></div>
+                        </div>
+                        <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
+                            <span>JUMLAH Rp.</span><span x-text="payment.contract?.nilai_kontrak ? new Intl.NumberFormat('id-ID').format(payment.contract.nilai_kontrak) : '0'"></span>
+                        </div>
+                        <div class="mt-8 flex justify-between px-4 text-[9pt]">
+                            <div class="flex-1"></div>
+                            <div class="text-left min-w-[250px]"><p>Jakarta, <span x-text="formatDate(payment.tgl_kwi)"></span></p></div>
+                        </div>
+                        <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight mt-8">
+                            <div></div>
+                            <div>
+                                <p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p>
+                                <p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p>
+                                <p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p>
+                                <div class="mt-20">
+                                    <p class="font-bold underline uppercase">R. Elly Prasojo</p>
+                                    <p>NIP. 197410252014121001</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight">
+                            <p class="font-bold uppercase">Mengetahui</p>
+                            <p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p>
+                            <p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p>
+                            <div class="mt-20">
+                                <p class="font-bold underline uppercase">HERIA SUWANDI</p>
+                                <p>NIP. 197101272006041009</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
