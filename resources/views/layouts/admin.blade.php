@@ -124,6 +124,8 @@
                 active="{{ request()->routeIs('payments.*') }}">Pembayaran</x-nav-link>
             <x-nav-link href="{{ route('pptk.index') }}" icon="user-check"
                 active="{{ request()->routeIs('pptk.*') }}">Data Pejabat</x-nav-link>
+            <x-nav-link href="{{ route('slip-gaji.index') }}" icon="printer"
+                active="{{ request()->routeIs('slip-gaji.*') }}">Cetak Slip Gaji</x-nav-link>
 
             {{-- Master Data (collapsible) --}}
             <div x-data="{ open: {{ request()->routeIs('programs.*') || request()->routeIs('kegiatans.*') || request()->routeIs('sub-kegiatans.*') ? 'true' : 'false' }} }">

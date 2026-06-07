@@ -38,6 +38,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('programs', ProgramController::class);
         Route::resource('kegiatans', KegiatanController::class);
         Route::resource('sub-kegiatans', SubKegiatanController::class);
+        
+        // Cetak Slip Gaji (Berdasarkan PPTK)
+        Route::get('slip-gaji', [App\Http\Controllers\SlipGajiController::class, 'index'])->name('slip-gaji.index');
+        Route::post('slip-gaji/print', [App\Http\Controllers\SlipGajiController::class, 'print'])->name('slip-gaji.print');
     });
 
     // Import Access (Superadmin Only)
