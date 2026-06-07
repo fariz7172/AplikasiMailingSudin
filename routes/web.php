@@ -48,6 +48,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:superadmin')->group(function () {
         Route::get('import', [ImportController::class, 'index'])->name('import.index');
         Route::post('import/process', [ImportController::class, 'process'])->name('import.process');
+        Route::get('import/template', [ImportController::class, 'downloadTemplate'])->name('import.template');
+        Route::get('export', [ImportController::class, 'export'])->name('export.data');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
