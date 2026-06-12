@@ -21,6 +21,34 @@
         @csrf
 
         <div x-data="{ 
+            isNewVendor: false,
+            selectedVendorId: '',
+            vendors: @json($vendors),
+            vendorData: {
+                nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
+                direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
+            },
+            onVendorSelect() {
+                if(this.selectedVendorId) {
+                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
+                    if(v) {
+                        this.vendorData = {
+                            nama_perusahaan: v.nama_perusahaan || '',
+                            direktur: v.direktur || '',
+                            npwp: v.npwp || '',
+                            akte: v.akte || '',
+                            tgl_akte: v.tgl_akte ? v.tgl_akte.substring(0,10) : '',
+                            tdp: v.tdp || '',
+                            tgl_tdp: v.tgl_tdp ? v.tgl_tdp.substring(0,10) : '',
+                            bank: v.bank || '',
+                            no_rekening: v.no_rekening || '',
+                            alamat: v.alamat || ''
+                        };
+                    }
+                } else {
+                    this.vendorData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
+                }
+            },
             activeStep: parseInt(localStorage.getItem('activePaymentStep')) || 1,
             init() {
                 this.$watch('activeStep', value => localStorage.setItem('activePaymentStep', value));
@@ -232,10 +260,26 @@
                     <div class="p-8 space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div class="md:col-span-4">
+                                
+                                <div class="mb-4 p-4 bg-primary/5 rounded-xl border border-primary/20 space-y-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" x-model="isNewVendor" class="w-4 h-4 text-primary border-slate-300 rounded focus:ring-primary">
+                                        <span class="text-sm font-bold text-slate-700">Buat / Input Vendor Baru</span>
+                                    </label>
+                                    
+                                    <div x-show="!isNewVendor" x-collapse>
+                                        <label class="form-label-premium text-primary">Pilih Data Vendor Tersimpan</label>
+                                        <select x-model="selectedVendorId" @change="onVendorSelect()" class="form-input-premium font-semibold">
+                                            <option value="">-- Pilih Vendor --</option>
+                                            <template x-for="v in vendors" :key="v.id">
+                                                <option :value="v.id" x-text="v.nama_perusahaan"></option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
                                 <label class="form-label-premium">Nama Perusahaan / Vendor (Payer/Payee)</label>
-                                <input type="text" name="nama_perusahaan"
-                                    value="Sudin Sumber Daya Air Kota Administrasi Jakarta Utara"
-                                    class="form-input-premium font-bold">
+                                <input type="text" name="nama_perusahaan" x-model="vendorData.nama_perusahaan" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium font-bold">
+    
                             </div>
                             <div class="md:col-span-2">
                                 <label class="form-label-premium">Nomor Kontrak</label>
@@ -288,28 +332,28 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div>
                                 <label class="form-label-premium">Nama Direktur</label>
-                                <input type="text" name="direktur" class="form-input-premium">
+                                <input type="text" name="direktur" x-model="vendorData.direktur" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">NPWP</label>
-                                <input type="text" name="npwp" class="form-input-premium">
+                                <input type="text" name="npwp" x-model="vendorData.npwp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Akte</label>
-                                <input type="text" name="akte" class="form-input-premium" placeholder="Nomor Akte">
+                                <input type="text" name="akte" x-model="vendorData.akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. Akte</label>
-                                <input type="date" name="tgl_akte" class="form-input-premium">
+                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
 
                             <div>
                                 <label class="form-label-premium">No. TDP</label>
-                                <input type="text" name="tdp" class="form-input-premium" placeholder="Nomor TDP">
+                                <input type="text" name="tdp" x-model="vendorData.tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. TDP</label>
-                                <input type="date" name="tgl_tdp" class="form-input-premium">
+                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Nama Bank</label>
@@ -376,7 +420,7 @@
                             </div>
                             <div class="md:col-span-3">
                                 <label class="form-label-premium">Alamat Perusahaan</label>
-                                <input type="text" name="alamat" class="form-input-premium">
+                                <input type="text" name="alamat" x-model="vendorData.alamat" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                         </div>
                         <div class="flex justify-end pt-4">

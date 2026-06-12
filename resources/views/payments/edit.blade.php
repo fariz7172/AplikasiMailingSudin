@@ -27,8 +27,42 @@
         <input type="hidden" name="contract_id" value="{{ $payment->contract_id }}">
 
         <div x-data="{ 
+            isNewVendor: false,
+            selectedVendorId: '',
+            vendors: @json($vendors),
+            vendorData: {
+                nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
+                direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
+            },
+            onVendorSelect() {
+                if(this.selectedVendorId) {
+                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
+                    if(v) {
+                        this.vendorData = {
+                            nama_perusahaan: v.nama_perusahaan || '',
+                            direktur: v.direktur || '',
+                            npwp: v.npwp || '',
+                            akte: v.akte || '',
+                            tgl_akte: v.tgl_akte ? v.tgl_akte.substring(0,10) : '',
+                            tdp: v.tdp || '',
+                            tgl_tdp: v.tgl_tdp ? v.tgl_tdp.substring(0,10) : '',
+                            bank: v.bank || '',
+                            no_rekening: v.no_rekening || '',
+                            alamat: v.alamat || ''
+                        };
+                    }
+                } else {
+                    this.vendorData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
+                }
+            },
             activeStep: 1,
             init() {
+                // Initialize edit mode vendor data
+                let currentVendorId = '{{ $payment->vendor_id }}';
+                if(currentVendorId) {
+                    this.selectedVendorId = currentVendorId;
+                    this.onVendorSelect();
+                }
                 // Jika ada error dari server, buka step yang memiliki error tersebut
                 @if($errors->any())
                     const firstError = document.querySelector('.border-rose-500');
@@ -310,36 +344,36 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div>
                                 <label class="form-label-premium">Nama Direktur</label>
-                                <input type="text" name="direktur" value="{{ old('direktur', $payment->vendor->direktur) }}" class="form-input-premium">
+                                <input type="text" name="direktur" x-model="vendorData.direktur" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">NPWP</label>
-                                <input type="text" name="npwp" value="{{ old('npwp', $payment->vendor->npwp) }}" class="form-input-premium">
+                                <input type="text" name="npwp" x-model="vendorData.npwp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Akte</label>
-                                <input type="text" name="akte" value="{{ old('akte', $payment->vendor->akte) }}" class="form-input-premium">
+                                <input type="text" name="akte" x-model="vendorData.akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. Akte</label>
-                                <input type="date" name="tgl_akte" value="{{ old('tgl_akte', $payment->vendor->tgl_akte) }}" class="form-input-premium">
+                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
 
                             <div>
                                 <label class="form-label-premium">No. TDP</label>
-                                <input type="text" name="tdp" value="{{ old('tdp', $payment->vendor->tdp) }}" class="form-input-premium">
+                                <input type="text" name="tdp" x-model="vendorData.tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. TDP</label>
-                                <input type="date" name="tgl_tdp" value="{{ old('tgl_tdp', $payment->vendor->tgl_tdp) }}" class="form-input-premium">
+                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Nama Bank</label>
-                                <input type="text" name="bank" value="{{ old('bank', $payment->vendor->bank) }}" class="form-input-premium" list="bank_list">
+                                <input type="text" name="bank" x-model="vendorData.bank" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Rekening</label>
-                                <input type="text" name="no_rekening" value="{{ old('no_rekening', $payment->vendor->no_rekening) }}" class="form-input-premium">
+                                <input type="text" name="no_rekening" x-model="vendorData.no_rekening" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
 
                             <div>
@@ -348,7 +382,7 @@
                             </div>
                             <div class="md:col-span-3">
                                 <label class="form-label-premium">Alamat Perusahaan</label>
-                                <input type="text" name="alamat" value="{{ old('alamat', $payment->vendor->alamat) }}" class="form-input-premium">
+                                <input type="text" name="alamat" x-model="vendorData.alamat" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                         </div>
                         <div class="flex justify-end pt-4">
