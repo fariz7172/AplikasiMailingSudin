@@ -34,12 +34,13 @@ class PaymentController extends Controller
     public function create()
     {
         $pptk = Pptk::all();
+        $perusahaans = \App\Models\Perusahaan::all();
         $vendors = Vendor::all();
         $contracts = Contract::all();
         $programs = Program::orderBy('nama')->get();
         $kegiatans = collect(); // Kosong, akan di-load via API saat program dipilih
         $subKegiatans = collect();
-        return view('payments.create', compact('pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
+        return view('payments.create', compact('pptk', 'perusahaans', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function store(Request $request)
@@ -84,6 +85,7 @@ class PaymentController extends Controller
     public function edit(Payment $payment)
     {
         $pptk = Pptk::all();
+        $perusahaans = \App\Models\Perusahaan::all();
         $vendors = Vendor::all();
         $contracts = Contract::all();
         $programs = Program::orderBy('nama')->get();
@@ -97,7 +99,7 @@ class PaymentController extends Controller
             ? SubKegiatan::where('kegiatan_id', $payment->kegiatan_id)->orderBy('nama')->get()
             : collect();
             
-        return view('payments.edit', compact('payment', 'pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
+        return view('payments.edit', compact('payment', 'pptk', 'perusahaans', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function update(Request $request, Payment $payment)

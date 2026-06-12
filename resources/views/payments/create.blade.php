@@ -224,7 +224,7 @@
                                         <label class="form-label-premium text-primary">Pilih Data Vendor Tersimpan</label>
                                         <select x-model="selectedVendorId" @change="onVendorSelect()" class="form-input-premium font-semibold">
                                             <option value="">-- Pilih Vendor --</option>
-                                            <template x-for="v in vendors" :key="v.id">
+                                            <template x-for="v in perusahaans" :key="v.id">
                                                 <option :value="v.id" x-text="v.nama_perusahaan"></option>
                                             </template>
                                         </select>
@@ -616,26 +616,26 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('paymentForm', () => ({ 
             isNewVendor: false,
             selectedVendorId: '',
-            vendors: @json($vendors),
+            perusahaans: @json($perusahaans),
             vendorData: {
                 nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
                 direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
             },
             onVendorSelect() {
                 if(this.selectedVendorId) {
-                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
-                    if(v) {
+                    let p = this.perusahaans.find(x => x.id == this.selectedVendorId);
+                    if(p) {
                         this.vendorData = {
-                            nama_perusahaan: v.nama_perusahaan || '',
-                            direktur: v.direktur || '',
-                            npwp: v.npwp || '',
-                            akte: v.akte || '',
-                            tgl_akte: v.tgl_akte ? v.tgl_akte.substring(0,10) : '',
-                            tdp: v.tdp || '',
-                            tgl_tdp: v.tgl_tdp ? v.tgl_tdp.substring(0,10) : '',
-                            bank: v.bank || '',
-                            no_rekening: v.no_rekening || '',
-                            alamat: v.alamat || ''
+                            nama_perusahaan: p.nama_perusahaan || '',
+                            direktur: p.nama_direktur || '',
+                            npwp: '',
+                            akte: '',
+                            tgl_akte: '',
+                            tdp: '',
+                            tgl_tdp: '',
+                            bank: '',
+                            no_rekening: '',
+                            alamat: p.alamat || ''
                         };
                     }
                 } else {
