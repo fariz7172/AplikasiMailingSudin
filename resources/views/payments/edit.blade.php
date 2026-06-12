@@ -439,6 +439,10 @@
                                 <label class="form-label-premium">No. SPP</label>
                                 <input type="text" name="no_spp" value="{{ old('no_spp', $payment->no_spp) }}" class="form-input-premium">
                             </div>
+                            <div>
+                                <label class="form-label-premium">Tanggal SPP</label>
+                                <input type="date" name="tgl_spp" value="{{ old('tgl_spp', $payment->tgl_spp?->format('Y-m-d')) }}" class="form-input-premium">
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
