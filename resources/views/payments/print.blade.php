@@ -761,14 +761,14 @@
             <div class="text-center mb-6"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPTK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP-LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="101">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="102">{{ $payment->pptk?->nama }}</span>
-                <span>NIP</span><span>:</span><span contenteditable="true" data-eid="103">{{ $payment->pptk?->nip }}</span>
+                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="102">Yudo Widiatmoko</span>
+                <span>NIP</span><span>:</span><span contenteditable="true" data-eid="103">198608302010011010</span>
                 <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="104" class="font-bold">Kepala Seksi Pemeliharaan Drainase</span>
                 <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
             <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">{{ $payment->pptk?->nama }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">{{ $payment->pptk?->nip }}</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">Yudo Widiatmoko</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">198608302010011010</span></p></div></div></div>
         </div>
 
         <!-- PAGE 12: SPTJM UP/LS -->
@@ -812,11 +812,7 @@
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
-                <div class="flex flex-col items-center">
-                    <br>
-                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan <br><br></p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="117">Frans Agustinus Siahaan</p><p class="text-center">NIP. <span contenteditable="true" data-eid="118">197908222010011022</span></p></div>
-                </div>
+                <div></div> <!-- Kolom kosong di kiri -->
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="119">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
                     <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
