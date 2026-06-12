@@ -4,7 +4,7 @@ const conn = new Client();
 
 conn.on('ready', () => {
   console.log('Client :: ready');
-  conn.exec('cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && git pull', (err, stream) => {
+  conn.exec('cd /home/u674511048/domains/farizahmad.com/public_html/aplikasimailingsudin && git pull && php artisan migrate --force && php artisan optimize:clear', (err, stream) => {
     if (err) throw err;
     stream.on('close', (code, signal) => {
       console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);

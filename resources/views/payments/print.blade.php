@@ -40,7 +40,10 @@
         .grid-compact span { padding: 1px 0; }
     </style>
 </head>
-<body class="antialiased text-slate-800" x-data="{
+<body class="antialiased text-slate-800" x-data="printComponent()">
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('printComponent', () => ({
     savedContentData: @json($payment->print_data['savedContentData'] ?? new stdClass()),
     isSaving: false,
     async saveData() {
@@ -183,7 +186,9 @@
     ],
     addRowSPM4() { this.checklistSPM4.push({ no: this.checklistSPM4.length + 1, jenis: '', syarat: '...', ada: true }); },
     removeLastRowSPM4() { if(this.checklistSPM4.length > 0) this.checklistSPM4.pop(); }
-}">
+}));
+        });
+    </script>>
 
     <!-- UI Overlay (No Print) -->
     <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm">
