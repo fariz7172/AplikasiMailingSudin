@@ -85,8 +85,8 @@
         { no: 1, label: 'Surat Permintaan Pembayaran Ganti Uang Persediaan (SPP-GU)', status: true, note: '' },
         { no: 2, label: 'Checklist Persyaratan Penerbitan SPP-GU yang ditandatangani PPK SKPD/UKPD', status: true, note: '' }
     ],
-    nilaiKontrak: {{ $payment->contract->nilai_kontrak ?? 0 }},
-    terbilangTeks: '{{ $payment->contract->terbilang_kontrak ?? '' }}',
+    nilaiKontrak: {{ $payment->contract?->nilai_kontrak ?? 0 }},
+    terbilangTeks: '{{ $payment->contract?->terbilang_kontrak ?? '' }}',
     init() {
         this.updateTerbilang();
     },
@@ -532,27 +532,27 @@
                 <span>3.</span><span>Nomor & Tanggal SPD</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->no_spd }} Tgl. {{ $payment->tgl_spd ? $payment->tgl_spd->translatedFormat('d F Y') : '-' }}</span>
                 <span>4.</span><span>Nama Kepala Unit</span><span>:</span><span contenteditable="true" class="font-bold uppercase">HERIA SUWANDI</span>
                 <span>5.</span><span>NIP Kepala Unit</span><span>:</span><span contenteditable="true">197101272006041009</span>
-                <span class="mt-1">6.</span><span class="mt-1 font-bold">Nomor & Tanggal SPK</span><span class="mt-1">:</span><span class="mt-1 font-bold" contenteditable="true">{{ $payment->contract->nomor_kontrak }} Tgl. {{ $payment->contract->tgl_kontrak ? $payment->contract->tgl_kontrak->translatedFormat('d F Y') : '-' }}</span>
-                <span></span><span>Nomor Addendum I</span><span>:</span><span contenteditable="true">{{ $payment->contract->addendum_kontrak ?? '-' }}</span>
-                <span></span><span>Nomor Addendum II</span><span>:</span><span contenteditable="true">{{ $payment->contract->addendum_kontrak2 ?? '-' }}</span>
+                <span class="mt-1">6.</span><span class="mt-1 font-bold">Nomor & Tanggal SPK</span><span class="mt-1">:</span><span class="mt-1 font-bold" contenteditable="true">{{ $payment->contract?->nomor_kontrak }} Tgl. {{ $payment->contract?->tgl_kontrak ? $payment->contract?->tgl_kontrak->translatedFormat('d F Y') : '-' }}</span>
+                <span></span><span>Nomor Addendum I</span><span>:</span><span contenteditable="true">{{ $payment->contract?->addendum_kontrak ?? '-' }}</span>
+                <span></span><span>Nomor Addendum II</span><span>:</span><span contenteditable="true">{{ $payment->contract?->addendum_kontrak2 ?? '-' }}</span>
                 <span></span><span>Nomor Addendum III</span><span>:</span><span contenteditable="true">-</span>
                 <span>7.</span><span>Program</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->program }}</span>
                 <span>8.</span><span>Kegiatan</span><span>:</span><span contenteditable="true" class="font-bold uppercase leading-none">{{ $payment->kegiatanRef ? $payment->kegiatanRef->kode . ' ' . $payment->kegiatanRef->nama : $payment->kegiatan }}</span>
-                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor->no_rekening }}</span>
+                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor?->no_rekening }}</span>
                 <span>10.</span><span>Wilayah/Lokasi</span><span>:</span><span contenteditable="true">Jakarta Utara</span>
-                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor->nama_perusahaan }}</span>
-                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor->direktur }}</span>
-                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor->npwp }}</span>
-                <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true">{{ $payment->vendor->alamat }}</span>
-                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor->akte }} Tgl. {{ $payment->vendor->tgl_akte ? \Carbon\Carbon::parse($payment->vendor->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
-                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor->tdp }} Tgl. {{ $payment->vendor->tgl_tdp ? \Carbon\Carbon::parse($payment->vendor->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
-                <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" class="font-bold">Rp. {{ number_format($payment->contract->nilai_kontrak, 2, ',', '.') }}</span>
+                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor?->nama_perusahaan }}</span>
+                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor?->direktur }}</span>
+                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor?->npwp }}</span>
+                <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true">{{ $payment->vendor?->alamat }}</span>
+                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor?->akte }} Tgl. {{ $payment->vendor?->tgl_akte ? \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
+                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->vendor?->tdp }} Tgl. {{ $payment->vendor?->tgl_tdp ? \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
+                <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
                 <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" class="font-bold">LS Barang / Jasa</span>
-                <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true">{{ $payment->contract->jangka_waktu }}</span>
+                <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
-                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" class="font-bold">Rp. {{ number_format($payment->contract->nilai_kontrak, 2, ',', '.') }}</span>
+                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
                 <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" class="font-bold">100%</span>
-                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor->bank }} / {{ $payment->vendor->no_rekening }}</span>
+                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" class="font-bold uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" class="font-bold">{{ $payment->no_bast }}</span>
                 <span>25.</span><span>Tgl BAST</span><span>:</span><span contenteditable="true">{{ $payment->tgl_bast ? $payment->tgl_bast->translatedFormat('d F Y') : '-' }}</span>
                 <span>26.</span><span>Kualifikasi Perusahaan</span><span>:</span><span contenteditable="true"></span>
@@ -582,7 +582,7 @@
                 </div>
                 <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
-                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true">{{ $payment->pptk->nama }}</p><p>NIP. <span contenteditable="true">{{ $payment->pptk->nip }}</span></p></div></div>
+                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true">{{ $payment->pptk?->nama }}</p><p>NIP. <span contenteditable="true">{{ $payment->pptk?->nip }}</span></p></div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true">R. Elly Prasojo</p><p>NIP. <span contenteditable="true">197410252014121001</span></p></div></div>
                 </div>
                 <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true">HERIA SUWANDI</p><p>NIP. <span contenteditable="true">197101272006041009</span></p></div></div>
@@ -666,14 +666,14 @@
             <div class="text-center mb-6"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPTK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP-LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true">{{ $payment->pptk->nama }}</span>
-                <span>NIP</span><span>:</span><span contenteditable="true">{{ $payment->pptk->nip }}</span>
+                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true">{{ $payment->pptk?->nama }}</span>
+                <span>NIP</span><span>:</span><span contenteditable="true">{{ $payment->pptk?->nip }}</span>
                 <span>Jabatan</span><span>:</span><span contenteditable="true" class="font-bold">Kepala Seksi Pemeliharaan Drainase</span>
                 <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
             <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true">{{ $payment->pptk->nama }}</p><p class="text-center">NIP. <span contenteditable="true">{{ $payment->pptk->nip }}</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true">{{ $payment->pptk?->nama }}</p><p class="text-center">NIP. <span contenteditable="true">{{ $payment->pptk?->nip }}</span></p></div></div></div>
         </div>
 
         <!-- PAGE 12: SPTJM UP/LS -->
