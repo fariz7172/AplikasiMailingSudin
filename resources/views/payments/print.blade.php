@@ -428,8 +428,9 @@
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
-                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                <td :rowspan="checklistSPM.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top relative">
+                                    <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
+                                    <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
                                         <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
                                         <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
@@ -478,8 +479,9 @@
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM2.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
-                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                <td :rowspan="checklistSPM2.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top relative">
+                                    <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
+                                    <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
                                         <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
                                         <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
@@ -528,8 +530,9 @@
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM3.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
-                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                <td :rowspan="checklistSPM3.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top relative">
+                                    <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
+                                    <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
                                         <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
                                         <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
@@ -578,8 +581,9 @@
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM4.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
-                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                <td :rowspan="checklistSPM4.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top relative">
+                                    <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
+                                    <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
                                         <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
                                         <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
