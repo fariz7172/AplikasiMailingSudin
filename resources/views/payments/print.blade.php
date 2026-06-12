@@ -39,6 +39,16 @@
         [contenteditable="true" data-eid="1"]:focus { outline: 2px solid #3b82f6; background: #eff6ff; border-radius: 4px; }
         .grid-compact span { padding: 1px 0; }
     </style>
+    @php
+        $type = request('type', 'all');
+    @endphp
+    @if($type !== 'all')
+    <style>
+        .print-area:not(.type-{{ $type }}) {
+            display: none !important;
+        }
+    </style>
+    @endif
 </head>
 <body class="antialiased text-slate-800" x-data="printComponent()">
     <script>
@@ -235,7 +245,7 @@
     <div class="print-container flex flex-col items-center">
         
         <!-- PAGE 1: CHECKLIST SPP -->
-        <div class="print-area font-serif">
+        <div class="print-area type-spp font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -280,8 +290,8 @@
             </div>
         </div>
 
-        <!-- PAGE 1a: CHECKLIST SPP -->
-          <div class="print-area font-serif">
+        <!-- PAGE 2: CHECKLIST SPP -->
+          <div class="print-area type-spp font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -323,8 +333,8 @@
             </div>
         </div>
 
-        <!-- PAGE 1b: CHECKLIST SPP UP -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 3: CHECKLIST SPP UP -->
+        <div class="print-area type-spp page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -364,8 +374,8 @@
             </div>
         </div>
 
-        <!-- PAGE 1c: CHECKLIST SPP GU -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 4: CHECKLIST SPP GU -->
+        <div class="print-area type-spp page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -404,8 +414,8 @@
             </div>
         </div>
 
-        <!-- PAGE 2: CHECKLIST SPM -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 5: CHECKLIST SPM -->
+        <div class="print-area type-spm page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -455,8 +465,8 @@
             </div>
         </div>
 
-        <!-- PAGE 3: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 6: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
+        <div class="print-area type-spm page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -506,8 +516,8 @@
             </div>
         </div>
 
-        <!-- PAGE 4: CHECKLIST SPM - LS JASA KONSULTAN -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 7: CHECKLIST SPM - LS JASA KONSULTAN -->
+        <div class="print-area type-spm page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -557,8 +567,8 @@
             </div>
         </div>
 
-        <!-- PAGE 5: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 8: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
+        <div class="print-area type-spm page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -608,8 +618,8 @@
             </div>
         </div>
 
-        <!-- PAGE 6: RINGKASAN KONTRAK -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 9: RINGKASAN KONTRAK -->
+        <div class="print-area type-kontrak page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -659,8 +669,8 @@
             </div>
         </div>
 
-        <!-- PAGE 7: KWITANSI -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 10: KWITANSI -->
+        <div class="print-area type-kontrak page-break font-serif">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -684,8 +694,8 @@
             </div>
         </div>
 
-        <!-- PAGE 8: KWITANSI (TANPA PPTK) -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
+        <div class="print-area type-kontrak page-break font-serif">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -710,8 +720,8 @@
         </div>
 
       
-        <!-- PAGE 9: SPTJM -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 12: SPTJM -->
+        <div class="print-area type-sptjm_gu page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -729,8 +739,8 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="93">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="94">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="95">197101272006041009</span></p></div></div></div>
         </div>
 
-        <!-- PAGE 10: SPTJM GANTI UANG (DUPLIKAT) -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
+        <div class="print-area type-sptjm_gu page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -748,8 +758,8 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="98">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="99">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="100">197101272006041009</span></p></div></div></div>
         </div>
 
-          <!-- PAGE 11: VERIFIKASI PPTK -->
-        <div class="print-area page-break font-serif">
+          <!-- PAGE 14: VERIFIKASI PPTK -->
+        <div class="print-area type-sptjm_gu page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -771,8 +781,8 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">Yudo Widiatmoko</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">198608302010011010</span></p></div></div></div>
         </div>
 
-        <!-- PAGE 12: SPTJM UP/LS -->
-           <div class="print-area page-break font-serif">
+        <!-- PAGE 15: SPTJM UP/LS -->
+           <div class="print-area type-sptjm_ls page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -796,8 +806,8 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
         </div>
 
-           <!-- PAGE 13: SPTJM UP/LS -->
-        <div class="print-area page-break font-serif">
+           <!-- PAGE 16: SPTJM UP/LS -->
+        <div class="print-area type-sptjm_ls page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -821,9 +831,9 @@
             </div>
         </div>
 
-           <!-- PAGE 14: VERIFIKASI PPK (SPP GU) -->
+           <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
 
-        <div class="print-area page-break font-serif">
+        <div class="print-area type-sptjm_ls page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -847,10 +857,8 @@
             </div>
         </div>
 
-        
-    
-        <!-- PAGE 15: VERIFIKASI PPK (SPP LS) -->
-        <div class="print-area page-break font-serif">
+        <!-- PAGE 18: VERIFIKASI PPK (SPP LS) -->
+        <div class="print-area type-sptjm_gu page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">

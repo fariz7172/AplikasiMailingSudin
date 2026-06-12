@@ -126,9 +126,18 @@
                                 <a href="{{ route('payments.edit', $payment->id) }}" class="p-2 hover:bg-blue-50 text-slate-400 hover:text-blue-600 rounded-xl transition-all" title="Edit Data">
                                     <i data-lucide="edit-3" class="w-4 h-4"></i>
                                 </a>
-                                <a href="{{ route('payments.print', $payment->id) }}" class="p-2 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-xl transition-all" title="Cetak Laporan" target="_blank">
-                                    <i data-lucide="printer" class="w-4 h-4"></i>
-                                </a>
+                                <div x-data="{ openPrint: false }" class="relative">
+                                    <button @click="openPrint = !openPrint" @click.away="openPrint = false" class="p-2 hover:bg-emerald-50 text-slate-400 hover:text-emerald-600 rounded-xl transition-all" title="Cetak Laporan">
+                                        <i data-lucide="printer" class="w-4 h-4"></i>
+                                    </button>
+                                    <div x-show="openPrint" x-transition class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-xl shadow-lg z-50 overflow-hidden text-left" style="display: none;">
+                                        <a href="{{ route('payments.print', $payment->id) }}" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">1) Full Cetak</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=spm" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">2) Print SPM</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=kontrak" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">3) Nilai Kontrak</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=sptjm_gu" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">4) STPJM GU</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=sptjm_ls" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold">5) STPJM LS</a>
+                                    </div>
+                                </div>
                                 <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
