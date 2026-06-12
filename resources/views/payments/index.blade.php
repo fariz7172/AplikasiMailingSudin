@@ -70,7 +70,7 @@
                 <thead class="bg-slate-50 border-b border-slate-100">
                     <tr>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Perusahaan & Kontrak</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Vendor & Kontrak</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detail Dokumen</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Program</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
@@ -83,7 +83,7 @@
                         <td class="px-6 py-4 text-slate-400 font-medium">{{ $loop->iteration + ($payments->firstItem() - 1) }}</td>
                         <td class="px-6 py-4">
                             <div class="flex flex-col">
-                                <span class="font-bold text-slate-800">{{ $payment->perusahaan->nama_perusahaan ?? '-' }}</span>
+                                <span class="font-bold text-slate-800">{{ $payment->vendor->nama_perusahaan ?? '-' }}</span>
                                 <span class="text-[10px] text-slate-400 uppercase mt-0.5 tracking-wider">KTR: {{ $payment->contract->nomor_kontrak ?? '-' }}</span>
                             </div>
                         </td>
@@ -273,15 +273,15 @@
                     <div class="space-y-4 md:col-span-2">
                         <div class="flex items-center gap-2 text-indigo-500">
                             <i data-lucide="briefcase" class="w-4 h-4"></i>
-                            <h4 class="font-black text-sm uppercase tracking-wider">IV. Informasi Perusahaan</h4>
+                            <h4 class="font-black text-sm uppercase tracking-wider">IV. Informasi Vendor</h4>
                         </div>
                         <div class="bg-indigo-50/30 rounded-2xl p-6 border border-indigo-100/50 flex flex-col md:flex-row gap-6">
                             <div class="flex-1 space-y-2">
                                 <p class="text-[10px] text-indigo-400 font-bold uppercase">Perusahaan / Vendor</p>
-                                <p class="text-lg font-black text-indigo-900" x-text="payment.perusahaan?.nama_perusahaan || '-'"></p>
+                                <p class="text-lg font-black text-indigo-900" x-text="payment.vendor?.nama_perusahaan || '-'"></p>
                                 <p class="text-xs text-slate-500 flex items-center gap-2">
                                     <i data-lucide="user" class="w-3 h-3"></i>
-                                    <span x-text="payment.perusahaan?.direktur || '-'"></span> (Direktur)
+                                    <span x-text="payment.vendor?.direktur || '-'"></span> (Direktur)
                                 </p>
                             </div>
                             <div class="md:w-px md:bg-indigo-200/50"></div>
@@ -292,8 +292,8 @@
                                     </div>
                                     <div>
                                         <p class="text-[9px] text-slate-400 font-bold uppercase leading-none mb-1">Bank & Rekening</p>
-                                        <p class="text-xs font-black text-slate-700" x-text="payment.perusahaan?.bank || '-'"></p>
-                                        <p class="text-[11px] text-slate-500 font-medium" x-text="payment.perusahaan?.no_rekening || '-'"></p>
+                                        <p class="text-xs font-black text-slate-700" x-text="payment.vendor?.bank || '-'"></p>
+                                        <p class="text-[11px] text-slate-500 font-medium" x-text="payment.vendor?.no_rekening || '-'"></p>
                                     </div>
                                 </div>
                             </div>

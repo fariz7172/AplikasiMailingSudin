@@ -51,7 +51,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('import/process', [ImportController::class, 'process'])->name('import.process');
         Route::get('import/template', [ImportController::class, 'downloadTemplate'])->name('import.template');
         Route::get('export', [ImportController::class, 'export'])->name('export.data');
-        Route::resource('perusahaans', App\Http\Controllers\PerusahaanController::class)->except(['show']);
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

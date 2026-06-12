@@ -593,21 +593,21 @@
                 <span></span><span>Nomor Addendum III</span><span>:</span><span contenteditable="true" data-eid="50">-</span>
                 <span>7.</span><span>Program</span><span>:</span><span contenteditable="true" data-eid="51" class="font-bold uppercase">{{ $payment->program }}</span>
                 <span>8.</span><span>Kegiatan</span><span>:</span><span contenteditable="true" data-eid="52" class="font-bold uppercase leading-none">{{ $payment->kegiatanRef ? $payment->kegiatanRef->kode . ' ' . $payment->kegiatanRef->nama : $payment->kegiatan }}</span>
-                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53" class="font-bold">{{ $payment->perusahaan?->no_rekening }}</span>
+                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53" class="font-bold">{{ $payment->vendor?->no_rekening }}</span>
                 <span>10.</span><span>Wilayah/Lokasi</span><span>:</span><span contenteditable="true" data-eid="54">Jakarta Utara</span>
-                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" data-eid="55" class="font-bold uppercase">{{ $payment->perusahaan?->nama_perusahaan }}</span>
-                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" data-eid="56" class="font-bold uppercase">{{ $payment->perusahaan?->direktur }}</span>
-                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" data-eid="57" class="font-bold">{{ $payment->perusahaan?->npwp }}</span>
-                <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true" data-eid="58">{{ $payment->perusahaan?->alamat }}</span>
-                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59" class="font-bold">{{ $payment->perusahaan?->akte }} Tgl. {{ $payment->perusahaan?->tgl_akte ? \Carbon\Carbon::parse($payment->perusahaan?->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
-                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60" class="font-bold">{{ $payment->perusahaan?->tdp }} Tgl. {{ $payment->perusahaan?->tgl_tdp ? \Carbon\Carbon::parse($payment->perusahaan?->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
+                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" data-eid="55" class="font-bold uppercase">{{ $payment->vendor?->nama_perusahaan }}</span>
+                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" data-eid="56" class="font-bold uppercase">{{ $payment->vendor?->direktur }}</span>
+                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" data-eid="57" class="font-bold">{{ $payment->vendor?->npwp }}</span>
+                <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true" data-eid="58">{{ $payment->vendor?->alamat }}</span>
+                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59" class="font-bold">{{ $payment->vendor?->akte }} Tgl. {{ $payment->vendor?->tgl_akte ? \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
+                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60" class="font-bold">{{ $payment->vendor?->tdp }} Tgl. {{ $payment->vendor?->tgl_tdp ? \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
                 <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" data-eid="61" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
                 <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62" class="font-bold">LS Barang / Jasa</span>
                 <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true" data-eid="63">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true" data-eid="64">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
                 <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
                 <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" data-eid="66" class="font-bold">100%</span>
-                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="font-bold uppercase">{{ $payment->perusahaan?->bank }} / {{ $payment->perusahaan?->no_rekening }}</span>
+                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="font-bold uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68" class="font-bold">{{ $payment->no_bast }}</span>
                 <span>25.</span><span>Tgl BAST</span><span>:</span><span contenteditable="true" data-eid="69">{{ $payment->tgl_bast ? $payment->tgl_bast->translatedFormat('d F Y') : '-' }}</span>
                 <span>26.</span><span>Kualifikasi Perusahaan</span><span>:</span><span contenteditable="true" data-eid="70"></span>

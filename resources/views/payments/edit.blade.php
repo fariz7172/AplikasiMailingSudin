@@ -23,7 +23,7 @@
         @method('PUT')
 
         <!-- Hidden IDs for updating -->
-        <input type="hidden" name="perusahaan_id" value="{{ $payment->perusahaan_id }}">
+        <input type="hidden" name="vendor_id" value="{{ $payment->vendor_id }}">
         <input type="hidden" name="contract_id" value="{{ $payment->contract_id }}">
 
         <div x-data="paymentForm()" class="space-y-6 pb-20">
@@ -237,7 +237,7 @@
                             <div class="md:col-span-4">
                                 <label class="form-label-premium">Nama Perusahaan / Vendor (Payer/Payee)</label>
                                 <input type="text" name="nama_perusahaan"
-                                    value="{{ old('nama_perusahaan', $payment->perusahaan->nama_perusahaan) }}"
+                                    value="{{ old('nama_perusahaan', $payment->vendor->nama_perusahaan) }}"
                                     class="form-input-premium font-bold">
                             </div>
                             <div class="md:col-span-2">
@@ -283,7 +283,7 @@
                         <div class="w-8 h-8 bg-indigo-500 text-white rounded-lg flex items-center justify-center">
                             <i data-lucide="briefcase" class="w-4 h-4"></i>
                         </div>
-                        <h3 class="font-bold text-slate-700">III. Data Perusahaan & Legalitas</h3>
+                        <h3 class="font-bold text-slate-700">III. Data Vendor & Legalitas</h3>
                     </div>
                     <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300"
                         :class="activeStep === 3 ? 'rotate-180' : ''"></i>
@@ -293,36 +293,36 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div>
                                 <label class="form-label-premium">Nama Direktur</label>
-                                <input type="text" name="direktur" x-model="perusahaanData.direktur" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="direktur" x-model="vendorData.direktur" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">NPWP</label>
-                                <input type="text" name="npwp" x-model="perusahaanData.npwp" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="npwp" x-model="vendorData.npwp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Akte</label>
-                                <input type="text" name="akte" x-model="perusahaanData.akte" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="akte" x-model="vendorData.akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. Akte</label>
-                                <input type="date" name="tgl_akte" x-model="perusahaanData.tgl_akte" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
 
                             <div>
                                 <label class="form-label-premium">No. TDP</label>
-                                <input type="text" name="tdp" x-model="perusahaanData.tdp" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="tdp" x-model="vendorData.tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. TDP</label>
-                                <input type="date" name="tgl_tdp" x-model="perusahaanData.tgl_tdp" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Nama Bank</label>
-                                <input type="text" name="bank" x-model="perusahaanData.bank" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="bank" x-model="vendorData.bank" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Rekening</label>
-                                <input type="text" name="no_rekening" x-model="perusahaanData.no_rekening" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="no_rekening" x-model="vendorData.no_rekening" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
 
                             <div>
@@ -331,7 +331,7 @@
                             </div>
                             <div class="md:col-span-3">
                                 <label class="form-label-premium">Alamat Perusahaan</label>
-                                <input type="text" name="alamat" x-model="perusahaanData.alamat" :readonly="!isNewPerusahaan" :class="!isNewPerusahaan ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="alamat" x-model="vendorData.alamat" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
                             </div>
                         </div>
                         <div class="flex justify-end pt-4">
@@ -535,7 +535,7 @@
 
                         <div>
                             <label class="form-label-premium">Alamat Update (Jika ada perubahan)</label>
-                            <textarea name="alamat_update" rows="2" class="form-input-premium">{{ old('alamat_update', $payment->perusahaan->alamat_update) }}</textarea>
+                            <textarea name="alamat_update" rows="2" class="form-input-premium">{{ old('alamat_update', $payment->vendor->alamat_update) }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -555,18 +555,18 @@
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.data('paymentForm', () => ({ 
-            isNewPerusahaan: false,
-            selectedPerusahaanId: '',
-            perusahaans: @json($perusahaans),
-            perusahaanData: {
+            isNewVendor: false,
+            selectedVendorId: '',
+            vendors: @json($vendors),
+            vendorData: {
                 nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
                 direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
             },
-            onPerusahaanSelect() {
-                if(this.selectedPerusahaanId) {
-                    let v = this.perusahaans.find(x => x.id == this.selectedPerusahaanId);
+            onVendorSelect() {
+                if(this.selectedVendorId) {
+                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
                     if(v) {
-                        this.perusahaanData = {
+                        this.vendorData = {
                             nama_perusahaan: v.nama_perusahaan || '',
                             direktur: v.direktur || '',
                             npwp: v.npwp || '',
@@ -580,16 +580,16 @@ document.addEventListener('alpine:init', () => {
                         };
                     }
                 } else {
-                    this.perusahaanData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
+                    this.vendorData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
                 }
             },
             activeStep: 1,
             init() {
                 // Initialize edit mode vendor data
-                let currentPerusahaanId = '{{ $payment->perusahaan_id }}';
-                if(currentPerusahaanId) {
-                    this.selectedPerusahaanId = currentPerusahaanId;
-                    this.onPerusahaanSelect();
+                let currentVendorId = '{{ $payment->vendor_id }}';
+                if(currentVendorId) {
+                    this.selectedVendorId = currentVendorId;
+                    this.onVendorSelect();
                 }
                 // Jika ada error dari server, buka step yang memiliki error tersebut
                 @if($errors->any())
