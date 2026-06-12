@@ -25,6 +25,10 @@
                 width: 210mm !important;
                 height: 297mm !important;
                 overflow: hidden;
+                page-break-before: always;
+            }
+            .print-container > .print-area:first-of-type {
+                page-break-before: auto !important;
             }
         }
         .print-area {
@@ -255,9 +259,9 @@
 
     <div class="print-container flex flex-col items-center">
         
-        @if($type === 'all' || $type === 'spp')
+                        @if($type === 'all' || $type === 'spp' || $type === 'sptjm_ls')
         <!-- PAGE 1: CHECKLIST SPP -->
-        <div class="print-area type-spp font-serif {{ $type === 'all' ? '' : '' }}">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -302,8 +306,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spp')
+        @endif
+
         <!-- PAGE 2: CHECKLIST SPP -->
-          <div class="print-area type-spp font-serif {{ $type === 'all' ? '' : '' }}">
+          <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -345,8 +352,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spp')
+        @endif
+
         <!-- PAGE 3: CHECKLIST SPP UP -->
-        <div class="print-area type-spp page-break font-serif">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -386,8 +396,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spp')
+        @endif
+
         <!-- PAGE 4: CHECKLIST SPP GU -->
-        <div class="print-area type-spp page-break font-serif">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -428,9 +441,10 @@
 
         </div>
 
+        
+                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
         @endif
 
-        @if($type === 'all' || $type === 'spm')
         <!-- PAGE 5: CHECKLIST SPM -->
         <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
@@ -482,8 +496,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spm')
+        @endif
+
         <!-- PAGE 6: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
-        <div class="print-area type-spm font-serif {{ $type === 'spm' ? '' : 'page-break' }}">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -533,8 +550,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spm')
+        @endif
+
         <!-- PAGE 7: CHECKLIST SPM - LS JASA KONSULTAN -->
-        <div class="print-area type-spm page-break font-serif">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -584,8 +604,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'spm')
+        @endif
+
         <!-- PAGE 8: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
-        <div class="print-area type-spm page-break font-serif">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -637,9 +660,10 @@
 
         </div>
 
+        
+                        @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
         @endif
 
-        @if($type === 'all' || $type === 'kontrak')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
         <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
@@ -691,8 +715,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'kontrak')
+        @endif
+
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area type-kontrak font-serif {{ $type === 'kontrak' ? '' : 'page-break' }}">
+        <div class="print-area font-serif">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -716,8 +743,11 @@
             </div>
         </div>
 
+                @if($type === 'all' || $type === 'kontrak')
+        @endif
+
         <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
-        <div class="print-area type-kontrak page-break font-serif">
+        <div class="print-area font-serif">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -743,9 +773,10 @@
 
         </div>
 
+        
+                        @if($type === 'all' || $type === 'sptjm_gu')
         @endif
 
-        @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
         <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -765,8 +796,11 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="93">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="94">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="95">197101272006041009</span></p></div></div></div>
         </div>
 
+                @if($type === 'all' || $type === 'sptjm_gu')
+        @endif
+
         <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
-        <div class="print-area type-sptjm_gu font-serif {{ $type === 'sptjm_gu' ? '' : 'page-break' }}">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -784,8 +818,11 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="98">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="99">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="100">197101272006041009</span></p></div></div></div>
         </div>
 
-          <!-- PAGE 14: VERIFIKASI PPTK -->
-        <div class="print-area type-sptjm_gu page-break font-serif">
+                  @if($type === 'all' || $type === 'sptjm_gu')
+        @endif
+
+        <!-- PAGE 14: VERIFIKASI PPTK -->
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -807,9 +844,10 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">Yudo Widiatmoko</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">198608302010011010</span></p></div></div></div>
         </div>
 
+        
+                        @if($type === 'all' || $type === 'sptjm_ls')
         @endif
 
-        @if($type === 'all' || $type === 'sptjm_ls')
         <!-- PAGE 15: SPTJM UP/LS -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -835,8 +873,11 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
         </div>
 
-           <!-- PAGE 16: SPTJM UP/LS -->
-        <div class="print-area type-sptjm_ls font-serif {{ $type === 'sptjm_ls' ? '' : 'page-break' }}">
+                   @if($type === 'all')
+        @endif
+
+        <!-- PAGE 16: SPTJM UP/LS -->
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -860,9 +901,12 @@
             </div>
         </div>
 
-           <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
+                   @if($type === 'all' || $type === 'sptjm_ls')
+        @endif
 
-        <div class="print-area type-sptjm_ls page-break font-serif">
+        <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
+
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -887,11 +931,12 @@
         </div>
 
         </div>
+        
+                        @if($type === 'all' || $type === 'sptjm_gu')
         @endif
 
-        @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 18: VERIFIKASI PPK (SPP LS) -->
-        <div class="print-area type-sptjm_gu page-break font-serif">
+        <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -912,12 +957,13 @@
             <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran GU Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="131">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="132">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="133">198111092010011017</span></p></div></div></div>
+        @endif
+
         </div>
 
       
 
-    @endif
-    </div>
+        </div>
 
 <script>
     lucide.createIcons();
