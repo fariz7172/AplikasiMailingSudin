@@ -22,6 +22,7 @@ class PerusahaanController extends Controller
     {
         $request->validate([
             'nama_perusahaan' => 'required|string|max:255',
+            'nama_direktur' => 'nullable|string|max:255',
             'no_tlp' => 'nullable|string|max:50',
             'alamat' => 'nullable|string',
         ]);
@@ -38,6 +39,7 @@ class PerusahaanController extends Controller
     {
         $request->validate([
             'nama_perusahaan' => 'required|string|max:255',
+            'nama_direktur' => 'nullable|string|max:255',
             'no_tlp' => 'nullable|string|max:50',
             'alamat' => 'nullable|string',
         ]);

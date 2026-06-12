@@ -17,6 +17,7 @@
             <thead>
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nama Perusahaan</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nama Direktur</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No. Telepon</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Alamat</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
@@ -26,6 +27,7 @@
                 @forelse($perusahaans as $p)
                 <tr class="hover:bg-slate-50/50 transition-colors">
                     <td class="px-6 py-4 font-bold text-slate-800">{{ $p->nama_perusahaan }}</td>
+                    <td class="px-6 py-4 text-slate-600">{{ $p->nama_direktur }}</td>
                     <td class="px-6 py-4 text-slate-600">{{ $p->no_tlp }}</td>
                     <td class="px-6 py-4 text-slate-600">{{ $p->alamat }}</td>
                     <td class="px-6 py-4 text-right space-x-2">

@@ -14,6 +14,10 @@
         <input type="text" name="nama_perusahaan" value="{{ old('nama_perusahaan', $perusahaan->nama_perusahaan ?? '') }}" class="form-input-premium" required>
     </div>
     <div>
+        <label class="form-label-premium">Nama Direktur</label>
+        <input type="text" name="nama_direktur" value="{{ old('nama_direktur', $perusahaan->nama_direktur ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
         <label class="form-label-premium">No. Telepon</label>
         <input type="text" name="no_tlp" value="{{ old('no_tlp', $perusahaan->no_tlp ?? '') }}" class="form-input-premium">
     </div>
