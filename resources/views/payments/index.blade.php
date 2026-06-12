@@ -135,7 +135,8 @@
                                         <a href="{{ route('payments.print', $payment->id) }}?type=spm" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">2) Print SPM</a>
                                         <a href="{{ route('payments.print', $payment->id) }}?type=kontrak" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">3) Nilai Kontrak</a>
                                         <a href="{{ route('payments.print', $payment->id) }}?type=sptjm_gu" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">4) STPJM GU</a>
-                                        <a href="{{ route('payments.print', $payment->id) }}?type=sptjm_ls" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold">5) STPJM LS</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=sptjm_ls" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold border-b border-slate-50">5) STPJM LS</a>
+                                        <a href="{{ route('payments.print', $payment->id) }}?type=gaji" target="_blank" class="block px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 font-bold">6) Gaji</a>
                                     </div>
                                 </div>
                                 <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">

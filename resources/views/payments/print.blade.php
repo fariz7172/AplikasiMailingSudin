@@ -210,6 +210,7 @@
                         'kontrak' => 'Dokumen Kontrak',
                         'sptjm_gu' => 'Dokumen SPTJM GU',
                         'sptjm_ls' => 'Dokumen SPTJM LS',
+                        'gaji' => 'Dokumen Gaji',
                     ];
                     $title = $titles[$type] ?? 'Dokumen Cetak';
                 @endphp
@@ -308,9 +309,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp')
+                @if($type === 'all' || $type === 'spp' || $type === 'gaji')
         <!-- PAGE 2: CHECKLIST SPP -->
-          <div class="print-area font-serif">
+          <div class="print-area font-serif {{ $type === 'gaji' ? 'order-2' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -444,9 +445,9 @@
 
 
         
-                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
+                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 5: CHECKLIST SPM -->
-        <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
+        <div class="print-area type-spm {{ $type === 'spm' || $type === 'gaji' ? '' : 'page-break' }} font-serif {{ $type === 'gaji' ? 'order-1' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -663,7 +664,7 @@
 
 
         
-                        @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
+        @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
         <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
@@ -717,9 +718,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak')
+                @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -776,7 +777,7 @@
 
 
         
-                        @if($type === 'all' || $type === 'sptjm_gu')
+     @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
         <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? 'order-3' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -847,9 +848,9 @@
 
 
         
-                        @if($type === 'all' || $type === 'sptjm_ls')
+                        @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 15: SPTJM UP/LS -->
-           <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : 'page-break' }} font-serif">
+           <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-4' : 'page-break') }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -903,10 +904,10 @@
         @endif
 
 
-                   @if($type === 'all' || $type === 'sptjm_ls')
+                   @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
 
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-3' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
