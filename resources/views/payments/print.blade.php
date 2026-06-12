@@ -198,7 +198,7 @@
     removeLastRowSPM4() { if(this.checklistSPM4.length > 0) this.checklistSPM4.pop(); }
 }));
         });
-    </script>>
+    </script>
 
     <!-- UI Overlay (No Print) -->
     <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm">
