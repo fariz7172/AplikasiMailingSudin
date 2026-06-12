@@ -210,35 +210,53 @@
     <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm">
         <div class="flex gap-4 items-center">
             <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center"><i data-lucide="printer" class="w-6 h-6"></i></div>
-            <div><h1 class="text-lg font-black text-slate-800 tracking-tight">Dokumen SPP & SPM (9 Halaman)</h1><p class="text-xs text-slate-500 font-bold uppercase text-blue-600">Lengkap dengan Verifikasi PPK (GU & LS)</p></div>
+            <div>
+                @php
+                    $titles = [
+                        'all' => 'Dokumen Cetak (Lengkap)',
+                        'spm' => 'Dokumen SPM',
+                        'spp' => 'Dokumen SPP',
+                        'kontrak' => 'Dokumen Kontrak',
+                        'sptjm_gu' => 'Dokumen SPTJM GU',
+                        'sptjm_ls' => 'Dokumen SPTJM LS',
+                    ];
+                    $title = $titles[$type] ?? 'Dokumen Cetak';
+                @endphp
+                <h1 class="text-lg font-black text-slate-800 tracking-tight">{{ $title }}</h1>
+                <p class="text-xs text-slate-500 font-bold uppercase text-blue-600">Formulir Cetak</p>
+            </div>
         </div>
         <div class="flex items-center gap-3">
             <div class="flex flex-col gap-1 mr-4 border-r border-slate-200 pr-4">
+                @if($type === 'all' || $type === 'spp')
                 <div class="flex gap-2">
-                    <span class="text-[9px] font-black uppercase text-slate-400 w-12 pt-2">Hal 1:</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPP:</span>
                     <button @click="addRowSPP()" class="px-2 py-1 bg-blue-50 text-blue-600 font-bold rounded-md border border-blue-100 hover:bg-blue-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPP()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
+                @endif
+                @if($type === 'all' || $type === 'spm')
                 <div class="flex gap-2">
-                    <span class="text-[9px] font-black uppercase text-slate-400 w-12 pt-2">Hal 2:</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 1:</span>
                     <button @click="addRowSPM()" class="px-2 py-1 bg-emerald-50 text-emerald-600 font-bold rounded-md border border-emerald-100 hover:bg-emerald-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
                 <div class="flex gap-2">
-                    <span class="text-[9px] font-black uppercase text-slate-400 w-12 pt-2">Hal 3:</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 2:</span>
                     <button @click="addRowSPM2()" class="px-2 py-1 bg-orange-50 text-orange-600 font-bold rounded-md border border-orange-100 hover:bg-orange-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM2()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
                 <div class="flex gap-2">
-                    <span class="text-[9px] font-black uppercase text-slate-400 w-12 pt-2">Hal 4:</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 3:</span>
                     <button @click="addRowSPM3()" class="px-2 py-1 bg-purple-50 text-purple-600 font-bold rounded-md border border-purple-100 hover:bg-purple-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM3()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
                 <div class="flex gap-2">
-                    <span class="text-[9px] font-black uppercase text-slate-400 w-12 pt-2">Hal 5:</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 4:</span>
                     <button @click="addRowSPM4()" class="px-2 py-1 bg-rose-50 text-rose-600 font-bold rounded-md border border-rose-100 hover:bg-rose-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM4()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
+                @endif
             </div>
             <button @click="saveData()" :disabled="isSaving" class="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all flex items-center gap-2 mr-2">
                 <i data-lucide="save" class="w-5 h-5"></i> <span x-text="isSaving ? 'Menyimpan...' : 'Simpan'"></span>
