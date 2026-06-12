@@ -163,7 +163,7 @@
         return temp;
     },
     checklistSPM: @json($payment->print_data['checklistSPM'] ?? null) || [
-        { no: 1, jenis: '{{ $payment->keperluan }}', syarat: 'Surat Permintaan Pembayaran LS', ada: true },
+        { no: 1, jenis: 'SPM – LS PENGADAAN BARANG DAN JASA', syarat: 'Surat Permintaan Pembayaran LS', ada: true },
         { no: 2, jenis: '', syarat: 'Checklist Persyaratan Penerbitan SPP-LS Pengadaan Barang dan Jasa yang ditandatangani oleh PPTK dan PPK', ada: true }
     ],
     addRowSPM() { this.checklistSPM.push({ no: this.checklistSPM.length + 1, jenis: '', syarat: '...', ada: true }); },
