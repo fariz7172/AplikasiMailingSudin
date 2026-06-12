@@ -47,6 +47,12 @@
         .print-area:not(.type-{{ $type }}) {
             display: none !important;
         }
+        .print-area.type-{{ $type }} {
+            page-break-before: auto !important;
+        }
+        .print-area.type-{{ $type }} ~ .print-area.type-{{ $type }} {
+            page-break-before: always !important;
+        }
     </style>
     @endif
 </head>
