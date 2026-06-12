@@ -26,7 +26,7 @@
         <input type="hidden" name="vendor_id" value="{{ $payment->vendor_id }}">
         <input type="hidden" name="contract_id" value="{{ $payment->contract_id }}">
 
-        <div x-data="paymentForm()" class="space-y-6 pb-20"> class="space-y-6 pb-20">
+        <div x-data="paymentForm()" class="space-y-6 pb-20">
             
             <!-- I. DATA ANGGARAN & PROGRAM -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden transition-all duration-300"
