@@ -20,54 +20,7 @@
     <form id="paymentForm" action="{{ route('payments.store') }}" method="POST" class="space-y-8 pb-20" novalidate>
         @csrf
 
-        <div x-data="{ 
-            isNewVendor: false,
-            selectedVendorId: '',
-            vendors: @json($vendors),
-            vendorData: {
-                nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
-                direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
-            },
-            onVendorSelect() {
-                if(this.selectedVendorId) {
-                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
-                    if(v) {
-                        this.vendorData = {
-                            nama_perusahaan: v.nama_perusahaan || '',
-                            direktur: v.direktur || '',
-                            npwp: v.npwp || '',
-                            akte: v.akte || '',
-                            tgl_akte: v.tgl_akte ? v.tgl_akte.substring(0,10) : '',
-                            tdp: v.tdp || '',
-                            tgl_tdp: v.tgl_tdp ? v.tgl_tdp.substring(0,10) : '',
-                            bank: v.bank || '',
-                            no_rekening: v.no_rekening || '',
-                            alamat: v.alamat || ''
-                        };
-                    }
-                } else {
-                    this.vendorData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
-                }
-            },
-            activeStep: parseInt(localStorage.getItem('activePaymentStep')) || 1,
-            init() {
-                this.$watch('activeStep', value => localStorage.setItem('activePaymentStep', value));
-                
-                // Otomatis buka step yang memiliki error validasi dari server
-                @if($errors->any())
-                    const firstError = document.querySelector('.border-rose-500');
-                    if (firstError) {
-                        const section = firstError.closest('[x-show*="activeStep"]');
-                        if (section) {
-                            const stepMatch = section.getAttribute('x-show').match(/activeStep === (\d+)/);
-                            if (stepMatch) {
-                                this.activeStep = parseInt(stepMatch[1]);
-                            }
-                        }
-                    }
-                @endif
-            }
-        }" class="space-y-6 pb-20">
+        <div x-data="paymentForm()" class="space-y-6 pb-20"> class="space-y-6 pb-20">
             <!-- I. DATA ANGGARAN & PROGRAM -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden transition-all duration-300"
                 :class="activeStep === 1 ? 'ring-2 ring-primary/20 border-primary/20' : ''">
@@ -656,6 +609,62 @@
             </button>
         </div>
     </form>
+
+@push('scripts')
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('paymentForm', () => ({ 
+            isNewVendor: false,
+            selectedVendorId: '',
+            vendors: @json($vendors),
+            vendorData: {
+                nama_perusahaan: 'Sudin Sumber Daya Air Kota Administrasi Jakarta Utara',
+                direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: ''
+            },
+            onVendorSelect() {
+                if(this.selectedVendorId) {
+                    let v = this.vendors.find(x => x.id == this.selectedVendorId);
+                    if(v) {
+                        this.vendorData = {
+                            nama_perusahaan: v.nama_perusahaan || '',
+                            direktur: v.direktur || '',
+                            npwp: v.npwp || '',
+                            akte: v.akte || '',
+                            tgl_akte: v.tgl_akte ? v.tgl_akte.substring(0,10) : '',
+                            tdp: v.tdp || '',
+                            tgl_tdp: v.tgl_tdp ? v.tgl_tdp.substring(0,10) : '',
+                            bank: v.bank || '',
+                            no_rekening: v.no_rekening || '',
+                            alamat: v.alamat || ''
+                        };
+                    }
+                } else {
+                    this.vendorData = { nama_perusahaan: '', direktur: '', npwp: '', akte: '', tgl_akte: '', tdp: '', tgl_tdp: '', bank: '', no_rekening: '', alamat: '' };
+                }
+            },
+            activeStep: parseInt(localStorage.getItem('activePaymentStep')) || 1,
+            init() {
+                this.$watch('activeStep', value => localStorage.setItem('activePaymentStep', value));
+                
+                // Otomatis buka step yang memiliki error validasi dari server
+                @if($errors->any())
+                    const firstError = document.querySelector('.border-rose-500');
+                    if (firstError) {
+                        const section = firstError.closest('[x-show*="activeStep"]');
+                        if (section) {
+                            const stepMatch = section.getAttribute('x-show').match(/activeStep === (\d+)/);
+                            if (stepMatch) {
+                                this.activeStep = parseInt(stepMatch[1]);
+                            }
+                        }
+                    }
+                @endif
+            }
+        }));
+});
+</script>
+@endpush
+
 @endsection
 
 @push('scripts')
