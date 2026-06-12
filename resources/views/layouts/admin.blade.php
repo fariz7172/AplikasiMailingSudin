@@ -128,10 +128,10 @@
                 active="{{ request()->routeIs('slip-gaji.*') }}">Cetak Slip Gaji</x-nav-link>
 
             {{-- Master Data (collapsible) --}}
-            <div x-data="{ open: {{ request()->routeIs('programs.*') || request()->routeIs('kegiatans.*') || request()->routeIs('sub-kegiatans.*') ? 'true' : 'false' }} }">
+            <div x-data="{ open: {{ request()->routeIs('perusahaans.*') || request()->routeIs('programs.*') || request()->routeIs('kegiatans.*') || request()->routeIs('sub-kegiatans.*') ? 'true' : 'false' }} }">
                 <button @click="open = !open"
                     class="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-semibold transition-all
-                    {{ request()->routeIs('programs.*') || request()->routeIs('kegiatans.*') || request()->routeIs('sub-kegiatans.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    {{ request()->routeIs('perusahaans.*') || request()->routeIs('programs.*') || request()->routeIs('kegiatans.*') || request()->routeIs('sub-kegiatans.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                     <span class="flex items-center gap-3">
                         <i data-lucide="database" class="w-5 h-5 shrink-0"></i>
                         Master Data
@@ -139,6 +139,12 @@
                     <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="open ? 'rotate-180' : ''"></i>
                 </button>
                 <div x-show="open" x-collapse class="mt-1 ml-4 space-y-1 border-l border-white/10 pl-3">
+                    <a href="{{ route('perusahaans.index') }}"
+                        class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all
+                        {{ request()->routeIs('perusahaans.*') ? 'bg-white/20 text-white' : 'text-white/60 hover:bg-white/10 hover:text-white' }}">
+                        <i data-lucide="building" class="w-4 h-4 shrink-0"></i>
+                        Data Perusahaan
+                    </a>
                     <a href="{{ route('programs.index') }}"
                         class="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all
                         {{ request()->routeIs('programs.*') ? 'bg-white/20 text-white' : 'text-white/60 hover:bg-white/10 hover:text-white' }}">
