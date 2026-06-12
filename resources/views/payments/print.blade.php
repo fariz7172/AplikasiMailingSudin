@@ -934,7 +934,7 @@
         @endif
 
         
-                        @if($type === 'all' || $type === 'sptjm_gu' || $type === 'sptjm_ls')
+    @if($type === 'all' || $type === 'sptjm_gu' || $type === 'sptjm_ls')
         <!-- PAGE 18: VERIFIKASI PPK (SPP LS) -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -946,21 +946,19 @@
                     <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
                 </div>
             </div>
-            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP GU</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="127">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="127">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="128">Deny Tri Hendarto</span>
-                <span>NIP</span><span>:</span><span contenteditable="true" data-eid="129">198111092010011017</span>
+                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="128">Yudo Widiatmoko</span>
+                <span>NIP</span><span>:</span><span contenteditable="true" data-eid="129">198608302010011010</span>
                 <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="130" class="font-bold">Kepala Sub Bagian Tata Usaha</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Unit Kerja</span><span>:</span><span class="font-bold">Kepala Seksi Pengolahan Sarana  Pengendali Banjir, Air Bersih, dan Air Limbah Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran GU Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="131">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="132">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="133">198111092010011017</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="131">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Pembuat Komitmen</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="132">Yudo Widiatmoko</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="133">198608302010011010</span></p></div></div></div>
         </div>
-
-      
-
+        
         </div>
 
 <script>
