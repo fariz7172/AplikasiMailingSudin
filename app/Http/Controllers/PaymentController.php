@@ -134,4 +134,17 @@ class PaymentController extends Controller
         $payment->load(['vendor', 'contract', 'pptk']);
         return view('payments.print', compact('payment'));
     }
+
+    public function savePrintData(Request $request, Payment $payment)
+    {
+        $request->validate([
+            'print_data' => 'required|array'
+        ]);
+
+        $payment->update([
+            'print_data' => $request->print_data
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data format cetak berhasil disimpan.']);
+    }
 }

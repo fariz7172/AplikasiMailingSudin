@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:superadmin,admin')->group(function () {
         Route::resource('payments', PaymentController::class);
         Route::get('payments/{payment}/print', [PaymentController::class, 'print'])->name('payments.print');
+        Route::post('payments/{payment}/save-print', [PaymentController::class, 'savePrintData'])->name('payments.save-print');
         Route::resource('pptk', PptkController::class);
         Route::resource('programs', ProgramController::class);
         Route::resource('kegiatans', KegiatanController::class);

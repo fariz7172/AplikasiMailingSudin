@@ -45,6 +45,7 @@ class Payment extends Model
         'progres',
         'nik',
         'jabatan',
+        'print_data',
     ];
 
     protected $casts = [
@@ -54,6 +55,7 @@ class Payment extends Model
         'tgl_spd' => 'date',
         'tgl_spp' => 'date',
         'tgl_kwi' => 'date',
+        'print_data' => 'array',
     ];
 
     public function pptk()
