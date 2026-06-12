@@ -221,6 +221,7 @@
                     <button @click="addRowSPP()" class="px-2 py-1 bg-blue-50 text-blue-600 font-bold rounded-md border border-blue-100 hover:bg-blue-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPP()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
+                @endif
                 @if($type === 'all' || $type === 'spm')
                 <div class="flex gap-2">
                     <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 1:</span>
@@ -242,6 +243,7 @@
                     <button @click="addRowSPM4()" class="px-2 py-1 bg-rose-50 text-rose-600 font-bold rounded-md border border-rose-100 hover:bg-rose-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM4()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
+                @endif
             </div>
             <button @click="saveData()" :disabled="isSaving" class="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all flex items-center gap-2 mr-2">
                 <i data-lucide="save" class="w-5 h-5"></i> <span x-text="isSaving ? 'Menyimpan...' : 'Simpan'"></span>
@@ -885,10 +887,6 @@
         </div>
 
         </div>
-
-        @if($type === 'all' || $type === 'sptjm_gu')
-        </div>
-
         @endif
 
         @if($type === 'all' || $type === 'sptjm_gu')
