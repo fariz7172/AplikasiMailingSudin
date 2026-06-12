@@ -12,6 +12,7 @@ class Payment extends Model
     protected $fillable = [
         'pptk_id',
         'vendor_id',
+        'perusahaan_id',
         'contract_id',
         'program_id',
         'kegiatan_id',
@@ -66,6 +67,11 @@ class Payment extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
     }
 
     public function contract()

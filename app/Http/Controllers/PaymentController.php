@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use App\Models\Pptk;
-use App\Models\Vendor;
+use App\Models\Perusahaan;
 use App\Models\Contract;
 use App\Models\Program;
 use App\Models\Kegiatan;
@@ -16,11 +16,11 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Payment::with(['pptk', 'vendor', 'contract']);
+        $query = Payment::with(['pptk', 'perusahaan', 'contract']);
 
         if ($request->has('search')) {
             $search = $request->search;
-            $query->whereHas('vendor', function($q) use ($search) {
+            $query->whereHas('perusahaan', function($q) use ($search) {
                 $q->where('nama_perusahaan', 'like', "%$search%");
             })->orWhere('no_spm', 'like', "%$search%")
               ->orWhere('no_sp2d', 'like', "%$search%")
@@ -34,12 +34,12 @@ class PaymentController extends Controller
     public function create()
     {
         $pptk = Pptk::all();
-        $vendors = Vendor::all();
+        $perusahaans = Perusahaan::all();
         $contracts = Contract::all();
         $programs = Program::orderBy('nama')->get();
         $kegiatans = collect(); // Kosong, akan di-load via API saat program dipilih
         $subKegiatans = collect();
-        return view('payments.create', compact('pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
+        return view('payments.create', compact('pptk', 'perusahaans', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function store(Request $request)
@@ -54,8 +54,8 @@ class PaymentController extends Controller
         ]);
 
         DB::transaction(function() use ($request) {
-            // Update/Create Vendor
-            $vendor = Vendor::updateOrCreate(
+            // Update/Create Perusahaan
+            $perusahaan = Perusahaan::updateOrCreate(
                 ['nama_perusahaan' => $request->nama_perusahaan],
                 $request->only(['direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'])
             );
@@ -68,7 +68,7 @@ class PaymentController extends Controller
 
             // Create Payment
             Payment::create(array_merge($request->all(), [
-                'vendor_id' => $vendor->id,
+                'perusahaan_id' => $perusahaan->id,
                 'contract_id' => $contract->id
             ]));
         });
@@ -84,7 +84,7 @@ class PaymentController extends Controller
     public function edit(Payment $payment)
     {
         $pptk = Pptk::all();
-        $vendors = Vendor::all();
+        $perusahaans = Perusahaan::all();
         $contracts = Contract::all();
         $programs = Program::orderBy('nama')->get();
         // Load kegiatan sesuai program yang sudah dipilih
@@ -97,17 +97,25 @@ class PaymentController extends Controller
             ? SubKegiatan::where('kegiatan_id', $payment->kegiatan_id)->orderBy('nama')->get()
             : collect();
             
-        return view('payments.edit', compact('payment', 'pptk', 'vendors', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
+        return view('payments.edit', compact('payment', 'pptk', 'perusahaans', 'contracts', 'programs', 'kegiatans', 'subKegiatans'));
     }
 
     public function update(Request $request, Payment $payment)
     {
         DB::transaction(function() use ($request, $payment) {
-            // Update Vendor terkait
-            $payment->vendor->update($request->only([
-                'nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 
-                'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'
-            ]));
+            // Update Perusahaan terkait
+            if ($payment->perusahaan) {
+                $payment->perusahaan->update($request->only([
+                    'nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 
+                    'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'
+                ]));
+            } else {
+                $perusahaan = Perusahaan::updateOrCreate(
+                    ['nama_perusahaan' => $request->nama_perusahaan],
+                    $request->only(['direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'])
+                );
+                $payment->perusahaan_id = $perusahaan->id;
+            }
             
             // Update Contract terkait
             $payment->contract->update($request->only([
@@ -131,7 +139,7 @@ class PaymentController extends Controller
 
     public function print(Payment $payment)
     {
-        $payment->load(['vendor', 'contract', 'pptk']);
+        $payment->load(['perusahaan', 'contract', 'pptk']);
         return view('payments.print', compact('payment'));
     }
 
