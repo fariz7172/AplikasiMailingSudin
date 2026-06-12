@@ -42,19 +42,6 @@
     @php
         $type = request('type', 'all');
     @endphp
-    @if($type !== 'all')
-    <style>
-        .print-area:not(.type-{{ $type }}) {
-            display: none !important;
-        }
-        .print-area.type-{{ $type }} {
-            page-break-before: auto !important;
-        }
-        .print-area.type-{{ $type }} ~ .print-area.type-{{ $type }} {
-            page-break-before: always !important;
-        }
-    </style>
-    @endif
 </head>
 <body class="antialiased text-slate-800" x-data="printComponent()">
     <script>
@@ -234,7 +221,6 @@
                     <button @click="addRowSPP()" class="px-2 py-1 bg-blue-50 text-blue-600 font-bold rounded-md border border-blue-100 hover:bg-blue-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPP()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
-                @endif
                 @if($type === 'all' || $type === 'spm')
                 <div class="flex gap-2">
                     <span class="text-[9px] font-black uppercase text-slate-400 w-16 pt-2">Cek SPM 1:</span>
@@ -256,7 +242,6 @@
                     <button @click="addRowSPM4()" class="px-2 py-1 bg-rose-50 text-rose-600 font-bold rounded-md border border-rose-100 hover:bg-rose-100 transition-all text-[10px] flex items-center gap-1">Tambah</button>
                     <button @click="removeLastRowSPM4()" class="px-2 py-1 bg-slate-50 text-slate-500 font-bold rounded-md border border-slate-100 hover:bg-slate-100 transition-all text-[10px] flex items-center gap-1">Hapus</button>
                 </div>
-                @endif
             </div>
             <button @click="saveData()" :disabled="isSaving" class="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all flex items-center gap-2 mr-2">
                 <i data-lucide="save" class="w-5 h-5"></i> <span x-text="isSaving ? 'Menyimpan...' : 'Simpan'"></span>
@@ -268,8 +253,9 @@
 
     <div class="print-container flex flex-col items-center">
         
+        @if($type === 'all' || $type === 'spp')
         <!-- PAGE 1: CHECKLIST SPP -->
-        <div class="print-area type-spp font-serif">
+        <div class="print-area type-spp font-serif {{ $type === 'all' ? '' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -315,7 +301,7 @@
         </div>
 
         <!-- PAGE 2: CHECKLIST SPP -->
-          <div class="print-area type-spp font-serif">
+          <div class="print-area type-spp font-serif {{ $type === 'all' ? '' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -438,8 +424,13 @@
             </div>
         </div>
 
+        </div>
+
+        @endif
+
+        @if($type === 'all' || $type === 'spm')
         <!-- PAGE 5: CHECKLIST SPM -->
-        <div class="print-area type-spm page-break font-serif">
+        <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -490,7 +481,7 @@
         </div>
 
         <!-- PAGE 6: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
-        <div class="print-area type-spm page-break font-serif">
+        <div class="print-area type-spm font-serif {{ $type === 'spm' ? '' : 'page-break' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -642,8 +633,13 @@
             </div>
         </div>
 
+        </div>
+
+        @endif
+
+        @if($type === 'all' || $type === 'kontrak')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
-        <div class="print-area type-kontrak page-break font-serif">
+        <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -694,7 +690,7 @@
         </div>
 
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area type-kontrak page-break font-serif">
+        <div class="print-area type-kontrak font-serif {{ $type === 'kontrak' ? '' : 'page-break' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -743,9 +739,13 @@
             </div>
         </div>
 
-      
+        </div>
+
+        @endif
+
+        @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
-        <div class="print-area type-sptjm_gu page-break font-serif">
+        <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -764,7 +764,7 @@
         </div>
 
         <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
-        <div class="print-area type-sptjm_gu page-break font-serif">
+        <div class="print-area type-sptjm_gu font-serif {{ $type === 'sptjm_gu' ? '' : 'page-break' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -805,8 +805,11 @@
             <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Kepala Seksi Pemeliharaan Drainase<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">Yudo Widiatmoko</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">198608302010011010</span></p></div></div></div>
         </div>
 
+        @endif
+
+        @if($type === 'all' || $type === 'sptjm_ls')
         <!-- PAGE 15: SPTJM UP/LS -->
-           <div class="print-area type-sptjm_ls page-break font-serif">
+           <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -831,7 +834,7 @@
         </div>
 
            <!-- PAGE 16: SPTJM UP/LS -->
-        <div class="print-area type-sptjm_ls page-break font-serif">
+        <div class="print-area type-sptjm_ls font-serif {{ $type === 'sptjm_ls' ? '' : 'page-break' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -881,6 +884,14 @@
             </div>
         </div>
 
+        </div>
+
+        @if($type === 'all' || $type === 'sptjm_gu')
+        </div>
+
+        @endif
+
+        @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 18: VERIFIKASI PPK (SPP LS) -->
         <div class="print-area type-sptjm_gu page-break font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -907,20 +918,25 @@
 
       
 
+    @endif
     </div>
 
 <script>
     lucide.createIcons();
     window.addEventListener('click', () => setTimeout(() => lucide.createIcons(), 50));
 
-    // Tambahkan penomoran halaman secara otomatis di setiap halaman cetak
+    // Tambahkan penomoran halaman secara otomatis di setiap halaman cetak yang tidak disembunyikan
     document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.print-area').forEach((page, index) => {
-            const pageNum = document.createElement('div');
-            // Posisi absolut di tengah bawah kertas
-            pageNum.className = 'absolute bottom-[10mm] left-0 right-0 text-center text-[10pt] font-sans font-bold text-slate-800';
-            pageNum.innerHTML = `- ${index + 1} -`;
-            page.appendChild(pageNum);
+        let visibleIndex = 1;
+        document.querySelectorAll('.print-area').forEach((page) => {
+            if (window.getComputedStyle(page).display !== 'none') {
+                const pageNum = document.createElement('div');
+                // Posisi absolut di tengah bawah kertas
+                pageNum.className = 'absolute bottom-[10mm] left-0 right-0 text-center text-[10pt] font-sans font-bold text-slate-800';
+                pageNum.innerHTML = `- ${visibleIndex} -`;
+                page.appendChild(pageNum);
+                visibleIndex++;
+            }
         });
     });
 </script>
