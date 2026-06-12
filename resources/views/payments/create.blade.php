@@ -289,24 +289,24 @@
                             </div>
                             <div>
                                 <label class="form-label-premium">NPWP</label>
-                                <input type="text" name="npwp" x-model="vendorData.npwp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="npwp" x-model="vendorData.npwp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Akte</label>
-                                <input type="text" name="akte" x-model="vendorData.akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="akte" x-model="vendorData.akte" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. Akte</label>
-                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" class="form-input-premium">
                             </div>
 
                             <div>
                                 <label class="form-label-premium">No. TDP</label>
-                                <input type="text" name="tdp" x-model="vendorData.tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="tdp" x-model="vendorData.tdp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. TDP</label>
-                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Nama Bank</label>
