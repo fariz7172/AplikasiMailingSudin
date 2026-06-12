@@ -875,7 +875,7 @@
         @endif
 
 
-                   @if($type === 'all')
+                   @if($type === 'all' || $type === 'sptjm_ls')
         <!-- PAGE 16: SPTJM UP/LS -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -934,7 +934,7 @@
         @endif
 
         
-                        @if($type === 'all' || $type === 'sptjm_gu')
+                        @if($type === 'all' || $type === 'sptjm_gu' || $type === 'sptjm_ls')
         <!-- PAGE 18: VERIFIKASI PPK (SPP LS) -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
