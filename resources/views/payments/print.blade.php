@@ -427,14 +427,16 @@
                     <template x-for="(item, index) in checklistSPM" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
-                            <td class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt]">
-                                <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
-                                    <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
-                                    <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
-                                    <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
-                                    <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
-                                </select>
-                            </td>
+                            <template x-if="index === 0">
+                                <td :rowspan="checklistSPM.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
+                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                        <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
+                                        <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
+                                        <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
+                                        <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
+                                    </select>
+                                </td>
+                            </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
@@ -475,14 +477,16 @@
                     <template x-for="(item, index) in checklistSPM2" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
-                            <td class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt]">
-                                <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
-                                    <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
-                                    <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
-                                    <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
-                                    <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
-                                </select>
-                            </td>
+                            <template x-if="index === 0">
+                                <td :rowspan="checklistSPM2.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
+                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                        <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
+                                        <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
+                                        <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
+                                        <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
+                                    </select>
+                                </td>
+                            </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
@@ -523,14 +527,16 @@
                     <template x-for="(item, index) in checklistSPM3" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
-                            <td class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt]">
-                                <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
-                                    <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
-                                    <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
-                                    <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
-                                    <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
-                                </select>
-                            </td>
+                            <template x-if="index === 0">
+                                <td :rowspan="checklistSPM3.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
+                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                        <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
+                                        <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
+                                        <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
+                                        <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
+                                    </select>
+                                </td>
+                            </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
@@ -571,14 +577,16 @@
                     <template x-for="(item, index) in checklistSPM4" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
-                            <td class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt]">
-                                <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
-                                    <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
-                                    <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
-                                    <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
-                                    <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
-                                </select>
-                            </td>
+                            <template x-if="index === 0">
+                                <td :rowspan="checklistSPM4.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-top">
+                                    <select x-model="item.jenis" class="w-full bg-transparent outline-none print:appearance-none font-bold uppercase text-[9pt] cursor-pointer" style="text-indent: 0; padding: 0; border: none;">
+                                        <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
+                                        <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
+                                        <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
+                                        <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
+                                    </select>
+                                </td>
+                            </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
