@@ -354,9 +354,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp')
+                @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 3: CHECKLIST SPP UP -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-2' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -398,9 +398,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp')
+                @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 4: CHECKLIST SPP GU -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-1' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1">
@@ -745,9 +745,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak')
+                @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_gu')
         <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -778,7 +778,7 @@
         
                         @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
-        <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? '' : 'page-break' }} font-serif">
+        <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? 'order-3' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
@@ -798,7 +798,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'sptjm_gu')
+                @if($type === 'all')
         <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -820,7 +820,7 @@
         @endif
 
 
-                  @if($type === 'all' || $type === 'sptjm_gu')
+                  @if($type === 'all')
         <!-- PAGE 14: VERIFIKASI PPTK -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
@@ -936,7 +936,7 @@
         
                         @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 18: VERIFIKASI PPK (SPP GU) -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-4' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -982,7 +982,7 @@
             </div>
             <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center leading-tight">Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="139">Yudo Widiatmoko</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">198608302010011010</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ $payment->tgl_spp ? $payment->tgl_spp->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center leading-tight">Kepala Seksi Pengolahan Pengendali Banjir, <br>Air Bersih dan Air Limbah<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="139">Yudo Widiatmoko</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">198608302010011010</span></p></div></div></div>
         </div>
         @endif
         </div>
