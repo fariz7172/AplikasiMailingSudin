@@ -346,7 +346,7 @@
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
                     <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">APRIYANI TALAOHU</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">197604052008042001</span></p></div>
+                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">BORIS KARLOP LUMBANGAOL</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">197811062010011020</span></p></div>
                 </div>
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
@@ -416,7 +416,7 @@
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
-                CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
+                CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPM)<br>
                 GANTI UANG PERSEDIAAN (GU)
             </div>
               <table class="w-full border-collapse border-[1.5px] border-black text-[8.5pt]">
@@ -752,7 +752,7 @@
                 </div>
                 <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
-                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">{{ $payment->pptk?->nama }}</p><p>NIP. <span contenteditable="true" data-eid="78">{{ $payment->pptk?->nip }}</span></p></div></div>
+                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">Boris Karlop Lumbangaol </p><p>NIP. <span contenteditable="true" data-eid="78">197811062010011020</span></p></div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
                 </div>
                 <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="81">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="82">197101272006041009</span></p></div></div>
@@ -883,7 +883,7 @@
 
 
         
-                        @if($type === 'all' || $type === 'gaji')
+                        @if($type === 'all'|| $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 15: SPTJM UP/LS -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-4' : 'page-break') }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -970,7 +970,10 @@
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
-                <div></div> <!-- Kolom kosong di kiri -->
+                <div class="flex flex-col items-center pt-[22px]">
+                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
+                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">Boris Karlop Lumbangaol</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">197811062010011020</span></p></div>
+                </div>
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
                     <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
@@ -983,7 +986,7 @@
         @endif
 
         
-                        @if($type === 'all'|| $type === 'sptjm_ls' || $type === 'sptjm_gu')
+        @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 18: VERIFIKASI PPK (SPP GU) -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-4' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -1086,14 +1089,13 @@
                 <li>Jumlah (LS) tersebut diatas tidak akan saya gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran lainnya.</li>
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
-            <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
+            <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="152">YUDO WIDHIATMOKO</p><p class="text-center">NIP. <span contenteditable="true" data-eid="153">198608302010011010</span></p></div>
                 </div>
                 <div class="flex flex-col items-center">
-                    <p>Jakarta, <span contenteditable="true" data-eid="119">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
                     <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
                 </div>
