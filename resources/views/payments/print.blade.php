@@ -197,8 +197,20 @@
         });
     </script>
 
+    <!-- Trigger Area to show header on hover -->
+    <div class="fixed top-0 left-0 w-full h-8 z-[60] no-print" @mouseenter="window.dispatchEvent(new CustomEvent('show-header'))"></div>
+
     <!-- UI Overlay (No Print) -->
-    <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm">
+    <div x-data="{ showHeader: true, lastScrollY: 0 }" 
+         @scroll.window="
+            let current = window.scrollY;
+            if (current > lastScrollY && current > 50) { showHeader = false; }
+            else if (current < lastScrollY) { showHeader = true; }
+            lastScrollY = current;
+         "
+         @show-header.window="showHeader = true"
+         class="no-print fixed w-full top-0 z-50 bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm transition-transform duration-300"
+         :class="showHeader ? 'translate-y-0' : '-translate-y-full'">
         <div class="flex gap-4 items-center">
             <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center"><i data-lucide="printer" class="w-6 h-6"></i></div>
             <div>
@@ -258,9 +270,11 @@
         </div>
     </div>
 
+    <div class="h-[104px] no-print"></div>
+
     <div class="print-container flex flex-col items-center">
         
-                        @if($type === 'all' || $type === 'spp' || $type === 'sptjm_ls')
+     @if($type === 'all' || $type === 'spp' || $type === 'sptjm_ls')
         <!-- PAGE 1: CHECKLIST SPP -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -310,7 +324,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp' || $type === 'gaji')
+        @if($type === 'all' || $type === 'spp' || $type === 'gaji')
         <!-- PAGE 2: CHECKLIST SPP -->
           <div class="print-area font-serif {{ $type === 'gaji' ? 'order-2' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -346,7 +360,7 @@
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
                     <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">BORIS KARLOP LUMBANGAOL</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">197811062010011020</span></p></div>
+                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">YUDO WIDHIATMOKO</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">198608302010011010</span></p></div>
                 </div>
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
@@ -357,7 +371,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
+        @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 3: CHECKLIST SPP UP -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-2' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -402,7 +416,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
+        @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 4: CHECKLIST SPP GU -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-1' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -447,9 +461,7 @@
         </div>
         @endif
 
-
-        
-                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
+         @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
         <!-- PAGE 5: CHECKLIST SPM -->
         <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -504,7 +516,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spm')
+         @if($type === 'all' || $type === 'spm')
         <!-- PAGE 6: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -559,7 +571,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spm')
+        @if($type === 'all' || $type === 'spm')
         <!-- PAGE 7: CHECKLIST SPM - LS JASA KONSULTAN -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -614,7 +626,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spm' || $type === 'gaji')
+         @if($type === 'all' || $type === 'spm' || $type === 'gaji')
         <!-- PAGE 8: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-1' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -670,8 +682,7 @@
         </div>
         @endif
 
-
-        
+ 
         @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
         <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
@@ -727,7 +738,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
+         @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
         <!-- PAGE 10: KWITANSI -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
@@ -752,7 +763,7 @@
                 </div>
                 <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
-                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">Boris Karlop Lumbangaol </p><p>NIP. <span contenteditable="true" data-eid="78">197811062010011020</span></p></div></div>
+                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">YUDO WIDHIATMOKO</p><p>NIP. <span contenteditable="true" data-eid="78">198608302010011010</span></p></div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
                 </div>
                 <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="81">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="82">197101272006041009</span></p></div></div>
@@ -761,7 +772,7 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_gu')
+         @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_gu')
         <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
@@ -796,8 +807,7 @@
         </div>
         @endif
 
-
-        
+  
      @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
         <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? 'order-3' : 'page-break' }} font-serif">
@@ -826,7 +836,7 @@
         @endif
 
 
-                @if($type === 'all')
+      @if($type === 'all')
         <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -854,7 +864,7 @@
         @endif
 
 
-                  @if($type === 'all')
+        @if($type === 'all')
         <!-- PAGE 14: VERIFIKASI PPTK -->
         <div class="print-area font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -883,7 +893,7 @@
 
 
         
-                        @if($type === 'all'|| $type === 'sptjm_ls' || $type === 'gaji')
+      @if($type === 'all'|| $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 15: SPTJM UP/LS -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-4' : 'page-break') }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -912,7 +922,7 @@
         @endif
 
 
-                   @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
+         @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 16: SPTJM UP/LS -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-6' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
@@ -946,7 +956,7 @@
         @endif
 
 
-                   @if($type === 'all' || $type === 'gaji')
+         @if($type === 'all' || $type === 'gaji')
         <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
 
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-3' : '' }}">
@@ -972,7 +982,7 @@
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">Boris Karlop Lumbangaol</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">197811062010011020</span></p></div>
+                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">YUDO WIDHIATMOKO</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">198608302010011010</span></p></div>
                 </div>
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
