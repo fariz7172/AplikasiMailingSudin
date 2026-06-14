@@ -445,9 +445,9 @@
 
 
         
-                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls' || $type === 'gaji')
+                        @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
         <!-- PAGE 5: CHECKLIST SPM -->
-        <div class="print-area type-spm {{ $type === 'spm' || $type === 'gaji' ? '' : 'page-break' }} font-serif {{ $type === 'gaji' ? 'order-1' : '' }}">
+        <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -607,9 +607,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'spm')
+                @if($type === 'all' || $type === 'spm' || $type === 'gaji')
         <!-- PAGE 8: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-1' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -718,9 +718,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
+                @if($type === 'all' || $type === 'kontrak')
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
+        <div class="print-area font-serif">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
