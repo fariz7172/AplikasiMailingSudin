@@ -131,10 +131,12 @@ class PaymentController extends Controller
         return redirect()->route('payments.index')->with('success', 'Data berhasil dihapus.');
     }
 
-    public function print(Payment $payment)
+    public function print(Request $request, Payment $payment)
     {
+        $type = $request->query('type', 'all');
         $payment->load(['vendor', 'contract', 'pptk']);
-        return view('payments.print', compact('payment'));
+        $pptks = \App\Models\Pptk::all();
+        return view('payments.print', compact('payment', 'type', 'pptks'));
     }
 
     public function savePrintData(Request $request, Payment $payment)
