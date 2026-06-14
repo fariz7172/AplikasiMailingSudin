@@ -718,9 +718,9 @@
         @endif
 
 
-                @if($type === 'all' || $type === 'kontrak')
+                @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
                     <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -876,9 +876,9 @@
         @endif
 
 
-                   @if($type === 'all' || $type === 'sptjm_ls')
+                   @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 16: SPTJM UP/LS -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-6' : '' }}">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
