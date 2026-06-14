@@ -53,13 +53,6 @@
             Alpine.data('printComponent', () => ({
     savedContentData: @json($payment->print_data['savedContentData'] ?? new stdClass()),
     isSaving: false,
-      pptks: @json($pptks),
-      selectedPptkId: '{{ $payment->pptk_id ?? "" }}',
-      get selectedPptk() {
-          let found = this.pptks.find(p => p.id == this.selectedPptkId);
-          if (!found && this.pptks.length > 0) found = this.pptks[0];
-          return found || { nama: 'NAMA PPTK', nip: 'NIP PPTK', jabatan: 'JABATAN PPTK' };
-      },
     async saveData() {
         this.isSaving = true;
         try {
@@ -305,8 +298,8 @@
             <div class="mt-8 grid grid-cols-2 text-center gap-10">
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="6">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight" x-text="selectedPptk.jabatan"></p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="7" x-text="selectedPptk.nama"></p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="8" x-text="selectedPptk.nip"></span></p></div>
+                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="7">YUDO WIDHIATMOKO</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="8">198608302010011010</span></p></div>
                 </div>
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
@@ -352,8 +345,8 @@
             <div class="mt-8 grid grid-cols-2 text-center gap-10">
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight" x-text="selectedPptk.jabatan"></p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12" x-text="selectedPptk.nama"></p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13" x-text="selectedPptk.nip"></span></p></div>
+                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">BORIS KARLOP LUMBANGAOL</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">197811062010011020</span></p></div>
                 </div>
                 <div class="flex flex-col items-center pt-[22px]">
                     <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
@@ -759,7 +752,7 @@
                 </div>
                 <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
-                    <div><p class="font-bold uppercase" x-text="selectedPptk.jabatan"></p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77" x-text="selectedPptk.nama"></p><p>NIP. <span contenteditable="true" data-eid="78" x-text="selectedPptk.nip"></span></p></div></div>
+                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">Boris Karlop Lumbangaol </p><p>NIP. <span contenteditable="true" data-eid="78">197811062010011020</span></p></div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
                 </div>
                 <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="81">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="82">197101272006041009</span></p></div></div>
@@ -978,8 +971,8 @@
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
                 <div class="flex flex-col items-center pt-[22px]">
-                    <p class="font-bold uppercase mt-2 text-center" x-text="selectedPptk.jabatan"></p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154" x-text="selectedPptk.nama"></p><p class="text-center">NIP. <span contenteditable="true" data-eid="155" x-text="selectedPptk.nip"></span></p></div>
+                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
+                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">Boris Karlop Lumbangaol</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">197811062010011020</span></p></div>
                 </div>
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
@@ -1099,8 +1092,8 @@
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
                 <div class="flex flex-col items-center pt-[22px]">
-                    <p class="font-bold uppercase mt-2 text-center" x-text="selectedPptk.jabatan"></p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="152" x-text="selectedPptk.nama"></p><p class="text-center">NIP. <span contenteditable="true" data-eid="153" x-text="selectedPptk.nip"></span></p></div>
+                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
+                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="152">YUDO WIDHIATMOKO</p><p class="text-center">NIP. <span contenteditable="true" data-eid="153">198608302010011010</span></p></div>
                 </div>
                 <div class="flex flex-col items-center">
                     <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
