@@ -263,14 +263,15 @@
                         @if($type === 'all' || $type === 'spp' || $type === 'sptjm_ls')
         <!-- PAGE 1: CHECKLIST SPP -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1">
+                <div class="flex-1 text-center">
                     <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 uppercase underline font-black text-[12pt]">CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)</div>
             <div class="grid grid-cols-[160px_10px_1fr] gap-y-1 mb-4 text-[10pt] leading-tight">
@@ -312,14 +313,15 @@
                 @if($type === 'all' || $type === 'spp' || $type === 'gaji')
         <!-- PAGE 2: CHECKLIST SPP -->
           <div class="print-area font-serif {{ $type === 'gaji' ? 'order-2' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1">
+                <div class="flex-1 text-center">
                     <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
@@ -358,14 +360,15 @@
                 @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 3: CHECKLIST SPP UP -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-2' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1">
+                <div class="flex-1 text-center">
                     <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
@@ -402,14 +405,15 @@
                 @if($type === 'all' || $type === 'spp' || $type === 'sptjm_gu')
         <!-- PAGE 4: CHECKLIST SPP GU -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-1' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1">
+                <div class="flex-1 text-center">
                     <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
@@ -448,14 +452,15 @@
                         @if($type === 'all' || $type === 'spm' || $type === 'sptjm_ls')
         <!-- PAGE 5: CHECKLIST SPM -->
         <div class="print-area type-spm {{ $type === 'spm' ? '' : 'page-break' }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[11pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[13pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[11pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[8pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
@@ -502,14 +507,15 @@
                 @if($type === 'all' || $type === 'spm')
         <!-- PAGE 6: CHECKLIST SPM - LS PENGADAAN JASA KONSTRUKSI -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[11pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[13pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[11pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[8pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
@@ -556,14 +562,15 @@
                 @if($type === 'all' || $type === 'spm')
         <!-- PAGE 7: CHECKLIST SPM - LS JASA KONSULTAN -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[11pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[13pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[11pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[8pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
@@ -610,14 +617,15 @@
                 @if($type === 'all' || $type === 'spm' || $type === 'gaji')
         <!-- PAGE 8: CHECKLIST SPM - LS GAJI / TUNJANGAN -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-1' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[11pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[13pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[11pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[8pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
@@ -667,14 +675,15 @@
         @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
         <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-4 uppercase underline font-black text-[13pt]">RINGKASAN KONTRAK</div>
             <p class="mb-4 text-[10.5pt]">Kegiatan yang dananya dari DPA Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara :</p>
@@ -722,10 +731,16 @@
         <!-- PAGE 10: KWITANSI -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
-                <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
-                    <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                    <div class="flex-1"><h1 class="text-[10pt] font-bold uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[12pt] font-bold uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[10pt] font-bold uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
+                <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
+            </div>
                 <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
                 <div class="space-y-4 px-4 text-[11pt]">
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="73" class="font-bold">{{ $payment->no_kwi }}</span></div>
@@ -750,10 +765,16 @@
         <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
-                <div class="flex items-center border-b-[2px] border-black pb-2 mb-6 text-center">
-                    <div class="w-[80px] pr-3"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                    <div class="flex-1"><h1 class="text-[10pt] font-bold uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[12pt] font-bold uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[10pt] font-bold uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
+                <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
+            </div>
                 <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
                 <div class="space-y-4 px-4 text-[11pt]">
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="83" class="font-bold">{{ $payment->no_kwi }}</span></div>
@@ -780,9 +801,15 @@
      @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 12: SPTJM -->
         <div class="print-area type-sptjm_gu {{ $type === 'sptjm_gu' ? 'order-3' : 'page-break' }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
+                </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK GANTI UANG</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="91">{{ $payment->no_spm }}</span></p></div>
             <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-GU) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="92" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
@@ -802,9 +829,15 @@
                 @if($type === 'all')
         <!-- PAGE 13: SPTJM GANTI UANG (DUPLIKAT) -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
+                </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UANG PERSEDIAAN</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="96">{{ $payment->no_spm }}</span></p></div>
             <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-UP) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="97" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
@@ -824,13 +857,15 @@
                   @if($type === 'all')
         <!-- PAGE 14: VERIFIKASI PPTK -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
                     <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPTK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP-LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="101">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
@@ -851,14 +886,15 @@
                         @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 15: SPTJM UP/LS -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-4' : 'page-break') }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             
             <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="108">{{ $payment->no_spp }}</span></p></div>
@@ -879,9 +915,15 @@
                    @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 16: SPTJM UP/LS -->
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-6' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
+                </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
             <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
@@ -908,9 +950,15 @@
         <!-- PAGE 17: VERIFIKASI PPK (SPP GU) -->
 
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-3' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
+                </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UP/LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="122">{{ $payment->no_spm }}</span></p></div>
             <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
@@ -938,14 +986,15 @@
                         @if($type === 'all' || $type === 'sptjm_gu')
         <!-- PAGE 18: VERIFIKASI PPK (SPP GU) -->
         <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-4' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP GU</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="127">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
@@ -964,14 +1013,15 @@
         @if($type === 'all' || $type === 'sptjm_ls')
         <!-- PAGE 19: VERIFIKASI PPK (SPP LS) -->
         <div class="print-area font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="134">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
@@ -990,14 +1040,15 @@
                          @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 20: SPTJM gaji -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-7' : 'page-break') }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             
             <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="108">{{ $payment->no_spp }}</span></p></div>
@@ -1018,14 +1069,15 @@
                          @if($type === 'all' || $type === 'sptjm_ls' || $type === 'gaji')
         <!-- PAGE 20: SPTJM gaji -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-7' : 'page-break') }} font-serif">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
-                    <h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
-                    <h2 class="text-[14pt] font-bold leading-tight uppercase text-center text-center">DINAS SUMBER DAYA AIR</h2>
-                    <h3 class="text-[12pt] font-bold leading-tight uppercase text-center text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
-                    <p class="text-[9pt] leading-tight mt-1 font-sans text-center">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Jakarta 14320</p>
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             
             <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="108">{{ $payment->no_spp }}</span></p></div>
@@ -1046,9 +1098,15 @@
         <!-- PAGE 21: VERIFIKASI PPK (SPP GU) -->
 
         <div class="print-area font-serif {{ $type === 'gaji' ? 'order-8' : '' }}">
-            <div class="flex items-center border-b-[3px] border-black pb-2 mb-8 text-center">
+            <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
-                <div class="flex-1 text-center"><h1 class="text-[12pt] font-bold leading-tight uppercase text-center">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1><h2 class="text-[14pt] font-bold leading-tight uppercase text-center">DINAS SUMBER DAYA AIR</h2><h3 class="text-[12pt] font-bold leading-tight uppercase text-center">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3></div>
+                <div class="flex-1 text-center">
+                    <h1 class="text-[12pt] font-bold leading-tight uppercase">PEMERINTAH PROVINSI DAERAH KHUSUS IBUKOTA JAKARTA</h1>
+                    <h2 class="text-[14pt] font-bold leading-tight uppercase">DINAS SUMBER DAYA AIR</h2>
+                    <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
+                    <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
+                </div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UP/LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="122">{{ $payment->no_spm }}</span></p></div>
             <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
