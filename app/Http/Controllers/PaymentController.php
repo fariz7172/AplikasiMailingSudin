@@ -134,7 +134,8 @@ class PaymentController extends Controller
     public function print(Payment $payment)
     {
         $payment->load(['vendor', 'contract', 'pptk']);
-        return view('payments.print', compact('payment'));
+        $pptks = \App\Models\Pptk::all();
+        return view('payments.print', compact('payment', 'pptks'));
     }
 
     public function savePrintData(Request $request, Payment $payment)
