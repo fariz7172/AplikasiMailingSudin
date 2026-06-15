@@ -761,7 +761,7 @@
                 <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
                     <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="75" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
-                <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
+                <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
                     <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">YUDO WIDHIATMOKO</p><p>NIP. <span contenteditable="true" data-eid="78">198608302010011010</span></p></div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
@@ -795,7 +795,7 @@
                 <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
                     <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="85" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
-                <div class="mt-8 flex justify-between px-4 text-[9pt]"><div class="flex-1"></div><div class="text-left min-w-[250px]"><p>Jakarta, <span contenteditable="true" data-eid="86">{{ $payment->tgl_kwi ? $payment->tgl_kwi->translatedFormat('d F Y') : '-' }}</span></p></div></div>
+                <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="86">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
                     <div></div>
                     <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="87">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="88">197410252014121001</span></p></div></div>
