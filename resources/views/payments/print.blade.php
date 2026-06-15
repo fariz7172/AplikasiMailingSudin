@@ -983,14 +983,16 @@
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
-            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
-                <div class="flex flex-col items-center pt-[22px]">
+            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
+                <div class="flex flex-col items-center h-full justify-between pt-[22px]">
                     <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">YUDO WIDHIATMOKO</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">198608302010011010</span></p></div>
                 </div>
-                <div class="flex flex-col items-center">
-                    <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                <div class="flex flex-col items-center h-full justify-between">
+                    <div>
+                        <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
+                        <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                    </div>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="125">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="126">197101272006041009</span></p></div>
                 </div>
             </div>
@@ -1104,12 +1106,12 @@
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p><br><br><br>
-            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
-                <div class="flex flex-col items-center pt-[22px]">
+            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
+                <div class="flex flex-col items-center h-full justify-between">
                     <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="152">YUDO WIDHIATMOKO</p><p class="text-center">NIP. <span contenteditable="true" data-eid="153">198608302010011010</span></p></div>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center h-full justify-between">
                     <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
                     <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
                 </div>
