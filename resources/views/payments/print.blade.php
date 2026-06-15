@@ -309,14 +309,16 @@
                 </tbody>
             </table>
             <p class="mt-4 text-justify text-[9.5pt] leading-relaxed">Atas penatausahaan dan pengarsipan dokumen tersebut sepenuhnya menjadi tanggung-jawab kami dan dokumen sesuai sebagai persyaratan untuk pengajuan perintah membayar.</p>
-            <div class="mt-8 grid grid-cols-2 text-center gap-10">
-                <div class="flex flex-col items-center">
-                    <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="6">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+            <div class="mt-8 grid grid-cols-2 text-center gap-10 items-start">
+                <div class="flex flex-col items-center h-full justify-between pt-[22px]">
+                    <p class="font-bold uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
                     <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="7">YUDO WIDHIATMOKO</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="8">198608302010011010</span></p></div>
                 </div>
-                <div class="flex flex-col items-center pt-[22px]">
-                    <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                <div class="flex flex-col items-center h-full justify-between">
+                    <div>
+                      <p class="text-[9pt] mb-1">Jakarta, <span contenteditable="true" data-eid="6">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
+                      <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                    </div>
                     <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="9">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="10">198111092010011017</span></p></div>
                 </div>
             </div>
@@ -356,14 +358,16 @@
                 </tbody>
             </table>
             <p class="mt-4 text-justify text-[9.5pt] leading-relaxed">Atas penatausahaan dan pengarsipan dokumen tersebut sepenuhnya menjadi tanggung-jawab kami dan dokumen sesuai sebagai persyaratan untuk pengajuan perintah membayar.</p>
-            <div class="mt-8 grid grid-cols-2 text-center gap-10">
-                <div class="flex flex-col items-center">
-                    <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+            <div class="mt-8 grid grid-cols-2 text-center gap-10 items-start">
+                <div class="flex flex-col items-center h-full justify-between pt-[22px]">
+                    <p class="font-bold uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
                     <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">YUDO WIDHIATMOKO</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">198608302010011010</span></p></div>
                 </div>
-                <div class="flex flex-col items-center pt-[22px]">
-                    <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                <div class="flex flex-col items-center h-full justify-between">
+                    <div>
+                      <p class="text-[9pt] mb-1">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
+                      <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                    </div>
                     <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="14">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="15">198111092010011017</span></p></div>
                 </div>
             </div>
@@ -1050,7 +1054,7 @@
         </div>
         @endif
 
-                         @if($type === 'all'  || $type === 'gaji')
+         @if($type === 'all'  || $type === 'gaji')
         <!-- PAGE 20: SPTJM gaji -->
            <div class="print-area type-sptjm_ls {{ $type === 'sptjm_ls' ? '' : ($type === 'gaji' ? 'order-7' : 'page-break') }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
