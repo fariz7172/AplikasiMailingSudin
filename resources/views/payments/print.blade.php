@@ -833,6 +833,7 @@
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68" class="font-bold">{{ $payment->no_bast }}</span>
                 <span>25.</span><span>Tgl BAST</span><span>:</span><span contenteditable="true" data-eid="69">{{ $payment->tgl_bast ? $payment->tgl_bast->translatedFormat('d F Y') : '-' }}</span>
                 <span>26.</span><span>Kualifikasi Perusahaan</span><span>:</span><span contenteditable="true" data-eid="70"></span>
+                <span>27.</span><span>BAKP</span><span>:</span><span contenteditable="true" data-eid="156"></span>
             </div>
             <div class="mt-8 flex flex-col items-center ml-[50%] text-center">
                 <p class="font-bold uppercase text-[9pt]">Mengetahui</p>
