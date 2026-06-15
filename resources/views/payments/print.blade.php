@@ -51,32 +51,43 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('printComponent', () => ({
-    pptks: @json($pptks ?? []),
+        pptks: @json($pptks ?? []),
     selectedPptkId: '',
     selectedKpaId: '',
-    pptkNameEls: null,
-    pptkNipEls: null,
-    kpaNameEls: null,
-    kpaNipEls: null,
+    applyScope: 'current',
+    activePageIndex: 0,
+    allPptkNameEls: null,
+    allPptkNipEls: null,
+    allKpaNameEls: null,
+    allKpaNipEls: null,
     
     updateSignatures(type) {
         let id = type === 'pptk' ? this.selectedPptkId : this.selectedKpaId;
         let p = this.pptks.find(x => x.id == id);
         if (!p) return;
 
-        if (type === 'pptk') {
-            if(!this.pptkNameEls) this.pptkNameEls = Array.from(document.querySelectorAll('[contenteditable]')).filter(e => e.innerText.trim().toUpperCase().includes('YUDO'));
-            if(!this.pptkNipEls) this.pptkNipEls = Array.from(document.querySelectorAll('[contenteditable]')).filter(e => e.innerText.trim() === '198608302010011010');
-            
-            this.pptkNameEls.forEach(el => el.innerText = p.nama);
-            this.pptkNipEls.forEach(el => el.innerText = p.nip);
-        } else {
-            if(!this.kpaNameEls) this.kpaNameEls = Array.from(document.querySelectorAll('[contenteditable]')).filter(e => ['HERIA SUWANDI', 'DENY TRI HENDARTO'].includes(e.innerText.trim().toUpperCase()));
-            if(!this.kpaNipEls) this.kpaNipEls = Array.from(document.querySelectorAll('[contenteditable]')).filter(e => ['197101272006041009', '198111092010011017'].includes(e.innerText.trim()));
-            
-            this.kpaNameEls.forEach(el => el.innerText = p.nama);
-            this.kpaNipEls.forEach(el => el.innerText = p.nip);
-        }
+        let targetNameEls = type === 'pptk' ? this.allPptkNameEls : this.allKpaNameEls;
+        let targetNipEls = type === 'pptk' ? this.allPptkNipEls : this.allKpaNipEls;
+        
+        let areas = document.querySelectorAll('.print-area');
+        let activeArea = areas[this.activePageIndex];
+
+        targetNameEls.forEach(el => {
+            if (this.applyScope === 'all' || (activeArea && activeArea.contains(el))) {
+                el.innerText = p.nama;
+                el.dispatchEvent(new Event('input'));
+            }
+        });
+        targetNipEls.forEach(el => {
+            if (this.applyScope === 'all' || (activeArea && activeArea.contains(el))) {
+                el.innerText = p.nip;
+                el.dispatchEvent(new Event('input'));
+            }
+        });
+        
+        // Reset select so it can be re-triggered
+        if(type === 'pptk') this.selectedPptkId = '';
+        else this.selectedKpaId = '';
     },
     savedContentData: @json($payment->print_data['savedContentData'] ?? new stdClass()),
     isSaving: false,
@@ -163,8 +174,23 @@
         this.updateTerbilang();
         // Populate static editables
         setTimeout(() => {
-            document.querySelectorAll('[data-eid]').forEach(el => {
-                let eid = el.getAttribute('data-eid');
+                    setTimeout(() => {
+            this.allPptkNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim().toUpperCase().includes('YUDO'));
+            this.allPptkNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim() === '198608302010011010');
+            this.allKpaNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['HERIA SUWANDI', 'DENY TRI HENDARTO'].includes(e.innerText.trim().toUpperCase()));
+            this.allKpaNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['197101272006041009', '198111092010011017'].includes(e.innerText.trim()));
+
+            let observer = new IntersectionObserver((entries) => {
+                let visible = entries.filter(e => e.isIntersecting);
+                if(visible.length > 0) {
+                    visible.sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+                    let areas = Array.from(document.querySelectorAll('.print-area'));
+                    this.activePageIndex = areas.indexOf(visible[0].target);
+                }
+            }, { threshold: [0.1, 0.3, 0.5] });
+            document.querySelectorAll('.print-area').forEach(el => observer.observe(el));
+
+            document.querySelectorAll('[data-eid]').forEach(el => {              let eid = el.getAttribute('data-eid');
                 if (this.savedContentData[eid] !== undefined) {
                     el.innerText = this.savedContentData[eid];
                 }
@@ -300,15 +326,22 @@
     <div class="h-[104px] no-print"></div>
 
     <div class="print-container flex flex-col items-center">
-        <!-- Panel Edit Pejabat -->
+                <!-- Panel Edit Pejabat -->
         <div class="fixed top-[120px] right-8 w-64 bg-white border border-slate-200 shadow-xl rounded-xl p-4 z-40 no-print flex flex-col gap-3">
             <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-1">Edit Penandatangan</h3>
+            <div class="mb-1">
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Terapkan Ke:</label>
+                <div class="flex gap-3 text-xs">
+                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" x-model="applyScope" value="all" class="text-blue-600"> Semua Hal</label>
+                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" x-model="applyScope" value="current" class="text-blue-600"> Hal Ini Saja</label>
+                </div>
+            </div>
             <div>
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PPTK</label>
                 <select x-model="selectedPptkId" @change="updateSignatures('pptk')" class="w-full text-xs p-2 border rounded-lg bg-slate-50 focus:ring-blue-500 mt-1">
                     <option value="">-- Ubah PPTK --</option>
                     <template x-for="p in pptks" :key="p.id">
-                        <option :value="p.id" x-text="p.nama + ' (' + (p.jabatan || 'PPTK') + ')'"></option>
+                        <option :value="p.id" x-text="p.nama + ' (' + (p.jabatan ? p.jabatan : 'PPTK') + ')'"></option>
                     </template>
                 </select>
             </div>
@@ -317,7 +350,7 @@
                 <select x-model="selectedKpaId" @change="updateSignatures('kpa')" class="w-full text-xs p-2 border rounded-lg bg-slate-50 focus:ring-blue-500 mt-1">
                     <option value="">-- Ubah KPA / Kasubag --</option>
                     <template x-for="p in pptks" :key="p.id">
-                        <option :value="p.id" x-text="p.nama + ' (' + (p.jabatan || '') + ')'"></option>
+                        <option :value="p.id" x-text="p.nama + ' (' + (p.jabatan ? p.jabatan : '') + ')'"></option>
                     </template>
                 </select>
             </div>
