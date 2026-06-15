@@ -48,6 +48,13 @@
     @endphp
 </head>
 <body class="antialiased text-slate-800" x-data="printComponent()">
+    <template x-if="paperSize === 'F4'">
+        <style>
+            @page { size: 215.9mm 330.2mm !important; margin: 0; }
+            .print-area { width: 215.9mm !important; min-height: 330.2mm !important; }
+            @media print { .print-area { width: 215.9mm !important; height: 330.2mm !important; } }
+        </style>
+    </template>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('printComponent', () => ({
@@ -55,6 +62,7 @@
     selectedPptkId: '',
     selectedKpaId: '',
     applyScope: 'current',
+    paperSize: 'A4',
     activePageIndex: 0,
     allPptkNameEls: null,
     allPptkNipEls: null,
@@ -330,8 +338,17 @@
     <div class="print-container flex flex-col items-center">
                 <!-- Panel Edit Pejabat -->
         <div class="fixed top-[120px] right-8 w-64 bg-white border border-slate-200 shadow-xl rounded-xl p-4 z-40 no-print flex flex-col gap-3">
-            <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-1">Edit Penandatangan</h3>
+            <h3 class="font-bold text-sm text-slate-800 border-b pb-2 mb-1">Pengaturan Cetak</h3>
+            
             <div class="mb-1">
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Ukuran Kertas:</label>
+                <select x-model="paperSize" class="w-full text-xs p-2 border rounded-lg bg-slate-50 focus:ring-blue-500">
+                    <option value="A4">A4 (210 x 297 mm)</option>
+                    <option value="F4">F4 / Folio (215.9 x 330.2 mm)</option>
+                </select>
+            </div>
+            
+            <div class="mb-1 border-t pt-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 block">Terapkan Ke:</label>
                 <div class="flex gap-3 text-xs">
                     <label class="flex items-center gap-1 cursor-pointer"><input type="radio" x-model="applyScope" value="all" class="text-blue-600"> Semua Hal</label>
@@ -339,7 +356,7 @@
                 </div>
             </div>
             <div>
-                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">PPTK</label>
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sisi : Kiri</label>
                 <select x-model="selectedPptkId" @change="updateSignatures('pptk')" class="w-full text-xs p-2 border rounded-lg bg-slate-50 focus:ring-blue-500 mt-1">
                     <option value="">-- Ubah PPTK --</option>
                     <template x-for="p in pptks" :key="p.id">
@@ -348,7 +365,7 @@
                 </select>
             </div>
             <div>
-                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">KPA / Kasubbag TU</label>
+                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sisi : Kanan</label>
                 <select x-model="selectedKpaId" @change="updateSignatures('kpa')" class="w-full text-xs p-2 border rounded-lg bg-slate-50 focus:ring-blue-500 mt-1">
                     <option value="">-- Ubah KPA / Kasubag --</option>
                     <template x-for="p in pptks" :key="p.id">
