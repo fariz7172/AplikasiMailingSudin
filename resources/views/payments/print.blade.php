@@ -172,25 +172,27 @@
     terbilangTeks: '{{ $payment->contract?->terbilang_kontrak ?? '' }}',
     init() {
         this.updateTerbilang();
+        
+        // Cache DOM elements before savedContentData restores them
+        this.allPptkNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim().toUpperCase().includes('YUDO'));
+        this.allPptkNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim() === '198608302010011010');
+        this.allKpaNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['HERIA SUWANDI', 'DENY TRI HENDARTO'].includes(e.innerText.trim().toUpperCase()));
+        this.allKpaNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['197101272006041009', '198111092010011017'].includes(e.innerText.trim()));
+
+        let observer = new IntersectionObserver((entries) => {
+            let visible = entries.filter(e => e.isIntersecting);
+            if(visible.length > 0) {
+                visible.sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+                let areas = Array.from(document.querySelectorAll('.print-area'));
+                this.activePageIndex = areas.indexOf(visible[0].target);
+            }
+        }, { threshold: [0.1, 0.3, 0.5] });
+        document.querySelectorAll('.print-area').forEach(el => observer.observe(el));
+
         // Populate static editables
         setTimeout(() => {
-                    setTimeout(() => {
-            this.allPptkNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim().toUpperCase().includes('YUDO'));
-            this.allPptkNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => e.innerText.trim() === '198608302010011010');
-            this.allKpaNameEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['HERIA SUWANDI', 'DENY TRI HENDARTO'].includes(e.innerText.trim().toUpperCase()));
-            this.allKpaNipEls = Array.from(document.querySelectorAll('.print-area [contenteditable]')).filter(e => ['197101272006041009', '198111092010011017'].includes(e.innerText.trim()));
-
-            let observer = new IntersectionObserver((entries) => {
-                let visible = entries.filter(e => e.isIntersecting);
-                if(visible.length > 0) {
-                    visible.sort((a,b) => b.intersectionRatio - a.intersectionRatio);
-                    let areas = Array.from(document.querySelectorAll('.print-area'));
-                    this.activePageIndex = areas.indexOf(visible[0].target);
-                }
-            }, { threshold: [0.1, 0.3, 0.5] });
-            document.querySelectorAll('.print-area').forEach(el => observer.observe(el));
-
-            document.querySelectorAll('[data-eid]').forEach(el => {              let eid = el.getAttribute('data-eid');
+            document.querySelectorAll('[data-eid]').forEach(el => {
+                let eid = el.getAttribute('data-eid');
                 if (this.savedContentData[eid] !== undefined) {
                     el.innerText = this.savedContentData[eid];
                 }
