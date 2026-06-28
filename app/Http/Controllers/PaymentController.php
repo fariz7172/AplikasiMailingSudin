@@ -27,7 +27,7 @@ class PaymentController extends Controller
               ->orWhere('program', 'like', "%$search%");
         }
 
-        $payments = $query->latest()->paginate(10);
+        $payments = $query->orderBy('no_spm', 'desc')->latest()->paginate(10);
         return view('payments.index', compact('payments'));
     }
 
