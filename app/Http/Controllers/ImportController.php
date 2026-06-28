@@ -35,14 +35,14 @@ class ImportController extends Controller
 
     public function process(Request $request)
     {
-        try {
-            $filePath = public_path('assets/DATABASE SPP SPM 2026.xlsx');
-            
-            if (!File::exists($filePath)) {
-                return back()->with('error', 'File tidak ditemukan di folder assets.');
-            }
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
 
-            Excel::import(new DataKeuanganImport, $filePath);
+        try {
+            $file = $request->file('file');
+            
+            Excel::import(new DataKeuanganImport, $file);
 
             return redirect()->route('dashboard')->with('success', 'Data berhasil diimport ke dalam database.');
         } catch (\Exception $e) {

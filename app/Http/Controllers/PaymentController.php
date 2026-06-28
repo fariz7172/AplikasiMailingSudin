@@ -55,11 +55,9 @@ class PaymentController extends Controller
         ]);
 
         DB::transaction(function() use ($request) {
-            // Update/Create Vendor
-            $vendor = Vendor::updateOrCreate(
-                ['nama_perusahaan' => $request->nama_perusahaan],
-                $request->only(['direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'])
-            );
+            // Gunakan firstOrCreate agar tidak menimpa data vendor lama jika ada perbedaan detail (seperti akte, bank)
+            $vendorData = $request->only(['nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update']);
+            $vendor = Vendor::firstOrCreate($vendorData);
 
             // Update/Create Contract
             $contract = Contract::updateOrCreate(
@@ -105,21 +103,21 @@ class PaymentController extends Controller
     public function update(Request $request, Payment $payment)
     {
         DB::transaction(function() use ($request, $payment) {
-            // Update Vendor terkait
-            $payment->vendor->update($request->only([
-                'nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 
-                'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update'
-            ]));
+            // Gunakan firstOrCreate agar tidak menimpa data vendor lama jika ada perbedaan detail
+            $vendorData = $request->only(['nama_perusahaan', 'direktur', 'npwp', 'akte', 'tgl_akte', 'tdp', 'tgl_tdp', 'bank', 'no_rekening', 'alamat', 'alamat_update']);
+            $vendor = Vendor::firstOrCreate($vendorData);
             
-            // Update Contract terkait
-            $payment->contract->update($request->only([
-                'nomor_kontrak', 'tgl_kontrak', 'nilai_kontrak', 'addendum_kontrak', 
-                'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 
-                'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'
-            ]));
+            // Update/Create Contract
+            $contract = Contract::updateOrCreate(
+                ['nomor_kontrak' => $request->nomor_kontrak],
+                $request->only(['tgl_kontrak', 'nilai_kontrak', 'terbilang_kontrak', 'addendum_kontrak', 'tgl_addendum', 'nilai_addendum1', 'addendum_kontrak2', 'tgl_addendum2', 'nilai_addendum2', 'jangka_waktu', 'tahun_tdp'])
+            );
 
             // Update Payment
-            $payment->update($request->all());
+            $payment->update(array_merge($request->all(), [
+                'vendor_id' => $vendor->id,
+                'contract_id' => $contract->id
+            ]));
         });
 
         return redirect()->route('payments.index')->with('success', 'Data berhasil diperbarui.');

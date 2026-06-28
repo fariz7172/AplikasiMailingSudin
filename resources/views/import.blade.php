@@ -56,18 +56,19 @@
                 </div>
 
                 <!-- Option 2: Upload New -->
-                <div class="p-6 rounded-3xl border-2 border-dashed border-slate-200 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer flex flex-col items-center justify-center text-center">
+                <form action="{{ route('import.process') }}" method="POST" enctype="multipart/form-data" class="p-6 rounded-3xl border-2 border-dashed border-slate-200 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer flex flex-col items-center justify-center text-center" onclick="document.getElementById('file-upload').click()">
+                    @csrf
                     <div class="w-12 h-12 bg-slate-100 text-slate-400 group-hover:bg-primary group-hover:text-white rounded-2xl flex items-center justify-center mb-4 transition-all group-hover:scale-110">
                         <i data-lucide="upload-cloud" class="w-6 h-6"></i>
                     </div>
                     <h4 class="font-bold text-lg group-hover:text-primary transition-colors">Upload Manual</h4>
                     <p class="text-xs text-slate-500 mt-1">Seret file ke sini atau klik untuk memilih file baru.</p>
                     
-                    <input type="file" class="hidden" id="file-upload">
-                    <button onclick="document.getElementById('file-upload').click()" class="mt-6 px-6 py-2 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-500 group-hover:border-primary group-hover:text-primary transition-all">
+                    <input type="file" name="file" class="hidden" id="file-upload" onchange="this.form.submit()" accept=".xlsx, .xls">
+                    <button type="button" class="mt-6 px-6 py-2 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-500 group-hover:border-primary group-hover:text-primary transition-all pointer-events-none">
                         Pilih File
                     </button>
-                </div>
+                </form>
             </div>
         </div>
 

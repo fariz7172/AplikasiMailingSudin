@@ -252,15 +252,15 @@
                                 <input type="date" name="tgl_kontrak" value="{{ old('tgl_kontrak', $payment->contract->tgl_kontrak?->format('Y-m-d')) }}" class="form-input-premium">
                             </div>
                             <div>
-                                <label class="form-label-premium">Jumlah Kontrak</label>
-                                <input type="number" name="nilai_kontrak" id="nilai_kontrak"
-                                    value="{{ old('nilai_kontrak', $payment->contract->nilai_kontrak) }}"
+                                <label class="form-label-premium">Nilai Kontrak</label>
+                                <input type="number" name="jumlah" id="jumlah"
+                                    value="{{ old('jumlah', $payment->jumlah) }}"
                                     class="form-input-premium font-bold text-emerald-600">
                             </div>
-                            <div class="md:col-span-4">
-                                <label class="form-label-premium">Terbilang (Kontrak)</label>
-                                <input type="text" name="terbilang_kontrak" id="terbilang_kontrak"
-                                    value="{{ old('terbilang_kontrak', $payment->contract->terbilang_kontrak) }}"
+                            <div class="md:col-span-3">
+                                <label class="form-label-premium">Terbilang</label>
+                                <input type="text" name="terbilang" id="terbilang"
+                                    value="{{ old('terbilang', $payment->terbilang) }}"
                                     class="form-input-premium italic text-slate-500 bg-slate-50" readonly>
                             </div>
                         </div>
@@ -293,36 +293,36 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div>
                                 <label class="form-label-premium">Nama Direktur</label>
-                                <input type="text" name="direktur" x-model="vendorData.direktur" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="direktur" x-model="vendorData.direktur" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">NPWP</label>
-                                <input type="text" name="npwp" x-model="vendorData.npwp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="npwp" x-model="vendorData.npwp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Akte</label>
-                                <input type="text" name="akte" x-model="vendorData.akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="akte" x-model="vendorData.akte" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. Akte</label>
-                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_akte" x-model="vendorData.tgl_akte" class="form-input-premium">
                             </div>
 
                             <div>
                                 <label class="form-label-premium">No. TDP</label>
-                                <input type="text" name="tdp" x-model="vendorData.tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="tdp" x-model="vendorData.tdp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tgl. TDP</label>
-                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="date" name="tgl_tdp" x-model="vendorData.tgl_tdp" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Nama Bank</label>
-                                <input type="text" name="bank" x-model="vendorData.bank" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="bank" x-model="vendorData.bank" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">No. Rekening</label>
-                                <input type="text" name="no_rekening" x-model="vendorData.no_rekening" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="no_rekening" x-model="vendorData.no_rekening" class="form-input-premium">
                             </div>
 
                             <div>
@@ -331,7 +331,7 @@
                             </div>
                             <div class="md:col-span-3">
                                 <label class="form-label-premium">Alamat Perusahaan</label>
-                                <input type="text" name="alamat" x-model="vendorData.alamat" :readonly="!isNewVendor" :class="!isNewVendor ? 'bg-slate-100 cursor-not-allowed text-slate-500' : ''" class="form-input-premium">
+                                <input type="text" name="alamat" x-model="vendorData.alamat" class="form-input-premium">
                             </div>
                         </div>
                         <div class="flex justify-end pt-4">
@@ -422,10 +422,10 @@
                                 <label class="form-label-premium">No. SPP</label>
                                 <input type="text" name="no_spp" value="{{ old('no_spp', $payment->no_spp) }}" class="form-input-premium">
                             </div>
-                            <div>
+                            <!-- <div>
                                 <label class="form-label-premium">Tanggal SPP</label>
                                 <input type="date" name="tgl_spp" value="{{ old('tgl_spp', $payment->tgl_spp?->format('Y-m-d')) }}" class="form-input-premium">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -640,19 +640,19 @@ document.addEventListener('alpine:init', () => {
             return temp;
         }
 
-        document.getElementById('nilai_kontrak').addEventListener('input', function () {
+        document.getElementById('jumlah').addEventListener('input', function () {
             let val = this.value;
             if (val) {
                 let hasil = terbilang(val).trim() + " Rupiah";
-                document.getElementById('terbilang_kontrak').value = hasil;
+                document.getElementById('terbilang').value = hasil;
             } else {
-                document.getElementById('terbilang_kontrak').value = "";
+                document.getElementById('terbilang').value = "";
             }
         });
 
         // Trigger terbilang on load
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('nilai_kontrak').dispatchEvent(new Event('input'));
+            document.getElementById('jumlah').dispatchEvent(new Event('input'));
         });
 
         // --- Auto-fill PPTK Data ---

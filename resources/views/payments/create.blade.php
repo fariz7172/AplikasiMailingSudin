@@ -245,14 +245,24 @@
                                 <label class="form-label-premium">Tgl. Kontrak</label>
                                 <input type="date" name="tgl_kontrak" class="form-input-premium">
                             </div>
+                            <!-- <div>
+                                <label class="form-label-premium">Nilai Kontrak Total</label>
+                                <input type="number" name="nilai_kontrak" id="nilai_kontrak" value="{{ old('nilai_kontrak') }}"
+                                    class="form-input-premium font-bold text-slate-600">
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="form-label-premium">Terbilang (Kontrak)</label>
+                                <input type="text" name="terbilang_kontrak" id="terbilang_kontrak" value="{{ old('terbilang_kontrak') }}"
+                                    class="form-input-premium italic text-slate-500 bg-slate-50" readonly>
+                            </div> -->
                             <div>
-                                <label class="form-label-premium">Jumlah Kontrak</label>
-                                <input type="number" name="nilai_kontrak" id="nilai_kontrak"
+                                <label class="form-label-premium">Jumlah Tagihan (SPP/SPM)</label>
+                                <input type="number" name="jumlah" id="jumlah" value="{{ old('jumlah') }}"
                                     class="form-input-premium font-bold text-emerald-600">
                             </div>
-                            <div class="md:col-span-4">
-                                <label class="form-label-premium">Terbilang (Kontrak)</label>
-                                <input type="text" name="terbilang_kontrak" id="terbilang_kontrak"
+                            <div class="md:col-span-3">
+                                <label class="form-label-premium">Terbilang (Tagihan)</label>
+                                <input type="text" name="terbilang" id="terbilang" value="{{ old('terbilang') }}"
                                     class="form-input-premium italic text-slate-500 bg-slate-50" readonly>
                             </div>
                         </div>
@@ -464,10 +474,10 @@
                                 <label class="form-label-premium">No. SPP</label>
                                 <input type="text" name="no_spp" class="form-input-premium">
                             </div>
-                            <div>
+                            <!-- <div>
                                 <label class="form-label-premium">Tanggal SPP</label>
                                 <input type="date" name="tgl_spp" class="form-input-premium">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -925,16 +935,16 @@ document.addEventListener('alpine:init', () => {
             return temp;
         }
 
-        document.getElementById('nilai_kontrak').addEventListener('input', function () {
+        document.getElementById('jumlah').addEventListener('input', function () {
             let val = this.value;
             if (val) {
                 let hasil = terbilang(val).trim() + " Rupiah";
-                document.getElementById('terbilang_kontrak').value = hasil;
+                document.getElementById('terbilang').value = hasil;
                 // Sync ke input di Section VI
                 const inputAwal = document.getElementById('nilai_kontrak_awal');
                 if (inputAwal) inputAwal.value = val;
             } else {
-                document.getElementById('terbilang_kontrak').value = "";
+                document.getElementById('terbilang').value = "";
                 const inputAwal = document.getElementById('nilai_kontrak_awal');
                 if (inputAwal) inputAwal.value = "";
             }

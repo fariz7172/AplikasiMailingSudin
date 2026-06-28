@@ -15,21 +15,61 @@
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; }
-            .print-container { padding: 0 !important; margin: 0 !important; }
-            .page-break { page-break-before: always; }
+            /* Ubah flex container ke block agar page-break bekerja di Chrome/Edge */
+            .print-container { 
+                display: block !important;
+                padding: 0 !important; 
+                margin: 0 !important; 
+            }
+            .page-break { page-break-before: always; break-before: page; }
             .print-area { 
+                display: block !important;
                 box-shadow: none !important; 
                 border: none !important; 
                 margin: 0 !important; 
-                padding: 1.2cm !important;
-                width: 210mm !important;
-                height: 297mm !important;
-                overflow: hidden;
-                page-break-before: always;
+                padding: 0.5cm 1cm !important; /* Kurangi padding vertikal agar Halaman 1 yang padat bisa muat */
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+                position: static !important;
+                box-sizing: border-box !important;
             }
-            .print-container > .print-area:first-of-type {
-                page-break-before: auto !important;
+            /* Gunakan sibling selector agar halaman pertama tidak kena page break */
+            .print-area ~ .print-area {
+                page-break-before: always !important;
+                break-before: page !important;
             }
+            /* Kurangi padding baris tabel saat cetak agar konten tidak melebihi A4 */
+            .print-area table td,
+            .print-area table th {
+                padding-top: 2px !important;
+                padding-bottom: 2px !important;
+                line-height: 1.2 !important;
+            }
+            /* Kurangi margin judul dan paragraf agar muat di A4 */
+            .print-area .mb-6 { margin-bottom: 0.5cm !important; }
+            .print-area .mb-4 { margin-bottom: 0.3cm !important; }
+            .print-area .mb-8 { margin-bottom: 0.5cm !important; }
+            .print-area .mt-8 { margin-top: 0.5cm !important; }
+            .print-area .mt-20 { margin-top: 1.2cm !important; }
+            .print-area .mt-24 { margin-top: 1.5cm !important; }
+            .print-area .mt-28 { margin-top: 1.5cm !important; }
+            .print-area .mt-32 { margin-top: 2cm !important; }
+            .print-area .pb-2 { padding-bottom: 0.2cm !important; }
+            
+            /* Perbesar jarak tanda tangan KHUSUS untuk halaman 2 dan seterusnya */
+            .print-area ~ .print-area .mt-20,
+            .print-area ~ .print-area .mt-24,
+            .print-area ~ .print-area .mt-28,
+            .print-area ~ .print-area .mt-32 { margin-top: 2.5cm !important; }
+            
+            /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
+            .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
+            .page-1-spp .mb-4 { margin-bottom: 0.1cm !important; }
+            .page-1-spp .mt-4 { margin-top: 0.1cm !important; }
+            .page-1-spp .mt-8 { margin-top: 0.1cm !important; }
+            .page-1-spp .mt-20 { margin-top: 1.5cm !important; } /* Berikan ruang untuk tanda tangan, margin lain sudah ditekan */
         }
         .print-area {
             background: white;
@@ -176,8 +216,8 @@
         { no: 1, label: 'Surat Permintaan Pembayaran Ganti Uang Persediaan (SPP-GU)', status: true, note: '' },
         { no: 2, label: 'Checklist Persyaratan Penerbitan SPP-GU yang ditandatangani PPK SKPD/UKPD', status: true, note: '' }
     ],
-    nilaiKontrak: {{ $payment->contract?->nilai_kontrak ?? 0 }},
-    terbilangTeks: '{{ $payment->contract?->terbilang_kontrak ?? '' }}',
+    nilaiKontrak: {{ $payment->jumlah ?? 0 }},
+    terbilangTeks: '{{ $payment->terbilang ?? '' }}',
     init() {
         this.updateTerbilang();
         
@@ -202,7 +242,11 @@
             document.querySelectorAll('[data-eid]').forEach(el => {
                 let eid = el.getAttribute('data-eid');
                 if (this.savedContentData[eid] !== undefined) {
-                    el.innerText = this.savedContentData[eid];
+                    let val = this.savedContentData[eid];
+                    if (typeof val === 'string' && val.includes('-12123456789012345678901--')) {
+                        val = val.replace('-12123456789012345678901--', '');
+                    }
+                    el.innerText = val;
                 }
                 el.addEventListener('input', () => {
                     this.savedContentData[eid] = el.innerText;
@@ -377,7 +421,7 @@
         
      @if($type === 'all' || $type === 'spp' || $type === 'sptjm_ls')
         <!-- PAGE 1: CHECKLIST SPP -->
-        <div class="print-area font-serif">
+        <div class="print-area font-serif page-1-spp">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -561,8 +605,6 @@
                     <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="20">Heria Suwandi</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="21">197101272006041009</span></p></div>
                 </div>
             </div>
-        </div>
-
         </div>
         @endif
 
@@ -799,38 +841,38 @@
                     <h3 class="text-[12pt] font-bold leading-tight uppercase">SUKU DINAS SUMBER DAYA AIR KOTA ADMINISTRASI JAKARTA UTARA</h3>
                     <p class="text-[9pt] leading-tight mt-1 font-sans">Jl. Yos Sudarso No. 27- 29 Telp. / Fax 43902028 Email: Sudinsdaju@gmail.com <br>Jakarta</p>
                 </div>
-                <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
+                <div class="absolute bottom-2 right-0 text-[9pt] font-sans font-bold">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-4 uppercase underline font-black text-[13pt]">RINGKASAN KONTRAK</div>
             <p class="mb-4 text-[10.5pt]">Kegiatan yang dananya dari DPA Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara :</p>
             <div class="grid gap-y-1 text-[10pt] leading-tight text-left" style="grid-template-columns: 30px 230px 10px 1fr;">
-                <span>1.</span><span>Nomor & Tanggal DPA</span><span>:</span><span contenteditable="true" data-eid="42" class="font-bold">04/039/DPA/2026 Tgl.30 Des 2025</span>
+                <span>1.</span><span>Nomor & Tanggal DPA</span><span>:</span><span contenteditable="true" data-eid="42">04/039/DPA/2026 Tgl.30 Des 2025</span>
                 <span>2.</span><span>Tahun Anggaran</span><span>:</span><span contenteditable="true" data-eid="43">2026</span>
-                <span>3.</span><span>Nomor & Tanggal SPD</span><span>:</span><span contenteditable="true" data-eid="44" class="font-bold">{{ $payment->no_spd }}  </span>
-                <span>4.</span><span>Nama Kepala Unit</span><span>:</span><span contenteditable="true" data-eid="45" class="font-bold uppercase">HERIA SUWANDI</span>
+                <span>3.</span><span>Nomor & Tanggal SPD</span><span>:</span><span contenteditable="true" data-eid="44">{{ $payment->no_spd }}  </span>
+                <span>4.</span><span>Nama Kepala Unit</span><span>:</span><span contenteditable="true" data-eid="45" class="uppercase">HERIA SUWANDI</span>
                 <span>5.</span><span>NIP Kepala Unit</span><span>:</span><span contenteditable="true" data-eid="46">197101272006041009</span>
-                <span class="mt-1">6.</span><span class="mt-1 font-bold">Nomor & Tanggal SPK</span><span class="mt-1">:</span><span class="mt-1 font-bold" contenteditable="true" data-eid="47">{{ $payment->contract?->nomor_kontrak }} Tgl. {{ $payment->contract?->tgl_kontrak ? $payment->contract?->tgl_kontrak->translatedFormat('d F Y') : '-' }}</span>
+                <span class="mt-1">6.</span><span class="mt-1">Nomor & Tanggal SPK</span><span class="mt-1">:</span><span class="mt-1" contenteditable="true" data-eid="47">{{ $payment->contract?->nomor_kontrak }} Tgl. {{ $payment->contract?->tgl_kontrak ? $payment->contract?->tgl_kontrak->translatedFormat('d F Y') : '-' }}</span>
                 <span></span><span>Nomor Addendum I</span><span>:</span><span contenteditable="true" data-eid="48">{{ $payment->contract?->addendum_kontrak ?? '-' }}</span>
                 <span></span><span>Nomor Addendum II</span><span>:</span><span contenteditable="true" data-eid="49">{{ $payment->contract?->addendum_kontrak2 ?? '-' }}</span>
                 <span></span><span>Nomor Addendum III</span><span>:</span><span contenteditable="true" data-eid="50">-</span>
-                <span>7.</span><span>Program</span><span>:</span><span contenteditable="true" data-eid="51" class="font-bold uppercase">{{ $payment->program }}</span>
-                <span>8.</span><span>Kegiatan</span><span>:</span><span contenteditable="true" data-eid="52" class="font-bold uppercase leading-none">{{ $payment->kegiatanRef ? $payment->kegiatanRef->kode . ' ' . $payment->kegiatanRef->nama : $payment->kegiatan }}</span>
-                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53" class="font-bold">{{ $payment->vendor?->no_rekening }}</span>
+                <span>7.</span><span>Program</span><span>:</span><span contenteditable="true" data-eid="51" class="uppercase">{{ $payment->program }}</span>
+                <span>8.</span><span>Kegiatan</span><span>:</span><span contenteditable="true" data-eid="52" class="uppercase leading-none">{{ $payment->kegiatanRef ? $payment->kegiatanRef->kode . ' ' . $payment->kegiatanRef->nama : $payment->kegiatan }}</span>
+                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53">{{ $payment->vendor?->no_rekening }}</span>
                 <span>10.</span><span>Wilayah/Lokasi</span><span>:</span><span contenteditable="true" data-eid="54">Jakarta Utara</span>
-                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" data-eid="55" class="font-bold uppercase">{{ $payment->vendor?->nama_perusahaan }}</span>
-                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" data-eid="56" class="font-bold uppercase">{{ $payment->vendor?->direktur }}</span>
-                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" data-eid="57" class="font-bold">{{ $payment->vendor?->npwp }}</span>
+                <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" data-eid="55" class="uppercase">{{ $payment->vendor?->nama_perusahaan }}</span>
+                <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" data-eid="56" class="uppercase">{{ $payment->vendor?->direktur }}</span>
+                <span>13.</span><span>NPWP</span><span>:</span><span contenteditable="true" data-eid="57">{{ $payment->vendor?->npwp }}</span>
                 <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true" data-eid="58">{{ $payment->vendor?->alamat }}</span>
-                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59" class="font-bold">{{ $payment->vendor?->akte }} Tgl. {{ $payment->vendor?->tgl_akte ? \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
-                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60" class="font-bold">{{ $payment->vendor?->tdp }} Tgl. {{ $payment->vendor?->tgl_tdp ? \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
-                <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" data-eid="61" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
-                <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62" class="font-bold">LS Barang / Jasa</span>
+                <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59">{{ $payment->vendor?->akte }} Tgl. {{ $payment->vendor?->tgl_akte ? \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '-' }}</span>
+                <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60">{{ $payment->vendor?->tdp }} Tgl. {{ $payment->vendor?->tgl_tdp ? \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '-' }}</span>
+                <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" data-eid="61">Rp. {{ number_format($payment->jumlah ?? 0, 2, ',', '.') }}</span>
+                <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62">LS Barang / Jasa</span>
                 <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true" data-eid="63">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true" data-eid="64">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
-                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65" class="font-bold">Rp. {{ number_format($payment->contract?->nilai_kontrak ?? 0, 2, ',', '.') }}</span>
-                <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" data-eid="66" class="font-bold">100%</span>
-                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="font-bold uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
-                <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68" class="font-bold">{{ $payment->no_bast }}</span>
+                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->tagihan_1 ?? 0, 2, ',', '.') }}</span>
+                <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" data-eid="66">100%</span>
+                <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
+                <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68">{{ $payment->no_bast }}</span>
                 <span>25.</span><span>Tgl BAST</span><span>:</span><span contenteditable="true" data-eid="69">{{ $payment->tgl_bast ? $payment->tgl_bast->translatedFormat('d F Y') : '-' }}</span>
                 <span>26.</span><span>Kualifikasi Perusahaan</span><span>:</span><span contenteditable="true" data-eid="70"></span>
                 <span>27.</span><span>BAKP</span><span>:</span><span contenteditable="true" data-eid="156"></span>
@@ -1227,21 +1269,6 @@
 <script>
     lucide.createIcons();
     window.addEventListener('click', () => setTimeout(() => lucide.createIcons(), 50));
-
-    // Tambahkan penomoran halaman secara otomatis di setiap halaman cetak yang tidak disembunyikan
-    document.addEventListener('DOMContentLoaded', () => {
-        let visibleIndex = 1;
-        document.querySelectorAll('.print-area').forEach((page) => {
-            if (window.getComputedStyle(page).display !== 'none') {
-                const pageNum = document.createElement('div');
-                // Posisi absolut di tengah bawah kertas
-                pageNum.className = 'absolute bottom-[10mm] left-0 right-0 text-center text-[10pt] font-sans font-bold text-slate-800';
-                pageNum.innerHTML = `- ${visibleIndex} -`;
-                page.appendChild(pageNum);
-                visibleIndex++;
-            }
-        });
-    });
 </script>
 </body>
 </html>

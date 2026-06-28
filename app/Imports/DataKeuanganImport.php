@@ -19,50 +19,58 @@ class DataKeuanganImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        // 1. PPTK (Index 35, 36, 37)
-        $pptk = Pptk::firstOrCreate(
-            ['nik' => $row[36] ?? '0'],
-            [
-                'nama' => $row[35] ?? '-',
-                'jabatan' => $row[37] ?? '-'
-            ]
-        );
+        // Cek apakah baris ini kosong (menghindari ghost rows dari Excel)
+        $isEmpty = true;
+        foreach ($row as $cell) {
+            if ($cell !== null && trim((string)$cell) !== '') {
+                $isEmpty = false;
+                break;
+            }
+        }
+        if ($isEmpty) {
+            return null; // Skip baris ini
+        }
 
-        // 2. Vendor (Index 5, 12, 13, 14, 15, 18, 19, 22, 23, 25, 57)
-        $vendor = Vendor::firstOrCreate(
-            ['nama_perusahaan' => $row[5] ?? '-'],
-            [
-                'direktur' => $row[12] ?? null,
-                'npwp' => $row[13] ?? null,
-                'akte' => $row[14] ?? null,
-                'tgl_akte' => $row[15] ?? null,
-                'tdp' => $row[18] ?? null,
-                'tgl_tdp' => $row[19] ?? null,
-                'bank' => $row[22] ?? null,
-                'no_rekening' => $row[23] ?? null,
-                'alamat' => $row[25] ?? null,
-                'alamat_update' => $row[57] ?? null,
-            ]
-        );
+        // 1. PPTK
+        $pptk = Pptk::firstOrCreate([
+            'nik' => $row[36] ?? '0',
+            'nama' => $row[35] ?? '-',
+            'jabatan' => $row[37] ?? '-'
+        ]);
 
-        // 3. Contract (Index 6, 7, 44, 49, 50, 45, 52, 53, 46, 24, 21)
-        $contract = Contract::firstOrCreate(
+        // 2. Vendor
+        $vendor = Vendor::firstOrCreate([
+            'nama_perusahaan' => $row[5] ?? '-',
+            'direktur' => $row[12] ?? null,
+            'npwp' => $row[13] ?? null,
+            'akte' => $row[14] ?? null,
+            'tgl_akte' => $this->combineDate($row[17] ?? null, $row[16] ?? null, $row[15] ?? null),
+            'tdp' => $row[18] ?? null,
+            'tgl_tdp' => $this->combineDate($row[21] ?? null, $row[20] ?? null, $row[19] ?? null),
+            'bank' => $row[22] ?? null,
+            'no_rekening' => $row[23] ?? null,
+            'alamat' => $row[25] ?? null,
+            'alamat_update' => $row[58] ?? null,
+        ]);
+
+        // 3. Contract
+        $contract = Contract::updateOrCreate(
             ['nomor_kontrak' => $row[6] ?? '-'],
             [
-                'tgl_kontrak' => $row[7] ?? null,
-                'nilai_kontrak' => $this->parseMoney($row[44]),
+                'tgl_kontrak' => $this->combineDate($row[9] ?? null, $row[8] ?? null, $row[7] ?? null),
+                'nilai_kontrak' => $this->parseMoney($row[44] ?? $row[10]),
+                'terbilang_kontrak' => $row[11] ?? null,
                 'addendum_kontrak' => $row[49] ?? null,
-                'tgl_addendum' => $row[50] ?? null,
+                'tgl_addendum' => $this->combineDate($row[52] ?? null, $row[51] ?? null, $row[50] ?? null),
                 'nilai_addendum1' => $this->parseMoney($row[45]),
-                'addendum_kontrak2' => $row[52] ?? null,
-                'tgl_addendum2' => $row[53] ?? null,
+                'addendum_kontrak2' => $row[53] ?? null,
+                'tgl_addendum2' => $this->combineDate($row[56] ?? null, $row[55] ?? null, $row[54] ?? null),
                 'nilai_addendum2' => $this->parseMoney($row[46]),
                 'jangka_waktu' => $row[24] ?? null,
-                'tahun_tdp' => $row[21] ?? null,
             ]
         );
 
-        // 4. Payment (Data Sisa)
+        // 4. Payment
         return new Payment([
             'pptk_id' => $pptk->id,
             'vendor_id' => $vendor->id,
@@ -76,13 +84,13 @@ class DataKeuanganImport implements ToModel, WithStartRow
 
             'no_spp' => $row[38] ?? null,
             'no_spm' => $row[26] ?? null,
-            'tgl_spm' => $this->transformDate($row[27]),
+            'tgl_spm' => $this->combineDate($row[29] ?? null, $row[28] ?? null, $row[27] ?? null),
             
             'no_sp2d' => $row[47] ?? null,
-            'tgl_sp2d' => $this->transformDate($row[48]),
+            'tgl_sp2d' => $this->transformDate($row[48] ?? null),
 
-            'nomor_bast' => $row[31] ?? null,
-            'tgl_bast' => $this->transformDate($row[32]),
+            'no_bast' => $row[31] ?? null,
+            'tgl_bast' => $this->transformDate($row[32] ?? null),
             'no_kwi' => $row[34] ?? null,
 
             'jumlah' => $this->parseMoney($row[10]),
@@ -94,9 +102,21 @@ class DataKeuanganImport implements ToModel, WithStartRow
             'tagihan_5' => $this->parseMoney($row[43]),
 
             'keperluan' => $row[33] ?? null,
-            'denda' => $this->parseMoney($row[56]),
-            'progress' => $row[30] ?? null,
+            'denda' => $this->parseMoney($row[57]),
+            'progres' => $row[30] ?? null,
+            'nik' => $row[36] ?? null,
+            'jabatan' => $row[37] ?? null,
         ]);
+    }
+
+    private function combineDate($year, $month, $day)
+    {
+        if (empty($year) || empty($month) || empty($day)) return null;
+        try {
+            return Carbon::createFromFormat('Y-n-j', $year . '-' . $month . '-' . $day)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     private function transformDate($value)
@@ -104,10 +124,10 @@ class DataKeuanganImport implements ToModel, WithStartRow
         if (empty($value)) return null;
         try {
             return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             try {
                 return Carbon::parse($value);
-            } catch (\Exception $e2) {
+            } catch (\Throwable $e2) {
                 return null;
             }
         }
