@@ -70,7 +70,7 @@
                 <thead class="bg-slate-50 border-b border-slate-100">
                     <tr>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Vendor & Kontrak</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No SPM</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detail Dokumen</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Program</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
@@ -82,10 +82,7 @@
                     <tr class="hover:bg-slate-50 transition-colors group">
                         <td class="px-6 py-4 text-slate-400 font-medium">{{ $loop->iteration + ($payments->firstItem() - 1) }}</td>
                         <td class="px-6 py-4">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-slate-800">{{ $payment->vendor->nama_perusahaan ?? '-' }}</span>
-                                <span class="text-[10px] text-slate-400 uppercase mt-0.5 tracking-wider">KTR: {{ $payment->contract->nomor_kontrak ?? '-' }}</span>
-                            </div>
+                            <span class="font-bold text-slate-800">{{ $payment->no_spm ?? '-' }}</span>
                         </td>
                         <td class="px-6 py-4">
                             <div class="grid grid-cols-2 gap-x-4 gap-y-1">
