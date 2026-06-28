@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
         .font-serif { font-family: 'Times New Roman', Times, serif; }
         @page { size: A4; margin: 0; }
         @media print {
@@ -30,9 +30,9 @@
                 padding: 0.5cm 1cm !important; /* Kurangi padding vertikal agar Halaman 1 yang padat bisa muat */
                 width: 100% !important;
                 height: auto !important;
-                min-height: 0 !important;
+                min-height: 297mm !important;
                 overflow: visible !important;
-                position: static !important;
+                position: relative !important;
                 box-sizing: border-box !important;
             }
             /* Gunakan sibling selector agar halaman pertama tidak kena page break */
@@ -79,6 +79,18 @@
             margin: 20px auto;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             position: relative;
+        }
+        .print-area::after {
+            counter-increment: page-num;
+            content: "- " counter(page-num) " -";
+            position: absolute;
+            bottom: 1cm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 10pt;
+            font-family: 'Times New Roman', Times, serif;
+            color: #333;
         }
         [contenteditable="true" data-eid="1"]:focus { outline: 2px solid #3b82f6; background: #eff6ff; border-radius: 4px; }
         .grid-compact span { padding: 1px 0; }
