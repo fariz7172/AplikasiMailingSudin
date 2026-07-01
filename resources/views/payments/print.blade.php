@@ -9,8 +9,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Arial', Helvetica, sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
-        .font-serif { font-family: 'Arial', Helvetica, sans-serif; }
+        body, .font-serif, .font-sans, p, span, div, h1, h2, h3, h4, h5, h6, table, th, td { font-family: Arial, Helvetica, sans-serif !important; }
+        body { background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
         @page { size: A4; margin: 0; }
         @media print {
             .no-print { display: none !important; }
@@ -89,7 +89,7 @@
             right: 0;
             text-align: center;
             font-size: 10pt;
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, Helvetica, sans-serif !important;
             color: #333;
         }
         [contenteditable="true" data-eid="1"]:focus { outline: 2px solid #3b82f6; background: #eff6ff; border-radius: 4px; }
