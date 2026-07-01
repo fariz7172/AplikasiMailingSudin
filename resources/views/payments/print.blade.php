@@ -9,8 +9,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
-        .font-serif { font-family: 'Times New Roman', Times, serif; }
+        body { font-family: 'Arial', Helvetica, sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
+        .font-serif { font-family: 'Arial', Helvetica, sans-serif; }
         @page { size: A4; margin: 0; }
         @media print {
             .no-print { display: none !important; }
@@ -444,12 +444,12 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 uppercase underline font-black text-[12pt]">CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)</div>
+            <div class="text-center mb-6 uppercase underline text-[12pt]">CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)</div>
             <div class="grid grid-cols-[160px_10px_1fr] gap-y-1 mb-4 text-[10pt] leading-tight">
-                <span class="font-bold">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="2" class="font-bold">{{ $payment->no_spm }}</span>
+                <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="2" class="">{{ $payment->no_spm }}</span>
                 <span>Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="3">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
-                <span>SKPD</span><span>:</span><span contenteditable="true" data-eid="4" class="font-bold uppercase">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
-                <span>Jenis Tagihan</span><span>:</span><span contenteditable="true" data-eid="5" class="font-bold">LS Pengadaan Barang dan Jasa</span>
+                <span>SKPD</span><span>:</span><span contenteditable="true" data-eid="4" class="uppercase">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jenis Tagihan</span><span>:</span><span contenteditable="true" data-eid="5" class="">LS Pengadaan Barang dan Jasa</span>
             </div>
             <p class="mb-4 text-[9.5pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPP telah dilakukan verifikasi terhadap kelengkapan pembayaran sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[8.5pt]">
@@ -457,9 +457,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklist" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-1 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
                             <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
-                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] font-black" x-text="item.status ? '√' : '-'"></span></td>
+                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
                             <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
                         </tr>
                     </template>
@@ -468,15 +468,15 @@
             <p class="mt-4 text-justify text-[9.5pt] leading-relaxed">Atas penatausahaan dan pengarsipan dokumen tersebut sepenuhnya menjadi tanggung-jawab kami dan dokumen sesuai sebagai persyaratan untuk pengajuan perintah membayar.</p>
             <div class="mt-8 grid grid-cols-2 text-center gap-10 items-start">
                 <div class="flex flex-col items-center h-full justify-between pt-[22px]">
-                    <p class="font-bold uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="7">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="8">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
+                    <p class="uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="7">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="8">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
                 </div>
                 <div class="flex flex-col items-center h-full justify-between">
                     <div>
                       <p class="text-[9pt] mb-1">Jakarta, <span contenteditable="true" data-eid="6">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                      <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                      <p class="uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
                     </div>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="9">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="10">198111092010011017</span></p></div>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="9">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="10">198111092010011017</span></p></div>
                 </div>
             </div>
         </div>
@@ -496,7 +496,7 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
+            <div class="text-center mb-6 uppercase underline text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
                 GAJI DAN TUNJANGAN (LS)
             </div>
@@ -506,9 +506,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistGaji" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-1 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
                             <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
-                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] font-black" x-text="item.status ? '√' : '-'"></span></td>
+                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
                             <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
                         </tr>
                     </template>
@@ -517,15 +517,15 @@
             <p class="mt-4 text-justify text-[9.5pt] leading-relaxed">Atas penatausahaan dan pengarsipan dokumen tersebut sepenuhnya menjadi tanggung-jawab kami dan dokumen sesuai sebagai persyaratan untuk pengajuan perintah membayar.</p>
             <div class="mt-8 grid grid-cols-2 text-center gap-10 items-start">
                 <div class="flex flex-col items-center h-full justify-between pt-[22px]">
-                    <p class="font-bold uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="12">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
+                    <p class="uppercase text-[9pt] leading-tight">PEJABAT PELAKSANA TEKNIS KEGIATAN<br>(PPTK)</p>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="12">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="13">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
                 </div>
                 <div class="flex flex-col items-center h-full justify-between">
                     <div>
                       <p class="text-[9pt] mb-1">Jakarta, <span contenteditable="true" data-eid="11">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                      <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                      <p class="uppercase text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
                     </div>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="14">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="15">198111092010011017</span></p></div>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="14">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="15">198111092010011017</span></p></div>
                 </div>
             </div>
         </div>
@@ -545,7 +545,7 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
+            <div class="text-center mb-6 uppercase underline text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPP)<br>
                 GANTI UANG (GU)
             </div>
@@ -555,9 +555,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistUP" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-1 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
                             <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
-                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] font-black" x-text="item.status ? '√' : '-'"></span></td>
+                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
                             <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
                         </tr>
                     </template>
@@ -569,8 +569,8 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="16">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA (PPK)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="17">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="18">198111092010011017</span></p></div>
+                    <p class="uppercase mt-2 text-[9pt] leading-tight text-center">KEPALA SUB. BAGIAN TATA USAHA<br>SUDIN SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA (PPK)</p>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="17">Deny Tri Hendarto</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="18">198111092010011017</span></p></div>
                 </div>
             </div>
         </div>
@@ -590,7 +590,7 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 uppercase underline font-black text-[12pt]">
+            <div class="text-center mb-6 uppercase underline text-[12pt]">
                 CHECK LIST PENERBITAN SURAT PERMINTAAN PEMBAYARAN (SPM)<br>
                 GANTI UANG PERSEDIAAN (GU)
             </div>
@@ -599,9 +599,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistGU" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-1 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
                             <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
-                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] font-black" x-text="item.status ? '√' : '-'"></span></td>
+                            <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
                             <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
                         </tr>
                     </template>
@@ -613,8 +613,8 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <p class="text-[9pt]">Jakarta, <span contenteditable="true" data-eid="19">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-[9pt] leading-tight text-center">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA (PA/KPA)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-[10pt]" contenteditable="true" data-eid="20">Heria Suwandi</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="21">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-[9pt] leading-tight text-center">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA (PA/KPA)</p>
+                    <div class="mt-20"><p class="underline uppercase text-[10pt]" contenteditable="true" data-eid="20">Heria Suwandi</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="21">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -633,10 +633,10 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
+            <div class="text-center mb-6"><h1 class="text-[12pt] uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
-                <span class="font-bold">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="22" class="font-bold">{{ $payment->no_spm }}</span>
-                <span class="font-bold">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="23">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
+                <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="22" class="">{{ $payment->no_spm }}</span>
+                <span class="">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="23">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
             </div>
             <p class="mb-4 text-[10pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPM telah dilakukan verifikasi terhadap kelengkapan dokumen untuk perintah membayar sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[10pt] mb-4">
@@ -644,9 +644,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistSPM" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-3 text-center " x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-middle text-center relative">
+                                <td :rowspan="checklistSPM.length" class="border border-black px-3 py-3 uppercase leading-tight text-[9pt] align-middle text-center relative">
                                     <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
                                     <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
@@ -657,8 +657,8 @@
                                 </td>
                             </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
                     </template>
                 </tbody>
@@ -667,8 +667,8 @@
             <div class="mt-8 flex flex-col items-end mr-4">
                 <div class="text-center min-w-[350px]">
                     <p class="text-[10pt]">Jakarta, <span contenteditable="true" data-eid="24">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="25">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="26">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
+                    <div class="mt-20"><p class="underline uppercase text-center" contenteditable="true" data-eid="25">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="26">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -688,10 +688,10 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
+            <div class="text-center mb-6"><h1 class="text-[12pt] uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
-                <span class="font-bold">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="27" class="font-bold">{{ $payment->no_spm }}</span>
-                <span class="font-bold">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="28">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
+                <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="27" class="">{{ $payment->no_spm }}</span>
+                <span class="">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="28">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
             </div>
             <p class="mb-4 text-[10pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPM telah dilakukan verifikasi terhadap kelengkapan dokumen untuk perintah membayar sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[10pt] mb-4">
@@ -699,9 +699,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistSPM2" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-3 text-center " x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM2.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-middle text-center relative">
+                                <td :rowspan="checklistSPM2.length" class="border border-black px-3 py-3 uppercase leading-tight text-[9pt] align-middle text-center relative">
                                     <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
                                     <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
@@ -712,8 +712,8 @@
                                 </td>
                             </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
                     </template>
                 </tbody>
@@ -722,8 +722,8 @@
             <div class="mt-8 flex flex-col items-end mr-4">
                 <div class="text-center min-w-[350px]">
                     <p class="text-[10pt]">Jakarta, <span contenteditable="true" data-eid="29">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="30">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="31">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
+                    <div class="mt-20"><p class="underline uppercase text-center" contenteditable="true" data-eid="30">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="31">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -743,10 +743,10 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
+            <div class="text-center mb-6"><h1 class="text-[12pt] uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
-                <span class="font-bold">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="32" class="font-bold">{{ $payment->no_spm }}</span>
-                <span class="font-bold">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="33">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
+                <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="32" class="">{{ $payment->no_spm }}</span>
+                <span class="">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="33">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
             </div>
             <p class="mb-4 text-[10pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPM telah dilakukan verifikasi terhadap kelengkapan dokumen untuk perintah membayar sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[10pt] mb-4">
@@ -754,9 +754,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistSPM3" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-3 text-center " x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM3.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-middle text-center relative">
+                                <td :rowspan="checklistSPM3.length" class="border border-black px-3 py-3 uppercase leading-tight text-[9pt] align-middle text-center relative">
                                     <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
                                     <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
@@ -767,8 +767,8 @@
                                 </td>
                             </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
                     </template>
                 </tbody>
@@ -777,8 +777,8 @@
             <div class="mt-8 flex flex-col items-end mr-4">
                 <div class="text-center min-w-[350px]">
                     <p class="text-[10pt]">Jakarta, <span contenteditable="true" data-eid="34">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="35">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="36">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
+                    <div class="mt-20"><p class="underline uppercase text-center" contenteditable="true" data-eid="35">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="36">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -798,10 +798,10 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6"><h1 class="text-[12pt] font-black uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
+            <div class="text-center mb-6"><h1 class="text-[12pt] uppercase underline leading-tight">CHECKLIST PERSYARATAN PENERBITAN SURAT PERINTAH MEMBAYAR (SPM)</h1></div>
             <div class="grid grid-cols-[150px_10px_1fr] gap-y-1 mb-4 ml-4 text-[10.5pt]">
-                <span class="font-bold">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="37" class="font-bold">{{ $payment->no_spm }}</span>
-                <span class="font-bold">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="38">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
+                <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="37" class="">{{ $payment->no_spm }}</span>
+                <span class="">Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="38">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
             </div>
             <p class="mb-4 text-[10pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPM telah dilakukan verifikasi terhadap kelengkapan dokumen untuk perintah membayar sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[10pt] mb-4">
@@ -809,9 +809,9 @@
                 <tbody>
                     <template x-for="(item, index) in checklistSPM4" :key="index">
                         <tr>
-                            <td class="border border-black px-2 py-3 text-center font-bold" x-text="item.no"></td>
+                            <td class="border border-black px-2 py-3 text-center " x-text="item.no"></td>
                             <template x-if="index === 0">
-                                <td :rowspan="checklistSPM4.length" class="border border-black px-3 py-3 font-bold uppercase leading-tight text-[9pt] align-middle text-center relative">
+                                <td :rowspan="checklistSPM4.length" class="border border-black px-3 py-3 uppercase leading-tight text-[9pt] align-middle text-center relative">
                                     <div class="whitespace-normal min-h-[30px]" x-text="item.jenis || 'PILIH JENIS TAGIHAN'"></div>
                                     <select x-model="item.jenis" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer print:hidden">
                                         <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
@@ -822,8 +822,8 @@
                                 </td>
                             </template>
                             <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] font-black text-blue-600" x-show="item.ada">√</span></td>
-                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] font-black text-rose-600" x-show="!item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
+                            <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
                     </template>
                 </tbody>
@@ -832,8 +832,8 @@
             <div class="mt-8 flex flex-col items-end mr-4">
                 <div class="text-center min-w-[350px]">
                     <p class="text-[10pt]">Jakarta, <span contenteditable="true" data-eid="39">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
-                    <div class="mt-20"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="40">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="41">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center text-[10pt]">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA<br>(PA/KPA)</p>
+                    <div class="mt-20"><p class="underline uppercase text-center" contenteditable="true" data-eid="40">HERIA SUWANDI</p><p class="text-center text-[10pt]">NIP. <span contenteditable="true" data-eid="41">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -855,7 +855,7 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans font-bold">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-4 uppercase underline font-black text-[13pt]">RINGKASAN KONTRAK</div>
+            <div class="text-center mb-4 uppercase underline text-[13pt]">RINGKASAN KONTRAK</div>
             <p class="mb-4 text-[10.5pt]">Kegiatan yang dananya dari DPA Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara :</p>
             <div class="grid gap-y-1 text-[10pt] leading-tight text-left" style="grid-template-columns: 30px 230px 10px 1fr;">
                 <span>1.</span><span>Nomor & Tanggal DPA</span><span>:</span><span contenteditable="true" data-eid="42">04/039/DPA/2026 Tgl.30 Des 2025</span>
@@ -877,7 +877,7 @@
                 <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true" data-eid="58">{{ $payment->vendor?->alamat }}</span>
                 <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59">{{ $payment->vendor?->akte }}{{ $payment->vendor?->tgl_akte ? ' Tgl. ' . \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '' }}</span>
                 <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60">{{ $payment->vendor?->tdp }}{{ $payment->vendor?->tgl_tdp ? ' Tgl. ' . \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '' }}</span>
-                <span>17.</span><span><b>Nilai SPK/Kontrak</b></span><span>:</span><span contenteditable="true" data-eid="61">Rp. {{ number_format($payment->jumlah ?? 0, 2, ',', '.') }}</span>
+                <span>17.</span><span>Nilai SPK/Kontrak</span><span>:</span><span contenteditable="true" data-eid="61">Rp. {{ number_format($payment->jumlah ?? 0, 2, ',', '.') }}</span>
                 <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62">LS Barang / Jasa</span>
                 <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true" data-eid="63">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true" data-eid="64">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
@@ -890,9 +890,9 @@
                 <span>27.</span><span>BAKP</span><span>:</span><span contenteditable="true" data-eid="156"></span>
             </div>
             <div class="mt-8 flex flex-col items-center ml-[50%] text-center">
-                <p class="font-bold uppercase text-[9pt]">Mengetahui</p>
-                <p class="font-bold uppercase text-[9pt] leading-tight text-center">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
-                <div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="71">HERIA SUWANDI</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="72">197101272006041009</span></p></div>
+                <p class="uppercase text-[9pt]">Mengetahui</p>
+                <p class="uppercase text-[9pt] leading-tight text-center">KEPALA SUKU DINAS SUMBER DAYA AIR<br>KOTA ADMINISTRASI JAKARTA UTARA</p>
+                <div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="71">HERIA SUWANDI</p><p class="text-[9pt]">NIP. <span contenteditable="true" data-eid="72">197101272006041009</span></p></div>
             </div>
         </div>
         @endif
@@ -912,21 +912,21 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-                <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
+                <div class="text-center mb-6"><h1 class="text-[16pt] underline tracking-widest uppercase">KWITANSI</h1></div>
                 <div class="space-y-4 px-4 text-[11pt]">
-                    <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="73" class="font-bold">{{ $payment->no_kwi }}</span></div>
-                    <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="font-bold italic uppercase" x-text="'# ' + terbilangTeks + ' #'"></span></div>
+                    <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="73" class="">{{ $payment->no_kwi }}</span></div>
+                    <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="uppercase" x-text="'# ' + terbilangTeks + ' #'"></span></div>
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span contenteditable="true" data-eid="74" class="leading-relaxed">{{ $payment->keperluan }}</span></div>
                 </div>
-                <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
+                <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 text-[14pt]">
                     <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="75" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
                 <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
-                    <div><p class="font-bold uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="77">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p>NIP. <span contenteditable="true" data-eid="78">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div>
-                    <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
+                    <div><p class="uppercase">Pejabat Pelaksana Teknis Kegiatan</p><p class="uppercase">Suku Dinas Sumber Daya Air</p><p class="uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="77">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p>NIP. <span contenteditable="true" data-eid="78">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div>
+                    <div><p class="uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="uppercase">Suku Dinas Sumber Daya Air</p><p class="uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="79">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="80">197410252014121001</span></p></div></div>
                 </div>
-                <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="81">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="82">197101272006041009</span></p></div></div>
+                <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="uppercase">Mengetahui</p><p class="uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="81">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="82">197101272006041009</span></p></div></div>
             </div>
         </div>
         @endif
@@ -946,21 +946,21 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-                <div class="text-center mb-6"><h1 class="text-[16pt] font-black underline tracking-widest uppercase">KWITANSI</h1></div>
+                <div class="text-center mb-6"><h1 class="text-[16pt] underline tracking-widest uppercase">KWITANSI</h1></div>
                 <div class="space-y-4 px-4 text-[11pt]">
-                    <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="83" class="font-bold">{{ $payment->no_kwi }}</span></div>
-                    <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="font-bold italic uppercase" x-text="'# ' + terbilangTeks + ' #'"></span></div>
+                    <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Nomor</span><span>:</span><span contenteditable="true" data-eid="83" class="">{{ $payment->no_kwi }}</span></div>
+                    <div class="grid gap-x-2 min-h-[50px]" style="grid-template-columns: 160px 10px 1fr;"><span>Jumlah</span><span>:</span><span class="uppercase" x-text="'# ' + terbilangTeks + ' #'"></span></div>
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span contenteditable="true" data-eid="84" class="leading-relaxed">{{ $payment->keperluan }}</span></div>
                 </div>
-                <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 font-black text-[14pt]">
+                <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 text-[14pt]">
                     <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="85" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
                 <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="86">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
                     <div></div>
-                    <div><p class="font-bold uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="font-bold uppercase">Suku Dinas Sumber Daya Air</p><p class="font-bold uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="87">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="88">197410252014121001</span></p></div></div>
+                    <div><p class="uppercase text-center">Bendahara Pengeluaran Pembantu</p><p class="uppercase">Suku Dinas Sumber Daya Air</p><p class="uppercase text-center">Kota Administrasi Jakarta Utara</p><div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="87">R. Elly Prasojo</p><p>NIP. <span contenteditable="true" data-eid="88">197410252014121001</span></p></div></div>
                 </div>
-                <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="font-bold uppercase">Mengetahui</p><p class="font-bold uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="font-bold uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="font-bold underline uppercase" contenteditable="true" data-eid="89">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="90">197101272006041009</span></p></div></div>
+                <div class="mt-8 flex flex-col items-center text-center text-[9pt] leading-tight"><p class="uppercase">Mengetahui</p><p class="uppercase text-center">KEPALA SUKU DINAS SUMBER DAYA AIR</p><p class="uppercase text-center">KOTA ADMINISTRASI JAKARTA UTARA</p><div class="mt-20"><p class="underline uppercase" contenteditable="true" data-eid="89">HERIA SUWANDI</p><p>NIP. <span contenteditable="true" data-eid="90">197101272006041009</span></p></div></div>
             </div>
         </div>
 
@@ -981,8 +981,8 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK GANTI UANG</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="91">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-GU) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="92" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK GANTI UANG</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="91">{{ $payment->no_spm }}</span></p></div>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-GU) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="92" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Bukti Pertanggungjawaban atas pengunaan Ganti Uang (GU) telah lengkap, diverifikasi, dan mendapat pengesahaan.</li>
                 <li>Saya bertanggungjawab secara penuh atas penggunaan (GU) tersebut diatas sesuai dengan ketentuan peraturan perudang-undangan.</li>
@@ -991,7 +991,7 @@
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-GU SKPD/UNIT SKPD saya.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="93">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="94">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="95">197101272006041009</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="93">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="94">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="95">197101272006041009</span></p></div></div></div>
         </div>
         @endif
 
@@ -1009,8 +1009,8 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UANG PERSEDIAAN</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="96">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-UP) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="97" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK UANG PERSEDIAAN</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="96">{{ $payment->no_spm }}</span></p></div>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-UP) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="97" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Bukti Pertanggungjawaban atas pengunaan Ganti Uang (UP) telah lengkap, diverifikasi, dan mendapat pengesahaan.</li>
                 <li>Saya bertanggungjawab secara penuh atas penggunaan (UP) tersebut diatas sesuai dengan ketentuan peraturan perudang-undangan.</li>
@@ -1019,7 +1019,7 @@
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-UP SKPD/UNIT SKPD saya.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="98">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="99">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="100">197101272006041009</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10pt]"><p>Jakarta, <span contenteditable="true" data-eid="98">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="99">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="100">197101272006041009</span></p></div></div></div>
         </div>
         @endif
 
@@ -1037,17 +1037,17 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPTK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP-LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="101">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6"><h1 class="text-[11pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPTK</h1><h1 class="text-[11pt] uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP-LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="101">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="102">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
+                <span>Nama</span><span>:</span><span class="uppercase" contenteditable="true" data-eid="102">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
                 <span>NIP</span><span>:</span><span contenteditable="true" data-eid="103">{{ $payment->pptk->nip ?? '198608302010011010' }}</span>
-                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="104" class="font-bold">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pemeliharaan Drainase' }}</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="104" class="">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pemeliharaan Drainase' }}</span>
+                <span>Unit Kerja</span><span>:</span><span class="">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pemeliharaan Drainase' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="106">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="105">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pemeliharaan Drainase' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-28"><p class="underline uppercase text-center" contenteditable="true" data-eid="106">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="107">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
         </div>
         @endif
 
@@ -1067,17 +1067,17 @@
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             
-            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="108">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP LS</h1><p class="mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="108">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="109">Deny Tri Hendarto</span>
+                <span>Nama</span><span>:</span><span class="uppercase" contenteditable="true" data-eid="109">Deny Tri Hendarto</span>
                 <span>NIP</span><span>:</span><span contenteditable="true" data-eid="110">198111092010011017</span>
-                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="111" class="font-bold">Kepala Sub Bagian Tata Usaha</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="111" class="">Kepala Sub Bagian Tata Usaha</span>
+                <span>Unit Kerja</span><span>:</span><span class="">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
         </div>
         @endif
 
@@ -1095,8 +1095,8 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
@@ -1108,8 +1108,8 @@
                 <div></div> <!-- Kolom kosong di kiri -->
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="119">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                    <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                    <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -1130,8 +1130,8 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="122">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="122">{{ $payment->no_spm }}</span></p></div>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
@@ -1141,15 +1141,15 @@
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
                 <div class="flex flex-col items-center h-full justify-between pt-[22px]">
-                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="154">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
+                    <p class="uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
+                    <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="154">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
                 </div>
                 <div class="flex flex-col items-center h-full justify-between">
                     <div>
                         <p>Jakarta, <span contenteditable="true" data-eid="124">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
-                        <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                        <p class="uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
                     </div>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="125">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="126">197101272006041009</span></p></div>
+                    <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="125">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="126">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
@@ -1171,17 +1171,17 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP GU</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="127">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP GU</h1><p class="mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="127">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="128">Deny Tri Hendarto</span>
+                <span>Nama</span><span>:</span><span class="uppercase" contenteditable="true" data-eid="128">Deny Tri Hendarto</span>
                 <span>NIP</span><span>:</span><span contenteditable="true" data-eid="129">198111092010011017</span>
-                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="130" class="font-bold">Kepala Sub Bagian Tata Usaha</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="130" class="">Kepala Sub Bagian Tata Usaha</span>
+                <span>Unit Kerja</span><span>:</span><span class="">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran GU Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran GU Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="131">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="132">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="133">198111092010011017</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="131">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="132">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="133">198111092010011017</span></p></div></div></div>
         </div>
         @endif
 
@@ -1198,17 +1198,17 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="134">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="134">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="135">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
+                <span>Nama</span><span>:</span><span class="uppercase" contenteditable="true" data-eid="135">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
                 <span>NIP</span><span>:</span><span contenteditable="true" data-eid="136">{{ $payment->pptk->nip ?? '198608302010011010' }}</span>
-                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="137" class="font-bold">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="137" class="">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}</span>
+                <span>Unit Kerja</span><span>:</span><span class="">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center leading-tight">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="139">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center leading-tight">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="139">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
         </div>
         @endif
 
@@ -1225,17 +1225,17 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] font-black uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="font-bold mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="134">{{ $payment->no_spp }}</span></p></div>
+            <div class="text-center mb-6 text-center"><h1 class="text-[11pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN VERIFIKASI PPK</h1><h1 class="text-[11pt] uppercase underline leading-tight text-center">ATAS KELENGKAPAN DAN KEABSAHAN DOKUMEN DAN LAMPIRAN SPP - LS</h1><p class="mt-2 text-center text-center">Nomor : <span contenteditable="true" data-eid="134">{{ $payment->no_spp }}</span></p></div>
             <p class="mb-4 text-[10.5pt]">Saya yang bertanda tangan dibawah ini:</p>
             <div class="grid grid-cols-[100px_10px_1fr] gap-y-1 mb-6 ml-4 text-[10.5pt]">
-                <span>Nama</span><span>:</span><span class="font-bold uppercase" contenteditable="true" data-eid="135">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
+                <span>Nama</span><span>:</span><span class="uppercase" contenteditable="true" data-eid="135">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</span>
                 <span>NIP</span><span>:</span><span contenteditable="true" data-eid="136">{{ $payment->pptk->nip ?? '198608302010011010' }}</span>
-                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="137" class="font-bold">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}</span>
-                <span>Unit Kerja</span><span>:</span><span class="font-bold">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
+                <span>Jabatan</span><span>:</span><span contenteditable="true" data-eid="137" class="">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}</span>
+                <span>Unit Kerja</span><span>:</span><span class="">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
             </div>
-            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="font-bold">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
+            <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 font-bold text-center leading-tight">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="font-bold underline uppercase text-center text-center" contenteditable="true" data-eid="139">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="138">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center leading-tight">{{ $payment->pptk->jabatan ?? 'Kepala Seksi Pengolahan Pengendali Banjir, Air Bersih dan Air Limbah' }}<br>Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p><div class="mt-32"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="139">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="140">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div></div></div>
         </div>
         @endif
 
@@ -1252,8 +1252,8 @@
                 </div>
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
-            <div class="text-center mb-8"><h1 class="text-[12pt] font-black uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="font-bold mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="font-bold">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
@@ -1263,12 +1263,12 @@
             <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p><br><br><br>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
                 <div class="flex flex-col items-center h-full justify-between">
-                    <p class="font-bold uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="152">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="153">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
+                    <p class="uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
+                    <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="152">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="153">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
                 </div>
                 <div class="flex flex-col items-center h-full justify-between">
-                    <p class="font-bold uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
-                    <div class="mt-24"><p class="font-bold underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
+                    <p class="uppercase mt-2 text-center">Kepala Suku Dinas Sumber Daya Air<br>Kota Administrasi Jakarta Utara</p>
+                    <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="120">HERIA SUWANDI</p><p class="text-center">NIP. <span contenteditable="true" data-eid="121">197101272006041009</span></p></div>
                 </div>
             </div>
         </div>
