@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body, .font-serif, .font-sans, p, span, div, h1, h2, h3, h4, h5, h6, table, th, td { font-family: Arial, Helvetica, sans-serif !important; }
-        body { font-size: 12pt; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
+        body { font-size: 11.5pt; background-color: #f1f5f9; margin: 0; padding: 0; counter-reset: page-num; }
         @page { size: A4; margin: 0; }
         @media print {
             .no-print { display: none !important; }
