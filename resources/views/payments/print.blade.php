@@ -52,24 +52,24 @@
             .print-area .mb-4 { margin-bottom: 0.3cm !important; }
             .print-area .mb-8 { margin-bottom: 0.5cm !important; }
             .print-area .mt-8 { margin-top: 0.5cm !important; }
-            .print-area .mt-20 { margin-top: 1.2cm !important; }
-            .print-area .mt-24 { margin-top: 1.5cm !important; }
-            .print-area .mt-28 { margin-top: 1.5cm !important; }
-            .print-area .mt-32 { margin-top: 2cm !important; }
+            .print-area .mt-20 { margin-top: 2.0cm !important; }
+            .print-area .mt-24 { margin-top: 2.5cm !important; }
+            .print-area .mt-28 { margin-top: 3.0cm !important; }
+            .print-area .mt-32 { margin-top: 3.5cm !important; }
             .print-area .pb-2 { padding-bottom: 0.2cm !important; }
             
-            /* Perbesar jarak tanda tangan KHUSUS untuk halaman 2 dan seterusnya */
+            /* Perbesar jarak tanda tangan KHUSUS untuk halaman 2 dan seterusnya agar stempel muat */
             .print-area ~ .print-area .mt-20,
             .print-area ~ .print-area .mt-24,
             .print-area ~ .print-area .mt-28,
-            .print-area ~ .print-area .mt-32 { margin-top: 2.5cm !important; }
+            .print-area ~ .print-area .mt-32 { margin-top: 4cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
             .page-1-spp .mb-4 { margin-bottom: 0.1cm !important; }
             .page-1-spp .mt-4 { margin-top: 0.1cm !important; }
             .page-1-spp .mt-8 { margin-top: 0.1cm !important; }
-            .page-1-spp .mt-20 { margin-top: 1.5cm !important; } /* Berikan ruang untuk tanda tangan, margin lain sudah ditekan */
+            .page-1-spp .mt-20 { margin-top: 2.5cm !important; } /* Berikan ruang untuk tanda tangan, margin lain sudah ditekan */
         }
         .print-area {
             background: white;
