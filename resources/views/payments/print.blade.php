@@ -869,7 +869,7 @@
                 <span></span><span>Nomor Addendum III</span><span>:</span><span contenteditable="true" data-eid="50">-</span>
                 <span>7.</span><span>Program</span><span>:</span><span contenteditable="true" data-eid="51" class="uppercase">{{ $payment->program }}</span>
                 <span>8.</span><span>Kegiatan</span><span>:</span><span contenteditable="true" data-eid="52" class="uppercase leading-none">{{ $payment->kegiatanRef ? $payment->kegiatanRef->kode . ' ' . $payment->kegiatanRef->nama : $payment->kegiatan }}</span>
-                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53">{{ $payment->vendor?->no_rekening }}</span>
+                <span>9.</span><span>Kode Rekening</span><span>:</span><span contenteditable="true" data-eid="53">{{ $payment->kode_rek }}</span>
                 <span>10.</span><span>Wilayah/Lokasi</span><span>:</span><span contenteditable="true" data-eid="54">Jakarta Utara</span>
                 <span>11.</span><span>Nama Perusahaan</span><span>:</span><span contenteditable="true" data-eid="55" class="uppercase">{{ $payment->vendor?->nama_perusahaan }}</span>
                 <span>12.</span><span>Nama Direktur</span><span>:</span><span contenteditable="true" data-eid="56" class="uppercase">{{ $payment->vendor?->direktur }}</span>
