@@ -62,7 +62,7 @@
             .print-area ~ .print-area .mt-20,
             .print-area ~ .print-area .mt-24,
             .print-area ~ .print-area .mt-28,
-            .print-area ~ .print-area .mt-32 { margin-top: 3.0cm !important; }
+            .print-area ~ .print-area .mt-32 { margin-top: 5.0cm !important; }
             
             /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
             .print-area .signature-space-large,
