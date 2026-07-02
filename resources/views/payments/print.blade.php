@@ -66,7 +66,7 @@
             
             /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
             .print-area .signature-space-large,
-            .print-area ~ .print-area .signature-space-large { margin-top: 7.0cm !important; }
+            .print-area ~ .print-area .signature-space-large { margin-top: 5.0cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
@@ -1081,7 +1081,7 @@
             </div>
             <p class="text-justify leading-relaxed text-[10.5pt] mb-4">Berdasarkan pengajuan Surat Permintaan Pembayaran LS Nomor <span class="">{{ $payment->no_spp }}</span> Tanggal {{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }} telah dilakukan verifikasi terhadap kelengkapan dokumen pendukung sesuai dengan checklist terlampir. Atas surat permintaan pembayaran dan kelengkapan dokumen sebagaimana dimaksud dinyatakan lengkap dan sah sesuai peraturan perundang-undangan untuk dapat diproses sebagai persyaratan Perintah Membayar yang dituangkan dalam surat Surat Perintah Membayar. Jika dikemudian hari pernyataan saya ini tidak benar, maka saya bersedia diberikan sanksi sesuai peraturan yang berlaku.</p>
             <p class="text-justify text-[10.5pt] leading-relaxed mb-12">Demikian Surat ini saya buat dalam keadaan sadar dan tanpa paksaan dari pihak manapun.</p>
-            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
+            <div class="flex flex-col items-end mr-4"><div class="text-center min-w-[350px] text-[10.5pt]"><p>Jakarta, <span contenteditable="true" data-eid="112">{{ ($payment->tgl_spp ?? $payment->tgl_spm) ? ($payment->tgl_spp ?? $payment->tgl_spm)->translatedFormat('d F Y') : '-' }}</span></p><p class="mt-1 text-center">Pejabat Penatausahaan Keuangan</p><div class="mt-32 signature-space-large"><p class="underline uppercase text-center text-center" contenteditable="true" data-eid="113">Deny Tri Hendarto</p><p class="text-center text-center">NIP. <span contenteditable="true" data-eid="114">198111092010011017</span></p></div></div></div>
         </div>
         @endif
 
