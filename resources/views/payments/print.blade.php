@@ -1107,8 +1107,8 @@
                 <li>Jumlah (LS) tersebut diatas tidak akan saya gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran lainnya.</li>
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
-            <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
-            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8">
+            <p class="text-justify text-[10pt] leading-relaxed mb-4">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p>
+            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight items-start">
                 <div></div> <!-- Kolom kosong di kiri -->
                 <div class="flex flex-col items-center">
                     <p>Jakarta, <span contenteditable="true" data-eid="119">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p>
