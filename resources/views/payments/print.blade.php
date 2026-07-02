@@ -55,14 +55,14 @@
             .print-area .mt-20 { margin-top: 2.0cm !important; }
             .print-area .mt-24 { margin-top: 2.5cm !important; }
             .print-area .mt-28 { margin-top: 3.0cm !important; }
-            .print-area .mt-32 { margin-top: 3.5cm !important; }
+            .print-area .mt-32 { margin-top: 3.0cm !important; }
             .print-area .pb-2 { padding-bottom: 0.2cm !important; }
             
             /* Perbesar jarak tanda tangan KHUSUS untuk halaman 2 dan seterusnya agar stempel muat */
             .print-area ~ .print-area .mt-20,
             .print-area ~ .print-area .mt-24,
             .print-area ~ .print-area .mt-28,
-            .print-area ~ .print-area .mt-32 { margin-top: 3.5cm !important; }
+            .print-area ~ .print-area .mt-32 { margin-top: 3.0cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
