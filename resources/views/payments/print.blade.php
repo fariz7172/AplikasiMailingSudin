@@ -47,12 +47,11 @@
                 padding-bottom: 2px !important;
                 line-height: 1.2 !important;
             }
-            /* Kurangi margin judul dan paragraf agar muat di A4 */
-            .print-area .mb-6 { margin-bottom: 0.5cm !important; }
-            .print-area .mb-4 { margin-bottom: 0.3cm !important; }
-            .print-area .mb-8 { margin-bottom: 0.5cm !important; }
-            .print-area .mb-12 { margin-bottom: 0.5cm !important; }
-            .print-area .mt-8 { margin-top: 0.5cm !important; }
+            .print-area .mb-6 { margin-bottom: 0.3cm !important; }
+            .print-area .mb-4 { margin-bottom: 0.2cm !important; }
+            .print-area .mb-8 { margin-bottom: 0.3cm !important; }
+            .print-area .mb-12 { margin-bottom: 0.3cm !important; }
+            .print-area .mt-8 { margin-top: 0.3cm !important; }
             .print-area .mt-20 { margin-top: 2.0cm !important; }
             .print-area .mt-24 { margin-top: 2.5cm !important; }
             .print-area .mt-28 { margin-top: 3.0cm !important; }
