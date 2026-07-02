@@ -51,6 +51,7 @@
             .print-area .mb-6 { margin-bottom: 0.5cm !important; }
             .print-area .mb-4 { margin-bottom: 0.3cm !important; }
             .print-area .mb-8 { margin-bottom: 0.5cm !important; }
+            .print-area .mb-12 { margin-bottom: 0.5cm !important; }
             .print-area .mt-8 { margin-top: 0.5cm !important; }
             .print-area .mt-20 { margin-top: 2.0cm !important; }
             .print-area .mt-24 { margin-top: 2.5cm !important; }
@@ -62,7 +63,7 @@
             .print-area ~ .print-area .mt-20,
             .print-area ~ .print-area .mt-24,
             .print-area ~ .print-area .mt-28,
-            .print-area ~ .print-area .mt-32 { margin-top: 4cm !important; }
+            .print-area ~ .print-area .mt-32 { margin-top: 3.5cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
@@ -1260,7 +1261,7 @@
                 <li>Jumlah (LS) tersebut diatas tidak akan saya gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran lainnya.</li>
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
-            <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p><br><br><br>
+            <p class="text-justify text-[10pt] leading-relaxed mb-4">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD kami. </p>
             <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
                 <div class="flex flex-col items-center h-full justify-between">
                     <p class="uppercase mt-2 text-center">Pejabat Pelaksana Teknis Kegiatan</p>
