@@ -65,7 +65,7 @@
             .print-area ~ .print-area .mt-32 { margin-top: 3.0cm !important; }
             
             /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
-            .print-area .signature-space-large { margin-top: 5.5cm !important; }
+            .print-area .signature-space-large { margin-top: 7.0cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
