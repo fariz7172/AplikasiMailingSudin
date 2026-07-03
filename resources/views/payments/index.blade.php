@@ -36,8 +36,8 @@
         return temp;
     },
     terbilangTeks(uppercase = false) {
-        if (!this.payment || !this.payment.contract || !this.payment.contract.nilai_kontrak) return '';
-        let hasil = this.generateTerbilang(this.payment.contract.nilai_kontrak).trim();
+        if (!this.payment || (!this.payment.terbilang && !this.payment.jumlah)) return '';
+        let hasil = this.payment.terbilang ? this.payment.terbilang : this.generateTerbilang(this.payment.jumlah).trim();
         if (!hasil) return '';
         let finalStr = hasil + ' Rupiah';
         return uppercase ? finalStr.toUpperCase() : finalStr.toLowerCase();
@@ -213,11 +213,11 @@
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-xs text-slate-400 font-bold">Program</span>
-                                <span class="text-sm font-bold text-slate-800" x-text="payment.program || '-'"></span>
+                                <span class="text-sm font-bold text-slate-800" x-text="(payment.programRef && payment.programRef.nama) ? payment.programRef.nama : (payment.program || '-')"></span>
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-xs text-slate-400 font-bold">Kegiatan</span>
-                                <span class="text-xs text-slate-600 leading-relaxed" x-text="payment.kegiatan || '-'"></span>
+                                <span class="text-xs text-slate-600 leading-relaxed" x-text="(payment.kegiatanRef && payment.kegiatanRef.nama) ? payment.kegiatanRef.nama : (payment.kegiatan || '-')"></span>
                             </div>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-xs text-emerald-600/70 font-bold">Nilai Kontrak</span>
-                                <span class="text-sm font-black text-emerald-600" x-text="(payment.contract && payment.contract.nilai_kontrak) ? 'Rp ' + Number(payment.contract.nilai_kontrak).toLocaleString('id-ID') : 'Rp 0'"></span>
+                                <span class="text-sm font-black text-emerald-600" x-text="(payment.jumlah) ? 'Rp ' + Number(payment.jumlah).toLocaleString('id-ID') : 'Rp 0'"></span>
                             </div>
                             <div class="pt-2">
                                 <span class="text-[10px] text-slate-400 font-bold italic block mb-1">Terbilang:</span>

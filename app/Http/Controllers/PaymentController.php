@@ -16,7 +16,7 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Payment::with(['pptk', 'vendor', 'contract']);
+        $query = Payment::with(['pptk', 'vendor', 'contract', 'programRef', 'kegiatanRef']);
 
         if ($request->has('search')) {
             $search = $request->search;
