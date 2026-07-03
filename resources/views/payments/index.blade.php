@@ -231,11 +231,11 @@
                         <div class="bg-emerald-50/30 rounded-2xl p-5 space-y-3 border border-emerald-100/50">
                             <div class="flex justify-between border-b border-emerald-200/30 pb-2">
                                 <span class="text-xs text-emerald-600/70 font-bold">No. Kontrak</span>
-                                <span class="text-xs font-black text-emerald-700" x-text="payment.contract?.nomor_kontrak || '-'"></span>
+                                <span class="text-xs font-black text-emerald-700" x-text="(payment.contract && payment.contract.nomor_kontrak) ? payment.contract.nomor_kontrak : '-'"></span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-xs text-emerald-600/70 font-bold">Nilai Kontrak</span>
-                                <span class="text-sm font-black text-emerald-600" x-text="'Rp ' + (payment.contract?.nilai_kontrak || 0).toLocaleString('id-ID')"></span>
+                                <span class="text-sm font-black text-emerald-600" x-text="(payment.contract && payment.contract.nilai_kontrak) ? 'Rp ' + Number(payment.contract.nilai_kontrak).toLocaleString('id-ID') : 'Rp 0'"></span>
                             </div>
                             <div class="pt-2">
                                 <span class="text-[10px] text-slate-400 font-bold italic block mb-1">Terbilang:</span>
