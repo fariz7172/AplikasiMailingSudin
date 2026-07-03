@@ -213,11 +213,11 @@
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-xs text-slate-400 font-bold">Program</span>
-                                <span class="text-sm font-bold text-slate-800" x-text="(payment.programRef && payment.programRef.nama) ? payment.programRef.nama : (payment.program || '-')"></span>
+                                <span class="text-sm font-bold text-slate-800" x-text="(payment.program_ref && payment.program_ref.nama) ? payment.program_ref.nama : (payment.program || '-')"></span>
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span class="text-xs text-slate-400 font-bold">Kegiatan</span>
-                                <span class="text-xs text-slate-600 leading-relaxed" x-text="(payment.kegiatanRef && payment.kegiatanRef.nama) ? payment.kegiatanRef.nama : (payment.kegiatan || '-')"></span>
+                                <span class="text-xs text-slate-600 leading-relaxed" x-text="(payment.kegiatan_ref && payment.kegiatan_ref.nama) ? payment.kegiatan_ref.nama : (payment.kegiatan || '-')"></span>
                             </div>
                         </div>
                     </div>
