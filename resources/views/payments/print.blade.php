@@ -1146,8 +1146,8 @@
                 <li>Jumlah (LS) tersebut diatas tidak akan saya gunakan untuk membiayai pengeluaran-pengeluaran yang menurut ketentuan yang berlaku harus dilakukan dengan pembayaran lainnya.</li>
                 <li>Apabila dikemudian hari terdapat kelebihan pembayaran atas belanja tersebut, saya bersedia untuk menyetor kelebihannya ke kas umum daerah.</li>
             </ol>
-            <p class="text-justify text-[10pt] leading-relaxed mb-8">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p><br><br><br>
-            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-8 items-start">
+            <p class="text-justify text-[10pt] leading-relaxed mb-4">Demikian Surat Pernyataan ini dibuat untuk melengkapi persyaratan SPM-LS SKPD/UNIT SKPD saya. </p>
+            <div class="grid grid-cols-2 text-center gap-4 px-4 text-[10pt] leading-tight mt-4 items-start">
                 <div class="flex flex-col items-center h-full justify-between pt-[22px]">
                     <p class="uppercase mt-2 text-center">Pejabat Pelaksana Kegiatan</p>
                     <div class="mt-24"><p class="underline uppercase text-center" contenteditable="true" data-eid="154">{{ $payment->pptk->nama ?? 'YUDO WIDIATMOKO' }}</p><p class="text-center">NIP. <span contenteditable="true" data-eid="155">{{ $payment->pptk->nip ?? '198608302010011010' }}</span></p></div>
