@@ -48,34 +48,37 @@
                 line-height: 1.2 !important;
             }
             .print-area .mb-6 { margin-bottom: 0.3cm !important; }
-            .print-area .mb-4 { margin-bottom: 0.2cm !important; }
-            .print-area .mb-8 { margin-bottom: 0.3cm !important; }
-            .print-area .mb-12 { margin-bottom: 0.3cm !important; }
-            .print-area .mt-8 { margin-top: 0.3cm !important; }
-            
-            /* Margin khusus stempel / tanda tangan (Default 5.0cm untuk semua halaman) */
-            .print-area .mt-20,
-            .print-area .mt-24,
-            .print-area .mt-28,
-            .print-area .mt-32 { margin-top: 4.0cm !important; }
-            .print-area .pb-2 { padding-bottom: 0.2cm !important; }
-            
-            /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
-            .print-area .signature-space-large { margin-top: 5.5cm !important; }
-            
-            /* Pengecualian: Halaman 1, 9, 10, 11 menggunakan jarak aslinya agar tidak terlalu lebar */
-            .print-area.page-1-spp .mt-20, .print-area.page-no-override .mt-20 { margin-top: 2.0cm !important; }
-            .print-area.page-1-spp .mt-24, .print-area.page-no-override .mt-24 { margin-top: 2.5cm !important; }
-            .print-area.page-1-spp .mt-28, .print-area.page-no-override .mt-28 { margin-top: 3.0cm !important; }
-            .print-area.page-1-spp .mt-32, .print-area.page-no-override .mt-32 { margin-top: 3.0cm !important; }
-            
-            /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
-            .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
-            .page-1-spp .mb-4 { margin-bottom: 0.1cm !important; }
-            .page-1-spp .mt-4 { margin-top: 0.1cm !important; }
-            .page-1-spp .mt-8 { margin-top: 0.1cm !important; }
-            .page-1-spp .mt-20 { margin-top: 2.5cm !important; } /* Berikan ruang untuk tanda tangan, margin lain sudah ditekan */
         }
+        
+        /* Margin khusus agar layout layar dan hasil print sama persis */
+        .print-area .mb-4 { margin-bottom: 0.2cm !important; }
+        .print-area .mb-8 { margin-bottom: 0.3cm !important; }
+        .print-area .mb-12 { margin-bottom: 0.3cm !important; }
+        .print-area .mt-8 { margin-top: 0.3cm !important; }
+        
+        /* Margin khusus stempel / tanda tangan (Default 4.0cm untuk semua halaman) */
+        .print-area .mt-20,
+        .print-area .mt-24,
+        .print-area .mt-28,
+        .print-area .mt-32 { margin-top: 4.0cm !important; }
+        .print-area .pb-2 { padding-bottom: 0.2cm !important; }
+        
+        /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
+        .print-area .signature-space-large { margin-top: 5.5cm !important; }
+        
+        /* Pengecualian: Halaman 1, 9, 10, 11 menggunakan jarak aslinya agar tidak terlalu lebar */
+        .print-area.page-1-spp .mt-20, .print-area.page-no-override .mt-20 { margin-top: 2.0cm !important; }
+        .print-area.page-1-spp .mt-24, .print-area.page-no-override .mt-24 { margin-top: 2.5cm !important; }
+        .print-area.page-1-spp .mt-28, .print-area.page-no-override .mt-28 { margin-top: 3.0cm !important; }
+        .print-area.page-1-spp .mt-32, .print-area.page-no-override .mt-32 { margin-top: 3.0cm !important; }
+        
+        /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
+        .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
+        .page-1-spp .mb-4 { margin-bottom: 0.1cm !important; }
+        .page-1-spp .mt-4 { margin-top: 0.1cm !important; }
+        .page-1-spp .mt-8 { margin-top: 0.1cm !important; }
+        .page-1-spp .mt-20 { margin-top: 2.5cm !important; } /* Berikan ruang untuk tanda tangan, margin lain sudah ditekan */
+
         .print-area {
             background: white;
             width: 210mm;
