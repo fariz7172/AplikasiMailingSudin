@@ -57,17 +57,17 @@
             .print-area .mt-20,
             .print-area .mt-24,
             .print-area .mt-28,
-            .print-area .mt-32 { margin-top: 5.0cm !important; }
+            .print-area .mt-32 { margin-top: 4.0cm !important; }
             .print-area .pb-2 { padding-bottom: 0.2cm !important; }
             
             /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
             .print-area .signature-space-large { margin-top: 5.5cm !important; }
             
-            /* Pengecualian: Halaman 1 (Checklist SPP) menggunakan jarak sempit agar muat 1 halaman */
-            .print-area.page-1-spp .mt-20 { margin-top: 2.5cm !important; }
-            .print-area.page-1-spp .mt-24 { margin-top: 2.5cm !important; }
-            .print-area.page-1-spp .mt-28 { margin-top: 2.5cm !important; }
-            .print-area.page-1-spp .mt-32 { margin-top: 2.5cm !important; }
+            /* Pengecualian: Halaman 1, 9, 10, 11 menggunakan jarak aslinya agar tidak terlalu lebar */
+            .print-area.page-1-spp .mt-20, .print-area.page-no-override .mt-20 { margin-top: 2.0cm !important; }
+            .print-area.page-1-spp .mt-24, .print-area.page-no-override .mt-24 { margin-top: 2.5cm !important; }
+            .print-area.page-1-spp .mt-28, .print-area.page-no-override .mt-28 { margin-top: 3.0cm !important; }
+            .print-area.page-1-spp .mt-32, .print-area.page-no-override .mt-32 { margin-top: 3.0cm !important; }
             
             /* STRATEGI TERAKHIR: Hapus SEMUA margin vertikal KHUSUS Halaman 1 agar PASTI muat */
             .page-1-spp .mb-6 { margin-bottom: 0.1cm !important; }
@@ -849,7 +849,7 @@
  
         @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_ls')
         <!-- PAGE 9: RINGKASAN KONTRAK -->
-        <div class="print-area type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
+        <div class="print-area page-no-override type-kontrak {{ $type === 'kontrak' ? '' : 'page-break' }} font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
@@ -905,7 +905,7 @@
 
          @if($type === 'all' || $type === 'kontrak' || $type === 'gaji')
         <!-- PAGE 10: KWITANSI -->
-        <div class="print-area font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
+        <div class="print-area page-no-override font-serif {{ $type === 'gaji' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
@@ -939,7 +939,7 @@
 
          @if($type === 'all' || $type === 'kontrak' || $type === 'sptjm_gu')
         <!-- PAGE 11: KWITANSI (TANPA PPTK) -->
-        <div class="print-area font-serif {{ $type === 'sptjm_gu' ? 'order-5' : '' }}">
+        <div class="print-area page-no-override font-serif {{ $type === 'sptjm_gu' ? 'order-5' : '' }}">
             <div class="border-[1.5px] border-black p-8">
                 <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
