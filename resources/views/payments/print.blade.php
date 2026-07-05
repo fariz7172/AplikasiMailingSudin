@@ -56,11 +56,11 @@
         .print-area .mb-12 { margin-bottom: 0.3cm !important; }
         .print-area .mt-8 { margin-top: 0.3cm !important; }
         
-        /* Margin khusus stempel / tanda tangan (Default 3.0cm untuk semua halaman) */
+        /* Margin khusus stempel / tanda tangan (Default 3.5cm untuk semua halaman) */
         .print-area .mt-20,
         .print-area .mt-24,
         .print-area .mt-28,
-        .print-area .mt-32 { margin-top: 3.0cm !important; }
+        .print-area .mt-32 { margin-top: 3.5cm !important; }
         .print-area .pb-2 { padding-bottom: 0.2cm !important; }
         
         /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
