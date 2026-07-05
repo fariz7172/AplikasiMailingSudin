@@ -64,7 +64,7 @@
         .print-area .pb-2 { padding-bottom: 0.2cm !important; }
         
         /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
-        .print-area .signature-space-large { margin-top: 5.5cm !important; }
+        .print-area .signature-space-large { margin-top: 3.5cm !important; }
         
         /* Pengecualian: Halaman 1, 9, 10, 11 menggunakan jarak aslinya agar tidak terlalu lebar */
         .print-area.page-1-spp .mt-20, .print-area.page-no-override .mt-20 { margin-top: 2.0cm !important; }
