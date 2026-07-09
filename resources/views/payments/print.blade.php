@@ -95,6 +95,7 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             position: relative;
         }
+        /* Dicomment sementara sesuai permintaan 
         .print-area::after {
             counter-increment: page-num;
             content: "- " counter(page-num) " -";
@@ -107,6 +108,7 @@
             font-family: Arial, Helvetica, sans-serif !important;
             color: #333;
         }
+        */
         [contenteditable="true" data-eid="1"]:focus { outline: 2px solid #3b82f6; background: #eff6ff; border-radius: 4px; }
         .grid-compact span { padding: 1px 0; }
     </style>
