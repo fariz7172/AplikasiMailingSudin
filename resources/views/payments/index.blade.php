@@ -244,11 +244,22 @@
                         </div>
                     </div>
 
-                    <!-- Section III: Dokumen -->
+                    <!-- Section III: Uraian Keperluan -->
+                    <div class="space-y-4 md:col-span-2">
+                        <div class="flex items-center gap-2 text-blue-500">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            <h4 class="font-black text-sm uppercase tracking-wider">III. Uraian Pembayaran</h4>
+                        </div>
+                        <div class="bg-blue-50/30 rounded-2xl p-5 border border-blue-100/50">
+                            <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line" x-text="payment.keperluan || '-'"></p>
+                        </div>
+                    </div>
+
+                    <!-- Section IV: Dokumen -->
                     <div class="space-y-4 md:col-span-2">
                         <div class="flex items-center gap-2 text-amber-500">
                             <i data-lucide="layers" class="w-4 h-4"></i>
-                            <h4 class="font-black text-sm uppercase tracking-wider">III. Dokumen Pembayaran</h4>
+                            <h4 class="font-black text-sm uppercase tracking-wider">IV. Dokumen Pembayaran</h4>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div @click="showSpmDoc = true" class="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm cursor-pointer hover:bg-amber-50 hover:border-amber-200 hover:ring-2 hover:ring-amber-500/20 transition-all group">
@@ -276,11 +287,11 @@
                         </div>
                     </div>
 
-                    <!-- Section IV: Vendor -->
+                    <!-- Section V: Vendor -->
                     <div class="space-y-4 md:col-span-2">
                         <div class="flex items-center gap-2 text-indigo-500">
                             <i data-lucide="briefcase" class="w-4 h-4"></i>
-                            <h4 class="font-black text-sm uppercase tracking-wider">IV. Informasi Vendor</h4>
+                            <h4 class="font-black text-sm uppercase tracking-wider">V. Informasi Vendor</h4>
                         </div>
                         <div class="bg-indigo-50/30 rounded-2xl p-6 border border-indigo-100/50 flex flex-col md:flex-row gap-6">
                             <div class="flex-1 space-y-2">
