@@ -30,3 +30,9 @@ Route::post('/kegiatans', [ApiKegiatanController::class, 'storeKegiatan'])->name
 
 // Tambah Sub Kegiatan baru via Modal (API)
 Route::post('/sub-kegiatans', [ApiKegiatanController::class, 'storeSubKegiatan'])->name('api.sub-kegiatans.store');
+
+// API Pembayaran
+use App\Http\Controllers\Api\PaymentController as ApiPaymentController;
+
+Route::get('/payments', [ApiPaymentController::class, 'index'])->name('api.payments.index');
+Route::get('/payments/{id}', [ApiPaymentController::class, 'show'])->name('api.payments.show');
