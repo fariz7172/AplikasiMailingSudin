@@ -13,15 +13,20 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
-        // Mengambil semua data pembayaran beserta relasinya
-        // Jika butuh pagination, bisa ganti get() menjadi paginate(10)
-        $payments = Payment::with([
+        $query = Payment::with([
             'vendor', 
             'contract', 
             'pptk', 
             'programRef', 
             'kegiatanRef'
-        ])->latest()->get();
+        ]);
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date)
+                  ->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $payments = $query->latest()->get();
 
         return response()->json([
             'status' => 'success',
