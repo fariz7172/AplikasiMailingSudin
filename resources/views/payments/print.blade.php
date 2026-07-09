@@ -56,15 +56,22 @@
         .print-area .mb-12 { margin-bottom: 0.3cm !important; }
         .print-area .mt-8 { margin-top: 0.3cm !important; }
         
-        /* Margin khusus stempel / tanda tangan (Default 3.5cm untuk semua halaman) */
+        /* Margin khusus stempel / tanda tangan (Default 2.5cm untuk semua halaman) */
         .print-area .mt-20,
         .print-area .mt-24,
         .print-area .mt-28,
-        .print-area .mt-32 { margin-top: 3.5cm !important; }
+        .print-area .mt-32 { margin-top: 2.5cm !important; }
         .print-area .pb-2 { padding-bottom: 0.2cm !important; }
         
         /* Jarak sangat besar khusus untuk halaman tertentu yang membutuhkan stempel besar */
-        .print-area .signature-space-large { margin-top: 3.5cm !important; }
+        .print-area .signature-space-large { margin-top: 2.5cm !important; }
+        
+        /* Pengecualian khusus Page 14 (Verifikasi PPTK) tetap 3.5cm */
+        .print-area.page-14-override .mt-20,
+        .print-area.page-14-override .mt-24,
+        .print-area.page-14-override .mt-28,
+        .print-area.page-14-override .mt-32,
+        .print-area.page-14-override .signature-space-large { margin-top: 3.5cm !important; }
         
         /* Pengecualian: Halaman 1, 9, 10, 11 menggunakan jarak aslinya agar tidak terlalu lebar */
         .print-area.page-1-spp .mt-20, .print-area.page-no-override .mt-20 { margin-top: 2.0cm !important; }
@@ -1034,7 +1041,7 @@
 
         @if($type === 'all')
         <!-- PAGE 14: VERIFIKASI PPTK -->
-        <div class="print-area font-serif">
+        <div class="print-area page-14-override font-serif">
             <div class="flex items-center border-b-[3px] border-black pb-2 mb-6 text-center relative">
                 <div class="w-[110px] pr-4"><img src="{{ asset('assets/logo.png') }}" class="w-full"></div>
                 <div class="flex-1 text-center">
