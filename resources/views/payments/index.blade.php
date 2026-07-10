@@ -45,11 +45,8 @@
 }">
     
     <!-- Action Bar -->
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <form action="{{ route('payments.index') }}" method="GET" class="relative w-full md:w-96 group">
-            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Vendor, No. SPM, atau SP2D..." class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm text-sm">
-        </form>
+    <div class="flex flex-col md:flex-row items-center justify-end gap-4">
+
 
         <div class="flex items-center gap-3 w-full md:w-auto">
             <a href="{{ route('import.index') }}" class="flex-1 md:flex-none px-6 py-3 bg-white text-slate-600 font-bold rounded-2xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 text-sm">

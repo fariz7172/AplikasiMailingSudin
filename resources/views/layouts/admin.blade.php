@@ -211,12 +211,12 @@
             </div>
 
             <div class="flex items-center gap-2 sm:gap-4">
-                <div class="relative hidden md:block group">
+                <form action="{{ url()->current() }}" method="GET" class="relative hidden md:block group">
                     <i data-lucide="search"
                         class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-accent transition-colors"></i>
-                    <input type="text" placeholder="Cari data..."
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari data..."
                         class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-xl focus:ring-2 focus:ring-accent w-64 text-sm outline-none transition-all">
-                </div>
+                </form>
 
                 <button class="p-2 hover:bg-slate-100 rounded-lg relative transition-all active:scale-90">
                     <i data-lucide="bell" class="w-5 h-5"></i>

@@ -20,11 +20,13 @@ class PaymentController extends Controller
 
         if ($request->has('search')) {
             $search = $request->search;
-            $query->whereHas('vendor', function($q) use ($search) {
-                $q->where('nama_perusahaan', 'like', "%$search%");
-            })->orWhere('no_spm', 'like', "%$search%")
-              ->orWhere('no_sp2d', 'like', "%$search%")
-              ->orWhere('program', 'like', "%$search%");
+            $query->where(function($q) use ($search) {
+                $q->whereHas('vendor', function($v) use ($search) {
+                    $v->where('nama_perusahaan', 'like', "%$search%");
+                })->orWhere('no_spm', 'like', "%$search%")
+                  ->orWhere('no_sp2d', 'like', "%$search%")
+                  ->orWhere('program', 'like', "%$search%");
+            });
         }
 
         $payments = $query->orderBy('no_spm', 'desc')->latest()->paginate(10);
