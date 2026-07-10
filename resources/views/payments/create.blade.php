@@ -423,7 +423,7 @@
                             </div>
                             <div>
                                 <label class="form-label-premium">No. BAST</label>
-                                <input type="text" name="nomor_bast" class="form-input-premium">
+                                <input type="text" name="no_bast" class="form-input-premium">
                             </div>
                             <div>
                                 <label class="form-label-premium">Tanggal BAST</label>
