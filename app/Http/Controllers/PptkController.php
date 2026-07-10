@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 
 class PptkController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pptk = Pptk::latest()->get();
+        $query = Pptk::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('nama', 'like', "%$search%")
+                  ->orWhere('nip', 'like', "%$search%")
+                  ->orWhere('nik', 'like', "%$search%")
+                  ->orWhere('jabatan', 'like', "%$search%");
+        }
+
+        $pptk = $query->latest()->get();
         return view('pptk.index', compact('pptk'));
     }
 
