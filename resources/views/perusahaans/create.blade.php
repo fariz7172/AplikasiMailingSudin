@@ -17,6 +17,10 @@
         <input type="text" name="nama_direktur" value="{{ old('nama_direktur', $perusahaan->nama_direktur ?? '') }}" class="form-input-premium">
     </div>
     <div>
+        <label class="form-label-premium">NPWP</label>
+        <input type="text" name="npwp" value="{{ old('npwp', $perusahaan->npwp ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
         <label class="form-label-premium">No. Telepon</label>
         <input type="text" name="no_tlp" value="{{ old('no_tlp', $perusahaan->no_tlp ?? '') }}" class="form-input-premium">
     </div>

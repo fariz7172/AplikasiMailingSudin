@@ -638,7 +638,7 @@ document.addEventListener('alpine:init', () => {
                         this.vendorData = {
                             nama_perusahaan: p.nama_perusahaan || '',
                             direktur: p.nama_direktur || '',
-                            npwp: '',
+                            npwp: p.npwp || '',
                             akte: '',
                             tgl_akte: '',
                             tdp: '',

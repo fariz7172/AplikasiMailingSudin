@@ -13,6 +13,7 @@ class Perusahaan extends Model
         'nama_perusahaan',
         'nama_direktur',
         'no_tlp',
-        'alamat'
+        'alamat',
+        'npwp'
     ];
 }
