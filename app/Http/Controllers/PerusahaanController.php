@@ -25,6 +25,11 @@ class PerusahaanController extends Controller
             'nama_direktur' => 'nullable|string|max:255',
             'no_tlp' => 'nullable|string|max:50',
             'alamat' => 'nullable|string',
+            'npwp' => 'nullable|string',
+            'akte' => 'nullable|string',
+            'tgl_akte' => 'nullable|date',
+            'tdp' => 'nullable|string',
+            'tgl_tdp' => 'nullable|date',
         ]);
         Perusahaan::create($request->all());
         return redirect()->route('perusahaans.index')->with('success', 'Data Perusahaan berhasil ditambahkan.');
@@ -42,6 +47,11 @@ class PerusahaanController extends Controller
             'nama_direktur' => 'nullable|string|max:255',
             'no_tlp' => 'nullable|string|max:50',
             'alamat' => 'nullable|string',
+            'npwp' => 'nullable|string',
+            'akte' => 'nullable|string',
+            'tgl_akte' => 'nullable|date',
+            'tdp' => 'nullable|string',
+            'tgl_tdp' => 'nullable|date',
         ]);
         $perusahaan->update($request->all());
         return redirect()->route('perusahaans.index')->with('success', 'Data Perusahaan berhasil diperbarui.');

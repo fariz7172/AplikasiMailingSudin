@@ -21,6 +21,22 @@
         <input type="text" name="npwp" value="{{ old('npwp', $perusahaan->npwp ?? '') }}" class="form-input-premium">
     </div>
     <div>
+        <label class="form-label-premium">No. Akte</label>
+        <input type="text" name="akte" value="{{ old('akte', $perusahaan->akte ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
+        <label class="form-label-premium">Tgl. Akte</label>
+        <input type="date" name="tgl_akte" value="{{ old('tgl_akte', $perusahaan->tgl_akte ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
+        <label class="form-label-premium">No. TDP</label>
+        <input type="text" name="tdp" value="{{ old('tdp', $perusahaan->tdp ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
+        <label class="form-label-premium">Tgl. TDP</label>
+        <input type="date" name="tgl_tdp" value="{{ old('tgl_tdp', $perusahaan->tgl_tdp ?? '') }}" class="form-input-premium">
+    </div>
+    <div>
         <label class="form-label-premium">No. Telepon</label>
         <input type="text" name="no_tlp" value="{{ old('no_tlp', $perusahaan->no_tlp ?? '') }}" class="form-input-premium">
     </div>
