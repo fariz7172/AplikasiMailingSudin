@@ -53,6 +53,10 @@
                 <i data-lucide="upload-cloud" class="w-4 h-4"></i>
                 Import Excel
             </a>
+            <a href="{{ route('export.data', request()->query()) }}" class="flex-1 md:flex-none px-6 py-3 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 text-sm">
+                <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                Export Excel
+            </a>
             <a href="{{ route('payments.create') }}" class="flex-1 md:flex-none px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/30 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 text-sm">
                 <i data-lucide="plus" class="w-4 h-4"></i>
                 Tambah Transaksi

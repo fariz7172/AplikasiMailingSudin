@@ -6,15 +6,44 @@ use App\Models\Payment;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-class DataKeuanganExport implements FromCollection, WithHeadings, WithMapping
+class DataKeuanganExport extends DefaultValueBinder implements FromCollection, WithHeadings, WithMapping, WithCustomValueBinder
 {
+    public function bindValue(Cell $cell, $value)
+    {
+        $column = $cell->getColumn();
+        
+        if ($value !== null && $value !== '' && (in_array($column, ['A', 'E', 'G', 'N', 'O', 'S', 'X', 'AA', 'AF', 'AI', 'AK', 'AM', 'AV', 'AX', 'BB']) || (is_string($value) && preg_match('/^[0-9\.\-\/\s]+$/', $value) && strlen(preg_replace('/[^0-9]/', '', $value)) >= 10))) {
+            $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+            return true;
+        }
+
+        return parent::bindValue($cell, $value);
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Payment::with(['pptk', 'vendor', 'contract'])->get();
+        $query = Payment::with(['pptk', 'vendor', 'contract']);
+
+        if (request()->has('search') && request('search') != '') {
+            $search = request('search');
+            $query->where(function($q) use ($search) {
+                $q->whereHas('vendor', function($v) use ($search) {
+                    $v->where('nama_perusahaan', 'like', "%$search%");
+                })->orWhere('no_spm', 'like', "%$search%")
+                  ->orWhere('no_sp2d', 'like', "%$search%")
+                  ->orWhere('program', 'like', "%$search%");
+            });
+        }
+
+        return $query->orderBy('no_spm', 'desc')->latest()->get();
     }
 
     public function headings(): array

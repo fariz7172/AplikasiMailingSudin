@@ -30,6 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    // Export Access (All Authenticated Roles)
+    Route::get('export', [ImportController::class, 'export'])->name('export.data');
+
     // Payments, PPTK, Program, Kegiatan Access (Admin & Superadmin)
     Route::middleware('role:superadmin,admin')->group(function () {
         Route::resource('payments', PaymentController::class);
@@ -50,7 +53,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('import', [ImportController::class, 'index'])->name('import.index');
         Route::post('import/process', [ImportController::class, 'process'])->name('import.process');
         Route::get('import/template', [ImportController::class, 'downloadTemplate'])->name('import.template');
-        Route::get('export', [ImportController::class, 'export'])->name('export.data');
         Route::resource('perusahaans', App\Http\Controllers\PerusahaanController::class)->except(['show']);
     });
 
