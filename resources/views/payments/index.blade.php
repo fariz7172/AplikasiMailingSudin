@@ -74,6 +74,7 @@
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No SPM</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detail Dokumen</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nama Perusahaan</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No Kontrak</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
                     </tr>
@@ -110,6 +111,11 @@
                                 <span class="font-bold text-slate-700 block truncate">{{ $payment->vendor->nama_perusahaan ?? '-' }}</span>
                                 <span class="text-[10px] text-slate-400 block truncate">{{ $payment->vendor->nama_direktur ?? '-' }}</span>
                             </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-xs text-slate-600 font-medium block truncate max-w-[150px]" title="{{ $payment->contract->nomor_kontrak ?? '-' }}">
+                                {{ $payment->contract->nomor_kontrak ?? '-' }}
+                            </span>
                         </td>
                         <td class="px-6 py-4 text-center">
                             <span class="px-3 py-1 {{ $payment->progress == 'Selesai' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600' }} text-[10px] font-bold rounded-full uppercase">

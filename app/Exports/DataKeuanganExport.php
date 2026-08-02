@@ -37,6 +37,8 @@ class DataKeuanganExport extends DefaultValueBinder implements FromCollection, W
             $query->where(function($q) use ($search) {
                 $q->whereHas('vendor', function($v) use ($search) {
                     $v->where('nama_perusahaan', 'like', "%$search%");
+                })->orWhereHas('contract', function($c) use ($search) {
+                    $c->where('nomor_kontrak', 'like', "%$search%");
                 })->orWhere('no_spm', 'like', "%$search%")
                   ->orWhere('no_sp2d', 'like', "%$search%")
                   ->orWhere('program', 'like', "%$search%");
