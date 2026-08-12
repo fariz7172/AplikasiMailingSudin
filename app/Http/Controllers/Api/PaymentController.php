@@ -26,6 +26,15 @@ class PaymentController extends Controller
                   ->whereDate('created_at', '<=', $request->end_date);
         }
 
+        // Filter khusus untuk kode rek 5.1.02.02 s/d 5.1.02.04
+        if ($request->has('target_kode_rek') || $request->target_kode_rek == 'true') {
+            $query->where(function($q) {
+                $q->where('kode_rek', 'like', '5.1.02.02%')
+                  ->orWhere('kode_rek', 'like', '5.1.02.03%')
+                  ->orWhere('kode_rek', 'like', '5.1.02.04%');
+            });
+        }
+
         $payments = $query->latest()->get();
 
         return response()->json([
