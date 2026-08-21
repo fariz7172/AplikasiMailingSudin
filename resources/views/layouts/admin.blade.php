@@ -171,6 +171,9 @@
             </div>
             <x-nav-link href="#" icon="settings">Konfigurasi</x-nav-link>
             <x-nav-link href="#" icon="shield">User Access</x-nav-link>
+            @if(auth()->check() && auth()->user()->role === 'superadmin')
+            <x-nav-link href="{{ route('backup.database') }}" icon="download-cloud">Backup Database</x-nav-link>
+            @endif
         </nav>
 
 

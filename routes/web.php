@@ -54,6 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('import/process', [ImportController::class, 'process'])->name('import.process');
         Route::get('import/template', [ImportController::class, 'downloadTemplate'])->name('import.template');
         Route::resource('perusahaans', App\Http\Controllers\PerusahaanController::class)->except(['show']);
+        
+        // Backup Database Route
+        Route::get('backup-database', [App\Http\Controllers\BackupController::class, 'download'])->name('backup.database');
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
