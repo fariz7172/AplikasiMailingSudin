@@ -87,4 +87,20 @@ class Payment extends Model
     {
         return $this->belongsTo(SubKegiatan::class, 'sub_kegiatan_id');
     }
+
+    /**
+     * Hitung Nilai SPK/Kontrak berdasarkan persentase progres jika tersedia
+     */
+    public function getNilaiKontrakProgresAttribute()
+    {
+        $base = (float) ($this->jumlah ?: ($this->contract?->nilai_kontrak ?? 0));
+        $progresRaw = trim($this->progres ?? '');
+        $progresNum = (float) preg_replace('/[^0-9.]/', '', str_replace(',', '.', $progresRaw));
+
+        if ($progresNum > 0) {
+            return ($base * $progresNum) / 100;
+        }
+
+        return $base;
+    }
 }
