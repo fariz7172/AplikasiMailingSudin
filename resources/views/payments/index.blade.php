@@ -44,20 +44,54 @@
     }
 }">
     
-    <!-- Action Bar -->
-    <div class="flex flex-col md:flex-row items-center justify-end gap-4">
+    <!-- Action & Filter Bar -->
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <!-- Filter Tabs Progres -->
+        <div class="inline-flex p-1.5 bg-slate-100/80 rounded-2xl border border-slate-200/70 shadow-inner max-w-full overflow-x-auto">
+            <a href="{{ route('payments.index', array_merge(request()->except('progres', 'page'))) }}"
+               class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap {{ !request('progres') ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700' }}">
+                <span>Semua Data</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ !request('progres') ? 'bg-slate-100 text-slate-700' : 'bg-slate-200/70 text-slate-500' }}">
+                    {{ $totalAll ?? \App\Models\Payment::count() }}
+                </span>
+            </a>
 
+            <a href="{{ route('payments.index', array_merge(request()->except('page'), ['progres' => 'under_100'])) }}"
+               class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap {{ request('progres') === 'under_100' ? 'bg-amber-500 text-white shadow-md shadow-amber-500/25' : 'text-slate-600 hover:text-amber-600' }}">
+                <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i>
+                <span>Progres &lt; 100%</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ request('progres') === 'under_100' ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-800' }}">
+                    {{ $totalUnder100 ?? 0 }}
+                </span>
+            </a>
 
-        <div class="flex items-center gap-3 w-full md:w-auto">
-            <a href="{{ route('import.index') }}" class="flex-1 md:flex-none px-6 py-3 bg-white text-slate-600 font-bold rounded-2xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 text-sm">
-                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+            <a href="{{ route('payments.index', array_merge(request()->except('page'), ['progres' => '100'])) }}"
+               class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap {{ request('progres') === '100' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25' : 'text-slate-600 hover:text-emerald-700' }}">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                <span>Progres 100%</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ request('progres') === '100' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800' }}">
+                    {{ $total100 ?? 0 }}
+                </span>
+            </a>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-3 w-full lg:w-auto">
+            @if(request('progres') || request('search'))
+                <a href="{{ route('payments.index') }}" class="px-4 py-3 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-2xl transition-all flex items-center justify-center gap-1.5 text-xs font-bold" title="Reset Semua Filter">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                    <span>Reset</span>
+                </a>
+            @endif
+            <a href="{{ route('import.index') }}" class="flex-1 lg:flex-none px-5 py-3 bg-white text-slate-600 font-bold rounded-2xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 text-sm shadow-sm">
+                <i data-lucide="upload-cloud" class="w-4 h-4 text-slate-400"></i>
                 Import Excel
             </a>
-            <a href="{{ route('export.data', request()->query()) }}" class="flex-1 md:flex-none px-6 py-3 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 text-sm">
+            <a href="{{ route('export.data', request()->query()) }}" class="flex-1 lg:flex-none px-5 py-3 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 text-sm">
                 <i data-lucide="download-cloud" class="w-4 h-4"></i>
                 Export Excel
             </a>
-            <a href="{{ route('payments.create') }}" class="flex-1 md:flex-none px-6 py-3 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/30 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 text-sm">
+            <a href="{{ route('payments.create') }}" class="flex-1 lg:flex-none px-5 py-3 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/30 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2 text-sm">
                 <i data-lucide="plus" class="w-4 h-4"></i>
                 Tambah Transaksi
             </a>
@@ -76,6 +110,7 @@
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detail Dokumen</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nama Perusahaan</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">No Kontrak</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Progres</th>
                         <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -122,6 +157,25 @@
                                 {{ $payment->contract->nomor_kontrak ?? '-' }}
                             </span>
                         </td>
+                        <td class="px-6 py-4 text-center">
+                            @php
+                                $pRaw = trim($payment->progres ?? '');
+                                $pNum = (float) preg_replace('/[^0-9.]/', '', str_replace(',', '.', $pRaw));
+                            @endphp
+                            @if($pRaw !== '' && $pNum > 0 && $pNum < 100)
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-black rounded-xl shadow-sm">
+                                    <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-ping"></span>
+                                    {{ str_contains($pRaw, '%') ? $pRaw : $pRaw . '%' }}
+                                </span>
+                            @elseif($pNum >= 100 || $pRaw === '100%' || $pRaw === '100')
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-xl border border-emerald-100">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                    100%
+                                </span>
+                            @else
+                                <span class="text-xs text-slate-400 font-medium">-</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-2">
                                 <button @click="openModal({{ $payment->toJson() }})" class="p-2 hover:bg-slate-100 text-slate-400 hover:text-primary rounded-xl transition-all" title="Detail Lengkap">
@@ -155,11 +209,20 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                        <td colspan="8" class="px-6 py-12 text-center text-slate-400">
                             <div class="flex flex-col items-center">
                                 <i data-lucide="folder-open" class="w-12 h-12 mb-3 opacity-20 text-primary"></i>
-                                <p class="text-sm">Tidak ada data transaksi ditemukan.</p>
-                                <a href="{{ route('payments.create') }}" class="mt-4 text-primary font-bold text-xs hover:underline">Tambah data pertama Anda</a>
+                                <p class="text-sm font-semibold text-slate-600">Tidak ada data transaksi ditemukan.</p>
+                                @if(request('progres') === 'under_100')
+                                    <p class="text-xs text-slate-400 mt-1">Tidak ada transaksi yang progresnya di bawah 100%.</p>
+                                    <a href="{{ route('payments.index') }}" class="mt-3 inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-200 transition-colors">
+                                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Tampilkan Semua Data
+                                    </a>
+                                @elseif(request('progres') || request('search'))
+                                    <a href="{{ route('payments.index') }}" class="mt-3 text-primary font-bold text-xs hover:underline">Reset Semua Filter</a>
+                                @else
+                                    <a href="{{ route('payments.create') }}" class="mt-4 text-primary font-bold text-xs hover:underline">Tambah data pertama Anda</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -239,6 +302,12 @@
                             <div class="flex justify-between border-b border-emerald-200/30 pb-2">
                                 <span class="text-xs text-emerald-600/70 font-bold">No. Kontrak</span>
                                 <span class="text-xs font-black text-emerald-700" x-text="(payment.contract && payment.contract.nomor_kontrak) ? payment.contract.nomor_kontrak : '-'"></span>
+                            </div>
+                            <div class="flex justify-between border-b border-emerald-200/30 pb-2">
+                                <span class="text-xs text-emerald-600/70 font-bold">Progres</span>
+                                <span class="text-xs font-black px-2.5 py-0.5 rounded-lg"
+                                      :class="(payment.progres && parseFloat(payment.progres.replace('%', '')) < 100) ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-emerald-100 text-emerald-800'"
+                                      x-text="payment.progres ? (payment.progres.includes('%') ? payment.progres : payment.progres + '%') : '100%'"></span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-xs text-emerald-600/70 font-bold">Nilai Kontrak</span>

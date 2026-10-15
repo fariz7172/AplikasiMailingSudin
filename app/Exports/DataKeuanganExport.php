@@ -63,6 +63,17 @@ class DataKeuanganExport extends DefaultValueBinder implements
             });
         }
 
+        if (request()->filled('progres')) {
+            if (request('progres') === 'under_100') {
+                $query->whereNotNull('progres')
+                      ->whereRaw("TRIM(progres) != ''")
+                      ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) < 100")
+                      ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) > 0");
+            } elseif (request('progres') === '100') {
+                $query->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) >= 100");
+            }
+        }
+
         return $query->orderBy('no_spm', 'desc')->latest()->get();
     }
 

@@ -18,7 +18,7 @@ class PaymentController extends Controller
     {
         $query = Payment::with(['pptk', 'vendor', 'contract', 'programRef', 'kegiatanRef']);
 
-        if ($request->has('search')) {
+        if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->whereHas('vendor', function($v) use ($search) {
@@ -31,8 +31,30 @@ class PaymentController extends Controller
             });
         }
 
-        $payments = $query->orderBy('no_spm', 'desc')->latest()->paginate(10);
-        return view('payments.index', compact('payments'));
+        // Hitung total data untuk filter tabs
+        $totalAll = Payment::count();
+        $totalUnder100 = Payment::whereNotNull('progres')
+            ->whereRaw("TRIM(progres) != ''")
+            ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) < 100")
+            ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) > 0")
+            ->count();
+        $total100 = Payment::whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) >= 100")
+            ->count();
+
+        // Filter Progres
+        if ($request->filled('progres')) {
+            if ($request->progres === 'under_100') {
+                $query->whereNotNull('progres')
+                      ->whereRaw("TRIM(progres) != ''")
+                      ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) < 100")
+                      ->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) > 0");
+            } elseif ($request->progres === '100') {
+                $query->whereRaw("CAST(REPLACE(REPLACE(progres, '%', ''), ' ', '') AS DECIMAL(10,2)) >= 100");
+            }
+        }
+
+        $payments = $query->orderBy('no_spm', 'desc')->latest()->paginate(10)->withQueryString();
+        return view('payments.index', compact('payments', 'totalAll', 'totalUnder100', 'total100'));
     }
 
     public function create()

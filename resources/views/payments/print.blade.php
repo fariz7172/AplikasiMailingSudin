@@ -188,6 +188,7 @@
                         checklistSPM2: this.checklistSPM2,
                         checklistSPM3: this.checklistSPM3,
                         checklistSPM4: this.checklistSPM4,
+                        extraKontrakRows: this.extraKontrakRows,
                     }
                 })
             });
@@ -328,7 +329,40 @@
         { no: 2, jenis: '', syarat: 'Checklist Persyaratan Penerbitan SPP-LS Gaji/Tunjangan yang ditandatangani oleh PPTK dan PPK', ada: true }
     ],
     addRowSPM4() { this.checklistSPM4.push({ no: this.checklistSPM4.length + 1, jenis: '', syarat: '...', ada: true }); },
-    removeLastRowSPM4() { if(this.checklistSPM4.length > 0) this.checklistSPM4.pop(); }
+    removeLastRowSPM4() { if(this.checklistSPM4.length > 0) this.checklistSPM4.pop(); },
+    extraKontrakRows: @json($payment->print_data['extraKontrakRows'] ?? null) || [],
+    addExtraKontrakRow() {
+        this.extraKontrakRows.push({ label: 'Keterangan Tambahan', value: '' });
+        this.$nextTick(() => {
+            let labels = document.querySelectorAll('.extra-kontrak-label');
+            if (labels.length > 0) {
+                let lastLabel = labels[labels.length - 1];
+                lastLabel.focus();
+                let range = document.createRange();
+                range.selectNodeContents(lastLabel);
+                let sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+            if (window.lucide) lucide.createIcons();
+        });
+    },
+    focusRowValue(idx) {
+        this.$nextTick(() => {
+            let vals = document.querySelectorAll('.extra-kontrak-val');
+            if (vals[idx]) {
+                vals[idx].focus();
+            }
+        });
+    },
+    removeExtraKontrakRow(index) {
+        this.extraKontrakRows.splice(index, 1);
+    },
+    removeLastExtraKontrakRow() {
+        if (this.extraKontrakRows.length > 0) {
+            this.extraKontrakRows.pop();
+        }
+    }
 }));
         });
     </script>
@@ -904,7 +938,30 @@
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68">{{ $payment->no_bast }}</span>
                 <span>25.</span><span>Tgl BAST</span><span>:</span><span contenteditable="true" data-eid="69">{{ $payment->tgl_bast ? $payment->tgl_bast->translatedFormat('d F Y') : '-' }}</span>
                 <span>26.</span><span>Kualifikasi Perusahaan</span><span>:</span><span contenteditable="true" data-eid="70"></span>
-                <span>27.</span><span>BAKP</span><span>:</span><span contenteditable="true" data-eid="156"></span>
+                <span>27.</span><span>BAKP</span><span>:</span><span contenteditable="true" data-eid="156" @keydown.enter.prevent="addExtraKontrakRow()"></span>
+
+                <!-- Extra Dynamic Rows -->
+                <template x-for="(row, idx) in extraKontrakRows" :key="idx">
+                    <div class="contents group">
+                        <span x-text="(28 + idx) + '.'"></span>
+                        <span class="extra-kontrak-label cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-text="row.label" @input="row.label = $el.innerText" @keydown.enter.prevent="focusRowValue(idx)"></span>
+                        <span>:</span>
+                        <div class="flex items-center justify-between gap-1">
+                            <span class="flex-1 extra-kontrak-val cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-text="row.value" @input="row.value = $el.innerText" @keydown.enter.prevent="addExtraKontrakRow()"></span>
+                            <button type="button" @click="removeExtraKontrakRow(idx)" class="no-print text-red-400 hover:text-red-600 px-1 font-bold opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-xs" title="Hapus baris ini">✕</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="no-print mt-2 flex items-center gap-2">
+                <button type="button" @click="addExtraKontrakRow()" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 text-[9pt] font-semibold rounded-lg border border-blue-200 flex items-center gap-1 transition-all shadow-sm">
+                    <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Tambah Baris
+                </button>
+                <button type="button" x-show="extraKontrakRows.length > 0" @click="removeLastExtraKontrakRow()" class="px-2.5 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 text-[9pt] font-semibold rounded-lg border border-rose-200 flex items-center gap-1 transition-all shadow-sm">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus Baris Terakhir
+                </button>
+                <span class="text-[8.5pt] text-slate-400 italic">💡 Tips: Tekan <kbd class="px-1 py-0.5 bg-slate-100 border border-slate-300 rounded text-[8pt]">Enter</kbd> pada nomor 27 untuk langsung menambah baris baru.</span>
             </div>
             <div class="mt-8 flex flex-col items-center ml-[50%] text-center">
                 <p class="uppercase text-[9pt]">Mengetahui</p>
