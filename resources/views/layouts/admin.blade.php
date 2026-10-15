@@ -169,8 +169,8 @@
             <div class="pt-4 pb-2 px-4">
                 <p class="text-[10px] font-bold text-white/40 uppercase tracking-widest">Pengaturan</p>
             </div>
-            <x-nav-link href="#" icon="settings">Konfigurasi</x-nav-link>
-            <x-nav-link href="#" icon="shield">User Access</x-nav-link>
+            <x-nav-link href="{{ route('profile.edit') }}" icon="user-cog"
+                active="{{ request()->routeIs('profile.*') }}">Pengaturan Akun</x-nav-link>
             @if(auth()->check() && auth()->user()->role === 'superadmin')
             <x-nav-link href="{{ route('backup.database') }}" icon="download-cloud">Backup Database</x-nav-link>
             @endif
@@ -179,14 +179,14 @@
 
         <div class="p-4 mt-auto">
             <div class="bg-white/5 rounded-2xl p-4 border border-white/5 backdrop-blur-sm">
-                <div class="flex items-center gap-3 mb-3">
-                    <img src="https://ui-avatars.com/api/?name=Fariz+Admin&background=2FA4D7&color=fff"
-                        class="w-8 h-8 rounded-full border border-white/20" alt="">
+                <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 mb-3 group hover:opacity-80 transition-opacity" title="Buka Profil">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'Fariz Admin') }}&background=2FA4D7&color=fff"
+                        class="w-8 h-8 rounded-full border border-white/20 group-hover:border-accent transition-colors" alt="Avatar">
                     <div class="overflow-hidden">
-                        <p class="text-xs font-semibold truncate">{{ auth()->user()->name ?? 'Fariz Project' }}</p>
-                        <p class="text-[10px] text-white/50 truncate">Senior Administrator</p>
+                        <p class="text-xs font-semibold truncate group-hover:text-accent transition-colors">{{ auth()->user()->name ?? 'Fariz Project' }}</p>
+                        <p class="text-[10px] text-white/50 truncate capitalize">{{ auth()->user()->role ?? 'Administrator' }}</p>
                     </div>
-                </div>
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
@@ -228,15 +228,15 @@
 
                 <div class="h-8 w-px bg-slate-200 mx-2"></div>
 
-                <div class="flex items-center gap-3 cursor-pointer group">
+                <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 cursor-pointer group" title="Pengaturan Profil">
                     <div class="text-right hidden sm:block">
                         <p class="text-xs font-bold group-hover:text-primary transition-colors">
                             {{ auth()->user()->name ?? 'Fariz Admin' }}</p>
-                        <p class="text-[10px] text-slate-400">Online</p>
+                        <p class="text-[10px] text-slate-400 capitalize">{{ auth()->user()->role ?? 'Online' }}</p>
                     </div>
-                    <img src="https://ui-avatars.com/api/?name=Fariz+Admin&background=2F2FE4&color=fff" alt="Avatar"
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'Fariz Admin') }}&background=2F2FE4&color=fff" alt="Avatar"
                         class="w-9 h-9 rounded-xl shadow-sm border-2 border-transparent group-hover:border-primary transition-all">
-                </div>
+                </a>
             </div>
         </header>
 
