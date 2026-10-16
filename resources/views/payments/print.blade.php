@@ -928,11 +928,11 @@
                 <span>14.</span><span>Alamat Kontraktor</span><span>:</span><span contenteditable="true" data-eid="58">{{ $payment->vendor?->alamat }}</span>
                 <span>15.</span><span>Nomor/Tanggal Akte Perusahaan</span><span>:</span><span contenteditable="true" data-eid="59">{{ $payment->vendor?->akte }}{{ $payment->vendor?->tgl_akte ? ' Tgl. ' . \Carbon\Carbon::parse($payment->vendor?->tgl_akte)->translatedFormat('d F Y') : '' }}</span>
                 <span>16.</span><span>Nomor/Tanggal TDP</span><span>:</span><span contenteditable="true" data-eid="60">{{ $payment->vendor?->tdp }}{{ $payment->vendor?->tgl_tdp ? ' Tgl. ' . \Carbon\Carbon::parse($payment->vendor?->tgl_tdp)->translatedFormat('d F Y') : '' }}</span>
-                <span>17.</span><span>Nilai SPK/Kontrak</span><span>:</span><span contenteditable="true" data-eid="61">Rp. {{ number_format($payment->nilai_kontrak_progres ?? $payment->jumlah ?? 0, 2, ',', '.') }}</span>
+                <span>17.</span><span>Nilai SPK/Kontrak</span><span>:</span><span contenteditable="true" data-eid="61">Rp. {{ number_format($payment->jumlah ?: ($payment->contract?->nilai_kontrak ?? 0), 2, ',', '.') }}</span>
                 <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62">LS Barang / Jasa</span>
                 <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true" data-eid="63">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true" data-eid="64">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
-                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->tagihan_1 ?? 0, 2, ',', '.') }}</span>
+                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->jumlah_tagihan_progres ?? $payment->tagihan_1 ?? 0, 2, ',', '.') }}</span>
                 <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" data-eid="66">{{ !empty($payment->progres) ? (str_contains($payment->progres, '%') ? $payment->progres : $payment->progres . '%') : '100%' }}</span>
                 <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68">{{ $payment->no_bast }}</span>

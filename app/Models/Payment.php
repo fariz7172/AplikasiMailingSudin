@@ -89,9 +89,17 @@ class Payment extends Model
     }
 
     /**
-     * Hitung Nilai SPK/Kontrak berdasarkan persentase progres jika tersedia
+     * Nilai SPK/Kontrak asli
      */
     public function getNilaiKontrakProgresAttribute()
+    {
+        return (float) ($this->jumlah ?: ($this->contract?->nilai_kontrak ?? 0));
+    }
+
+    /**
+     * Hitung Jumlah Tagihan berdasarkan persentase progres jika tersedia
+     */
+    public function getJumlahTagihanProgresAttribute()
     {
         $base = (float) ($this->jumlah ?: ($this->contract?->nilai_kontrak ?? 0));
         $progresRaw = trim($this->progres ?? '');
@@ -101,6 +109,6 @@ class Payment extends Model
             return ($base * $progresNum) / 100;
         }
 
-        return $base;
+        return (float) ($this->tagihan_1 ?: $base);
     }
 }
