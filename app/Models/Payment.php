@@ -97,18 +97,42 @@ class Payment extends Model
     }
 
     /**
-     * Hitung Jumlah Tagihan berdasarkan persentase progres jika tersedia
+     * Ambil nilai tagihan terakhir dari tagihan_1 s/d tagihan_5 jika ada yang terisi (> 0)
+     */
+    public function getTagihanTerakhirAttribute()
+    {
+        for ($i = 5; $i >= 1; $i--) {
+            $val = $this->{"tagihan_$i"};
+            if ($val !== null && (float) $val > 0) {
+                return (float) $val;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Hitung/Ambil Jumlah Tagihan:
+     * - Jika terdapat data tagihan bertahap (tagihan_1 s/d tagihan_5), ambil nilai dari tagihan TERAKHIR yang terisi.
+     *   Tidak menjumlahkan tagihan dan tidak mengalikan dengan progres jika tagihan terisi.
+     * - Jika tidak ada tagihan bertahap, baru dihitung berdasarkan persentase progres (%) dari nilai kontrak.
+     * - Jika tidak ada progres, gunakan nilai kontrak penuh.
      */
     public function getJumlahTagihanProgresAttribute()
     {
+        // 1. Ambil dari tagihan terakhir jika ada yang terisi (> 0)
+        if ($this->tagihan_terakhir !== null) {
+            return (float) $this->tagihan_terakhir;
+        }
+
         $base = (float) ($this->jumlah ?: ($this->contract?->nilai_kontrak ?? 0));
         $progresRaw = trim($this->progres ?? '');
         $progresNum = (float) preg_replace('/[^0-9.]/', '', str_replace(',', '.', $progresRaw));
 
+        // 2. Jika tidak ada tagihan bertahap tapi ada persentase progres (> 0), hitung proporsional
         if ($progresNum > 0) {
             return ($base * $progresNum) / 100;
         }
 
-        return (float) ($this->tagihan_1 ?: $base);
+        return $base;
     }
 }
