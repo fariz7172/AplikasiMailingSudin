@@ -57,6 +57,12 @@
             </label>
         </div>
 
+        <!-- Google reCAPTCHA -->
+        <div class="space-y-2 flex flex-col items-center">
+            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+            <x-input-error :messages="$errors->get('g-recaptcha-response')" class="mt-1" />
+        </div>
+
         <div class="pt-2">
             <button type="submit" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-200 hover:shadow-blue-300 transform hover:-translate-y-0.5 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
                 <span>MASUK KE SISTEM</span>

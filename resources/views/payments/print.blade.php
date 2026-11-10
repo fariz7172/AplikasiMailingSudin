@@ -932,7 +932,19 @@
                 <span>18.</span><span>Cara Pembayaran</span><span>:</span><span contenteditable="true" data-eid="62">LS Barang / Jasa</span>
                 <span>19.</span><span>Jangka Waktu Pelaksanaan</span><span>:</span><span contenteditable="true" data-eid="63">{{ $payment->contract?->jangka_waktu }}</span>
                 <span>20.</span><span>Ketentuan Sanksi</span><span>:</span><span contenteditable="true" data-eid="64">1 % Dari Nilai Kontrak untuk setiap hari keterlambatan yang dilakukan</span>
-                <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->jumlah_tagihan_progres ?? 0, 2, ',', '.') }}</span>
+                @php
+                    $listTagihan = $payment->list_tagihan ?? [];
+                @endphp
+                @if(count($listTagihan) >= 2)
+                    @foreach($listTagihan as $idx => $t)
+                        <span>{{ $idx === 0 ? '21.' : '' }}</span>
+                        <span>{{ $t['label'] }}</span>
+                        <span>:</span>
+                        <span contenteditable="true" data-eid="65_{{ $t['nomor'] }}">Rp. {{ number_format($t['nilai'], 2, ',', '.') }}</span>
+                    @endforeach
+                @else
+                    <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->jumlah_tagihan_progres ?? 0, 2, ',', '.') }}</span>
+                @endif
                 <span>22.</span><span>Tagihan</span><span>:</span><span contenteditable="true" data-eid="66">{{ !empty($payment->progres) ? (str_contains($payment->progres, '%') ? $payment->progres : $payment->progres . '%') : '100%' }}</span>
                 <span>23.</span><span>Rekening Bank</span><span>:</span><span contenteditable="true" data-eid="67" class="uppercase">{{ $payment->vendor?->bank }} / {{ $payment->vendor?->no_rekening }}</span>
                 <span>24.</span><span>Nomor BAST</span><span>:</span><span contenteditable="true" data-eid="68">{{ $payment->no_bast }}</span>

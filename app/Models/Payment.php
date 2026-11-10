@@ -97,6 +97,26 @@ class Payment extends Model
     }
 
     /**
+     * Ambil daftar tagihan bertahap (tagihan_1 s/d tagihan_5) yang bernilai > 0
+     * @return array [ ['nomor' => 1, 'label' => 'Jumlah Tagihan 1', 'nilai' => 1000000], ... ]
+     */
+    public function getListTagihanAttribute()
+    {
+        $list = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $val = $this->{"tagihan_$i"};
+            if ($val !== null && (float) $val > 0) {
+                $list[] = [
+                    'nomor' => $i,
+                    'label' => "Jumlah Tagihan $i",
+                    'nilai' => (float) $val,
+                ];
+            }
+        }
+        return $list;
+    }
+
+    /**
      * Ambil nilai tagihan terakhir dari tagihan_1 s/d tagihan_5 jika ada yang terisi (> 0)
      */
     public function getTagihanTerakhirAttribute()
