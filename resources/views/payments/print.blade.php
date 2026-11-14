@@ -114,6 +114,11 @@
     </style>
     @php
         $type = request('type', 'all');
+        $progresNote = '';
+        if (!empty($payment->progres)) {
+            $pRaw = trim($payment->progres);
+            $progresNote = str_contains($pRaw, '%') ? $pRaw : $pRaw . '%';
+        }
     @endphp
 </head>
 <body class="antialiased text-slate-800" x-data="printComponent()">
@@ -211,17 +216,18 @@
         { no: 6, label: 'Surat perjanjian kerjasama/kontrak antara PA/KPA atau PPK (Pejabat Pembuat Komitmen) dengan pihak ketiga', status: true, note: '' },
         { no: 7, label: 'Bukti setor pajak (SSP) yang telah divalidasi oleh KPP apabila pajak telah disetor', status: false, note: '' },
         { no: 8, label: 'Berita Acara Pemeriksaan Hasil Pekerjaan dan Lampirannya', status: true, note: '' },
-        { no: 9, label: 'Berita Acara Pembayaran', status: true, note: '' },
-        { no: 10, label: 'Fotocopy rekening Bank dan NPWP pihak ketiga', status: true, note: '' },
-        { no: 11, label: 'Surat Jalan (Surat pengiriman barang)', status: true, note: '' },
-        { no: 12, label: 'Faktur / Nota Barang', status: true, note: '' },
-        { no: 13, label: 'Surat Jaminan Bank atau yang Dipersamakan yang Dikeluarkan oleh Bank atau Lembaga Keuangan non Bank', status: true, note: '' },
-        { no: 14, label: 'Surat Angkutan atau Konsosemen apabila Pengadaan Barang Dilaksanakan Di Luar Wilayah Kerja', status: false, note: '' },
-        { no: 15, label: 'Surat pemberitahuan potongan denda keterlambatan pekerjaan dari PPTK yang diketahui dan ditandangani oleh PA/KPA apabila ada keterlambatan', status: false, note: '' },
-        { no: 16, label: 'Surat keterangan keringanan / bebas pajak (Jika ada)', status: false, note: '' },
-        { no: 17, label: 'Berita Acara Pemotongan Denda UMK (Jika ada)', status: false, note: '' },
-        { no: 18, label: 'STS denda dan UMK (jika ada)', status: false, note: '' },
-        { no: 19, label: 'NPWP Pihak Ketiga', status: true, note: '' }
+        { no: 9, label: 'Berita Acara Kemajuan Pekerjaan', status: true, note: '{{ $progresNote }}' },
+        { no: 10, label: 'Berita Acara Pembayaran', status: true, note: '{{ $progresNote }}' },
+        { no: 11, label: 'Fotocopy rekening Bank dan NPWP pihak ketiga', status: true, note: '' },
+        { no: 12, label: 'Surat Jalan (Surat pengiriman barang)', status: true, note: '' },
+        { no: 13, label: 'Faktur / Nota Barang', status: true, note: '' },
+        { no: 14, label: 'Surat Jaminan Bank atau yang Dipersamakan yang Dikeluarkan oleh Bank atau Lembaga Keuangan non Bank', status: true, note: '' },
+        { no: 15, label: 'Surat Angkutan atau Konsosemen apabila Pengadaan Barang Dilaksanakan Di Luar Wilayah Kerja', status: false, note: '' },
+        { no: 16, label: 'Surat pemberitahuan potongan denda keterlambatan pekerjaan dari PPTK yang diketahui dan ditandangani oleh PA/KPA apabila ada keterlambatan', status: false, note: '' },
+        { no: 17, label: 'Surat keterangan keringanan / bebas pajak (Jika ada)', status: false, note: '' },
+        { no: 18, label: 'Berita Acara Pemotongan Denda UMK (Jika ada)', status: false, note: '' },
+        { no: 19, label: 'STS denda dan UMK (jika ada)', status: false, note: '' },
+        { no: 20, label: 'NPWP Pihak Ketiga', status: true, note: '' }
     ],
     checklistGaji: @json($payment->print_data['checklistGaji'] ?? null) || [
         { no: 1, label: 'SPM LS GAJI /TKD', status: true, note: '' },
@@ -246,8 +252,21 @@
         { no: 1, label: 'Surat Permintaan Pembayaran Ganti Uang Persediaan (SPP-GU)', status: true, note: '' },
         { no: 2, label: 'Checklist Persyaratan Penerbitan SPP-GU yang ditandatangani PPK SKPD/UKPD', status: true, note: '' }
     ],
+    tagihanOptions: @json($payment->list_tagihan ?? []),
+    selectedTermin: '{{ request('termin', 'auto') }}',
+    defaultTagihan: {{ $payment->jumlah_tagihan_progres ?? 0 }},
     nilaiKontrak: {{ $payment->jumlah ?? 0 }},
     terbilangTeks: '{{ $payment->terbilang ?? '' }}',
+    get nilaiTagihanAktif() {
+        if (this.selectedTermin === 'auto' || !this.selectedTermin) {
+            return this.defaultTagihan;
+        }
+        let t = this.tagihanOptions.find(x => String(x.nomor) === String(this.selectedTermin));
+        return t ? t.nilai : this.defaultTagihan;
+    },
+    onTerminChange() {
+        this.updateTerbilang();
+    },
     init() {
         this.updateTerbilang();
         
@@ -285,7 +304,8 @@
         }, 100);
     },
     updateTerbilang() {
-        let hasil = this.generateTerbilang(this.nilaiKontrak).trim();
+        let nilai = this.tagihanOptions.length > 0 ? this.nilaiTagihanAktif : this.nilaiKontrak;
+        let hasil = this.generateTerbilang(nilai).trim();
         if (hasil) this.terbilangTeks = hasil + ' RUPIAH';
         else this.terbilangTeks = 'NOL RUPIAH';
     },
@@ -401,6 +421,20 @@
             </div>
         </div>
         <div class="flex items-center gap-3">
+            @if(!empty($payment->list_tagihan) && count($payment->list_tagihan) >= 2)
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-xl mr-2">
+                <i data-lucide="layers" class="w-4 h-4 text-amber-600"></i>
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black uppercase text-amber-700 leading-none">Pilih Termin Cetak:</span>
+                    <select x-model="selectedTermin" @change="onTerminChange()" class="bg-transparent text-xs font-bold text-amber-900 border-none outline-none cursor-pointer py-0.5">
+                        <option value="auto">Semua / Lengkap (Default)</option>
+                        @foreach($payment->list_tagihan as $opt)
+                            <option value="{{ $opt['nomor'] }}">Khusus {{ $opt['label'] }} (Rp. {{ number_format($opt['nilai'], 0, ',', '.') }})</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            @endif
             <div class="flex flex-col gap-1 mr-4 border-r border-slate-200 pr-4">
                 @if($type === 'all' || $type === 'spp')
                 <div class="flex gap-2">
@@ -500,7 +534,18 @@
                 <span class="">Nomor SPM</span><span>:</span><span contenteditable="true" data-eid="2" class="">{{ $payment->no_spm }}</span>
                 <span>Tanggal SPM</span><span>:</span><span contenteditable="true" data-eid="3">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span>
                 <span>SKPD</span><span>:</span><span contenteditable="true" data-eid="4" class="uppercase">Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara</span>
-                <span>Jenis Tagihan</span><span>:</span><span contenteditable="true" data-eid="5" class="">LS Pengadaan Barang dan Jasa</span>
+                <span>Jenis Tagihan</span><span>:</span>
+                <span class="relative inline-block cursor-pointer">
+                    <span contenteditable="true" data-eid="5" x-ref="jenisTagihanSPPEl">LS Pengadaan Barang dan Jasa</span>
+                    <select @change="$refs.jenisTagihanSPPEl.innerText = $event.target.value; $refs.jenisTagihanSPPEl.dispatchEvent(new Event('input'))"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer print:hidden">
+                        <option value="SPM – LS PENGADAAN BARANG DAN JASA">SPM – LS PENGADAAN BARANG DAN JASA</option>
+                        <option value="SPM – LS PENGADAAN JASA KONSTRUKSI">SPM – LS PENGADAAN JASA KONSTRUKSI</option>
+                        <option value="SPM – LS JASA KONSULTAN">SPM – LS JASA KONSULTAN</option>
+                        <option value="SPM – LS GAJI / TUNJANGAN">SPM – LS GAJI / TUNJANGAN</option>
+                        <option value="LS Pengadaan Barang dan Jasa">LS Pengadaan Barang dan Jasa</option>
+                    </select>
+                </span>
             </div>
             <p class="mb-4 text-[9.5pt] leading-relaxed">Bahwa berdasarkan hasil verifikasi terhadap pengajuan SPP telah dilakukan verifikasi terhadap kelengkapan pembayaran sesuai peraturan perundang-undangan yang terdiri dari :</p>
             <table class="w-full border-collapse border-[1.5px] border-black text-[8.5pt]">
@@ -509,9 +554,9 @@
                     <template x-for="(item, index) in checklist" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
-                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-html="item.label" @blur="item.label = $el.innerText"></td>
                             <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
-                            <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1" contenteditable="true" x-html="item.note" @blur="item.note = $el.innerText"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -558,9 +603,9 @@
                     <template x-for="(item, index) in checklistGaji" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
-                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-html="item.label" @blur="item.label = $el.innerText"></td>
                             <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
-                            <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1" contenteditable="true" x-html="item.note" @blur="item.note = $el.innerText"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -607,9 +652,9 @@
                     <template x-for="(item, index) in checklistUP" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
-                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-html="item.label" @blur="item.label = $el.innerText"></td>
                             <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
-                            <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1" contenteditable="true" x-html="item.note" @blur="item.note = $el.innerText"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -651,9 +696,9 @@
                     <template x-for="(item, index) in checklistGU" :key="index">
                         <tr>
                             <td class="border border-black px-2 py-1 text-center " x-text="item.no"></td>
-                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-text="item.label" @input="item.label = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1 leading-tight" contenteditable="true" x-html="item.label" @blur="item.label = $el.innerText"></td>
                             <td class="border border-black px-2 py-1 text-center cursor-pointer" @click="item.status = !item.status; if(!item.status) item.note = ''; else if(!item.note) item.note = '100%';"><span class="text-[12pt] " x-text="item.status ? '√' : '-'"></span></td>
-                            <td class="border border-black px-2 py-1" contenteditable="true" x-text="item.note" @input="item.note = $el.innerText"></td>
+                            <td class="border border-black px-2 py-1" contenteditable="true" x-html="item.note" @blur="item.note = $el.innerText"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -707,7 +752,7 @@
                                     </select>
                                 </td>
                             </template>
-                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
+                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-html="item.syarat" @blur="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
@@ -762,7 +807,7 @@
                                     </select>
                                 </td>
                             </template>
-                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
+                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-html="item.syarat" @blur="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
@@ -817,7 +862,7 @@
                                     </select>
                                 </td>
                             </template>
-                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
+                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-html="item.syarat" @blur="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
@@ -872,7 +917,7 @@
                                     </select>
                                 </td>
                             </template>
-                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-text="item.syarat" @input="item.syarat = $el.innerText"></td>
+                            <td class="border border-black px-3 py-3 leading-tight text-[9.5pt]" contenteditable="true" x-html="item.syarat" @blur="item.syarat = $el.innerText"></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = true"><span class="text-[14pt] text-blue-600" x-show="item.ada">√</span></td>
                             <td class="border border-black px-2 py-3 text-center cursor-pointer" @click="item.ada = false"><span class="text-[14pt] text-rose-600" x-show="!item.ada">√</span></td>
                         </tr>
@@ -936,12 +981,26 @@
                     $listTagihan = $payment->list_tagihan ?? [];
                 @endphp
                 @if(count($listTagihan) >= 2)
-                    @foreach($listTagihan as $idx => $t)
-                        <span>{{ $idx === 0 ? '21.' : '' }}</span>
-                        <span>{{ $t['label'] }}</span>
-                        <span>:</span>
-                        <span contenteditable="true" data-eid="65_{{ $t['nomor'] }}">Rp. {{ number_format($t['nilai'], 2, ',', '.') }}</span>
-                    @endforeach
+                    <!-- Tampilan saat dipilih mode Auto / Semua Termin -->
+                    <template x-if="selectedTermin === 'auto'">
+                        <div class="contents">
+                            @foreach($listTagihan as $idx => $t)
+                                <span>{{ $idx === 0 ? '21.' : '' }}</span>
+                                <span>{{ $t['label'] }}</span>
+                                <span>:</span>
+                                <span contenteditable="true" data-eid="65_{{ $t['nomor'] }}">Rp. {{ number_format($t['nilai'], 2, ',', '.') }}</span>
+                            @endforeach
+                        </div>
+                    </template>
+                    <!-- Tampilan saat dipilih khusus termin tertentu (misal Tagihan 1) -->
+                    <template x-if="selectedTermin !== 'auto'">
+                        <div class="contents">
+                            <span>21.</span>
+                            <span x-text="'Jumlah Tagihan ' + selectedTermin"></span>
+                            <span>:</span>
+                            <span contenteditable="true" data-eid="65_custom">Rp. <span x-text="new Intl.NumberFormat('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(nilaiTagihanAktif)"></span></span>
+                        </div>
+                    </template>
                 @else
                     <span>21.</span><span>Jumlah Tagihan</span><span>:</span><span contenteditable="true" data-eid="65">Rp. {{ number_format($payment->jumlah_tagihan_progres ?? 0, 2, ',', '.') }}</span>
                 @endif
@@ -956,10 +1015,10 @@
                 <template x-for="(row, idx) in extraKontrakRows" :key="idx">
                     <div class="contents group">
                         <span x-text="(28 + idx) + '.'"></span>
-                        <span class="extra-kontrak-label cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-text="row.label" @input="row.label = $el.innerText" @keydown.enter.prevent="focusRowValue(idx)"></span>
+                        <span class="extra-kontrak-label cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-html="row.label" @blur="row.label = $el.innerText" @keydown.enter.prevent="focusRowValue(idx)"></span>
                         <span>:</span>
                         <div class="flex items-center justify-between gap-1">
-                            <span class="flex-1 extra-kontrak-val cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-text="row.value" @input="row.value = $el.innerText" @keydown.enter.prevent="addExtraKontrakRow()"></span>
+                            <span class="flex-1 extra-kontrak-val cursor-text hover:bg-blue-50/50 rounded" contenteditable="true" x-html="row.value" @blur="row.value = $el.innerText" @keydown.enter.prevent="addExtraKontrakRow()"></span>
                             <button type="button" @click="removeExtraKontrakRow(idx)" class="no-print text-red-400 hover:text-red-600 px-1 font-bold opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-xs" title="Hapus baris ini">✕</button>
                         </div>
                     </div>
@@ -1005,7 +1064,7 @@
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span contenteditable="true" data-eid="74" class="leading-relaxed">{{ $payment->keperluan }}</span></div>
                 </div>
                 <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 text-[14pt]">
-                    <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="75" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
+                    <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="75" x-text="new Intl.NumberFormat('id-ID').format(tagihanOptions.length > 0 ? nilaiTagihanAktif : nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
                 <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="76">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
@@ -1039,7 +1098,7 @@
                     <div class="grid gap-x-2" style="grid-template-columns: 160px 10px 1fr;"><span>Pembayaran</span><span>:</span><span contenteditable="true" data-eid="84" class="leading-relaxed">{{ $payment->keperluan }}</span></div>
                 </div>
                 <div class="mt-10 flex justify-between border-t-2 border-b-2 border-black py-4 px-6 bg-slate-50 text-[14pt]">
-                    <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="85" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
+                    <span>JUMLAH Rp.</span><span contenteditable="true" data-eid="85" x-text="new Intl.NumberFormat('id-ID').format(tagihanOptions.length > 0 ? nilaiTagihanAktif : nilaiKontrak)" @blur="nilaiKontrak = parseFloat($el.innerText.replace(/\./g, '').replace(',', '.')) || 0; updateTerbilang();"></span>
                 </div>
                 <div class="mt-8 flex justify-end px-4 text-[9pt]"><p>Jakarta, <span contenteditable="true" data-eid="86">{{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }}</span></p></div>
                 <div class="grid grid-cols-2 text-center gap-4 px-4 text-[9pt] leading-tight">
@@ -1182,7 +1241,7 @@
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(tagihanOptions.length > 0 ? nilaiTagihanAktif : nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
@@ -1217,7 +1276,7 @@
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="122">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="123" x-text="new Intl.NumberFormat('id-ID').format(tagihanOptions.length > 0 ? nilaiTagihanAktif : nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>
@@ -1339,7 +1398,7 @@
                 <div class="absolute bottom-2 right-0 text-[9pt] font-sans">Kode Pos: 14320</div>
             </div>
             <div class="text-center mb-8"><h1 class="text-[12pt] uppercase underline leading-tight text-center">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK LS</h1><p class="mt-2">Nomor : <span contenteditable="true" data-eid="115">{{ $payment->no_spm }}</span></p></div>
-            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
+            <p class="text-justify leading-relaxed text-[10pt] mb-4">Sehubungan dengan Surat Perintah Membayar (SPM-LS) nomor <span class="">{{ $payment->no_spm }}</span> tanggal {{ $payment->tgl_spm ? $payment->tgl_spm->translatedFormat('d F Y') : '-' }} yang saya ajukan sebesar Rp. <span contenteditable="true" data-eid="116" x-text="new Intl.NumberFormat('id-ID').format(tagihanOptions.length > 0 ? nilaiTagihanAktif : nilaiKontrak)"></span> (<span x-text="terbilangTeks.toLowerCase()"></span>) untuk keperluan SKPD/ UNIT SKPD Suku Dinas Sumber Daya Air Kota Administrasi Jakarta Utara Tahun Anggaran 2026 dengan ini menyatakan dengan sebenarnya bahwa:</p>
             <ol class="list-decimal ml-8 space-y-2 text-[10pt] text-justify leading-relaxed mb-4">
                 <li>Saya bertanggung jawab secara penuh atas penggunaan (LS) tersebut diatas yang mengakibatkan pengeluaran atas beban anggaran belanja dan/atau pengeluaran pembiayaan sesuai dengan ketentuan peraturan perundang-undangan.</li>
                 <li>Jumlah (LS) tersebut diatas akan dipergunakan untuk keperluan guna membiayai kegiatan yang akan saya laksanakan sesuai DPA/ DPPA-SKPD/ UNIT SKPD.</li>

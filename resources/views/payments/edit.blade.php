@@ -253,9 +253,11 @@
                             </div>
                             <div>
                                 <label class="form-label-premium">Nilai Kontrak</label>
-                                <input type="number" name="jumlah" id="jumlah"
-                                    value="{{ old('jumlah', $payment->jumlah) }}"
-                                    class="form-input-premium font-bold text-emerald-600">
+                                <input type="text" id="jumlah_display"
+                                    class="form-input-premium font-bold text-emerald-600 money-mask"
+                                    data-target="jumlah" placeholder="0" autocomplete="off">
+                                <input type="hidden" name="jumlah" id="jumlah"
+                                    value="{{ old('jumlah', $payment->jumlah) }}">
                             </div>
                             <div class="md:col-span-3">
                                 <label class="form-label-premium">Terbilang</label>
@@ -455,7 +457,11 @@
                                 <div>
                                     <label class="form-label-premium">Tagihan {{ $i }}</label>
                                     @php $fieldName = "tagihan_$i"; @endphp
-                                    <input type="number" name="tagihan_{{ $i }}" class="form-input-premium" value="{{ old($fieldName, $payment->$fieldName) }}">
+                                    <input type="text" id="tagihan_{{ $i }}_display"
+                                        class="form-input-premium money-mask"
+                                        data-target="tagihan_{{ $i }}" placeholder="0" autocomplete="off">
+                                    <input type="hidden" name="tagihan_{{ $i }}" id="tagihan_{{ $i }}"
+                                        value="{{ old($fieldName, $payment->$fieldName) }}">
                                 </div>
                             @endforeach
                         </div>
@@ -640,9 +646,41 @@ document.addEventListener('alpine:init', () => {
             return temp;
         }
 
+        // --- Helper Format Ribuan (misal: 2.000.000) ---
+        function formatRibuan(angkaStr) {
+            if (!angkaStr && angkaStr !== 0) return '';
+            let raw = String(angkaStr).replace(/\D/g, '');
+            if (!raw) return '';
+            return raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Inisialisasi dan binding semua input bermasker ribuan
+        function initMoneyMasks() {
+            document.querySelectorAll('.money-mask').forEach(function(displayEl) {
+                const targetId = displayEl.getAttribute('data-target');
+                const targetEl = document.getElementById(targetId);
+                if (!targetEl) return;
+
+                // Format nilai awal dari input hidden
+                if (targetEl.value) {
+                    displayEl.value = formatRibuan(targetEl.value);
+                }
+
+                // Event listener saat user mengetik
+                displayEl.addEventListener('input', function(e) {
+                    let raw = this.value.replace(/\D/g, '');
+                    targetEl.value = raw ? raw : '0';
+                    this.value = formatRibuan(raw);
+
+                    // Trigger event input pada target agar listener lain (seperti terbilang) ikut terupdate
+                    targetEl.dispatchEvent(new Event('input'));
+                });
+            });
+        }
+
         document.getElementById('jumlah').addEventListener('input', function () {
             let val = this.value;
-            if (val) {
+            if (val && parseInt(val, 10) > 0) {
                 let hasil = terbilang(val).trim() + " Rupiah";
                 document.getElementById('terbilang').value = hasil;
             } else {
@@ -650,8 +688,9 @@ document.addEventListener('alpine:init', () => {
             }
         });
 
-        // Trigger terbilang on load
+        // Trigger terbilang dan money mask on load
         document.addEventListener('DOMContentLoaded', function() {
+            initMoneyMasks();
             document.getElementById('jumlah').dispatchEvent(new Event('input'));
         });
 
